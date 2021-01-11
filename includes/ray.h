@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 13:13:33 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/08 17:25:30 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:49:09 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,46 @@
 
 typedef struct	s_ray
 {
-	t_point	origin;
+	t_vect	origin;
 	t_vect	direction;
 	float	tmax;
-}			t_ray;
+}				t_ray;
+
+typedef struct	s_color
+{
+	int	r;
+	int	g;
+	int b;
+}				t_color;
 
 typedef struct	s_shape
 {
-	char	str[2];
-	t_point	p0;
-	t_point	p1;
-	t_point	p2;
+	char	*str;
+	t_vect	p0;
+	t_vect	p1;
+	t_vect	p2;
 	t_vect	direction;
-	int	h
-	int	d;
-	int	colors[3];
-}			t_shape;
+	float		h;
+	float		d;
+	t_color		colors;
+}				t_shape;
 
 typedef struct	s_intersect
 {
 	t_ray	ray;
 	float	t;
 	t_shape	*shape;
-	int	(*intersect)(t_intersect *i);
-}			t_intersect;
+}				t_intersect;
+
+void			init_colors(t_color *c, int r, int g, int b);
+void			init_ray(t_ray *r, t_vect origin, t_vect destination);
+void			init_intersect(t_intersect *i);
+t_vect			calculate(t_ray r, float t);
+t_vect			ft_position(t_intersect i);
+int				intersect(t_intersect i);
+float			resolve_eq(float a, float b, float c);
+int				intersect_plan(t_intersect i, t_shape *plan);
+int				intersect_sphere(t_intersect *i, t_shape sphere);
+
 
 #endif
