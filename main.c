@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:15:01 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/11 18:45:34 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/12 18:11:51 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,46 @@
 #include <stdio.h>
 #include "libft.h"
 
+void	ft_lstprint(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		printf("[%i] id : %s\n", i, (*(t_shape *)(lst->content)).id);
+		printf("[%i] d : %f\n", i, (*(t_shape *)(lst->content)).d);
+		lst = lst->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	t_vect	p;
-	float	fov;
-	t_vect	d;
-	t_shape	sp1;
 	t_intersect	i;
 	t_params	params;
+	t_vect		p;
+	t_vect		d;
+	t_list		**l;
 
+	params.shapes = NULL;
 	gnl(argc, argv, &params);
-	init_vect(&p, -50, 0, 20);
-	init_vect(&d, 100, 0, 0);
-	printf("camera : (%f, %f, %f).\n", p.x, p.y, p.z);
 	
+	printf("camera origin : (%f, %f, %f).\n", params.c.origin.x, params.c.origin.y, params.c.origin.z);
+	printf("camera vect : (%f, %f, %f).\n", params.c.direction.x, params.c.direction.y, params.c.direction.z);
+	printf("camera fov : %f\n", params.c.fov);
+
+	l = &params.shapes;
+	printf("shapes nb : %i\n", ft_lstsize(*l));
+
 	printf("---------SPHERE 1----------\n");
-	sp1.str = "sp";
-	init_vect(&sp1.p0, 0, 0, 20);
-	sp1.d = 10;
-	init_colors(&sp1.colors, 10, 0, 225);
-	printf("identifiant : %s\ninit_vector(%f, %f, %f)\ndiameter : %f\ncolors : (%i, %i, %i)\n", sp1.str, sp1.p0.x, sp1.p0.y, sp1.p0.z, sp1.d, sp1.colors.r, sp1.colors.g, sp1.colors.b);
+	ft_lstprint(params.shapes);
 
 	printf("-------INTERSECT----------\n");
 	init_intersect(&i);
+	init_vect(&p, -50, 0, 20);
+	init_vect(&d, 100, 0, 0);
 	init_ray(&i.ray, p, d);
-	printf("ray intersept shape sp1 ? %i\n", intersect_sphere(&i, sp1));
+	printf("ray intersept shape sp1 ? %i\n", intersect_sphere(&i, *(t_shape *)params.shapes->content));
 	
 }

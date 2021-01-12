@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:07 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/11 17:14:35 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:50:34 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	intersect_sphere(t_intersect *i, t_shape sphere)
 	r.origin.x -= sphere.p0.x;
 	r.origin.y -= sphere.p0.y;
 	r.origin.z -= sphere.p0.z;
+	printf("z : %f\n", sphere.p0.z);
 	d = r.direction;
 	p = r.origin;
 	t = resolve_eq(pow(len3(d), 2), 2 * dotprod(d, p), pow(len3(p), 2) - pow(sphere.d / 2, 2));

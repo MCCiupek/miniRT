@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 13:13:33 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/11 16:49:09 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:13:38 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_color
 
 typedef struct	s_shape
 {
-	char	*str;
+	char	id[3];
 	t_vect	p0;
 	t_vect	p1;
 	t_vect	p2;
