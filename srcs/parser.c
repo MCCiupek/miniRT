@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:40:39 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/12 18:07:16 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/13 12:01:54 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_free(char **tab)
 
 void	init_resol(t_resol	*r, char  **tab)
 {
-	r->x = ft_atoi(tab[0]);
-	r->y = ft_atoi(tab[1]);
+	r->x = ft_atoi(tab[1]);
+	r->y = ft_atoi(tab[2]);
 }
 
 void	init_alight(t_alight	*al, char  **tab)
