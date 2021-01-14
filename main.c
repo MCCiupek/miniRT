@@ -54,15 +54,16 @@ int	do_intersect(t_params *params, int x, int y)
 	x = x + params->r.x / 2;
 	y = y - params->r.y / 2;
 
-	forward = copy(params->c.direction);
-	normalize(&forward);
-	scalprod(&forward, sin(params->c.fov / 2) * params->r.x / 2);
+	init_vect(&forward, sin(params->c.fov / 2) * params->r.x / 2, 0, 0);
+	right = crossprod(forward, params->c.direction);
+	up = crossprod(right, forward);
 
-	right = crossprod(forward, );
 	init_intersect(&i);
-	init_vect(&r, 0, x, 0);
-	init_vect(&u, 0, 0, y);
-	dir = add(camdir, add(r, u));
+	scalprod(&right, x);
+	scalprod(&up, y);
+
+	dir = add(forward, add(right, up));
+	
 	init_ray(&i.ray, params->c.origin, dir);
 	return (intersect_sphere(&i, *(t_shape *)params->shapes->content));
 }
