@@ -15,7 +15,7 @@
 #include "parser.h"
 #include <stdio.h>
 #include "libft.h"
-#include "mlx.h"
+#include <mlx.h>
 
 void	ft_lstprint(t_list *lst)
 {
@@ -47,23 +47,23 @@ int	do_intersect(t_params *params, int x, int y)
 {
 	t_intersect	i;
 	t_vect		dir;
-	t_vect		right;
-	t_vect		up;
-	t_vect		forward;
+	//t_vect		right;
+	//t_vect		up;
+	//t_vect		forward;
 
-	x = x + params->r.x / 2;
+	x = x - params->r.x / 2;
 	y = y - params->r.y / 2;
 
-	init_vect(&forward, sin(params->c.fov / 2) * params->r.x / 2, 0, 0);
-	right = crossprod(forward, params->c.direction);
-	up = crossprod(right, forward);
+	//init_vect(&forward, sin(params->c.fov / 2) * params->r.x / 2, 0, 0);
+	//right = crossprod(forward, params->c.direction);
+	//up = crossprod(right, forward);
 
 	init_intersect(&i);
-	scalprod(&right, x);
-	scalprod(&up, y);
+	//scalprod(&right, x);
+	//scalprod(&up, y);
 
-	dir = add(forward, add(right, up));
-	
+	//dir = add(forward, add(right, up));
+	init_vect(&dir, x, y, 1 / (2 * tan(params->c.fov / 2)) * params->r.x / 2);
 	init_ray(&i.ray, params->c.origin, dir);
 	return (intersect_sphere(&i, *(t_shape *)params->shapes->content));
 }
@@ -84,11 +84,14 @@ int	main(int argc, char **argv)
 	
 	x = 0;
 	int nbpx = 0;
+	printf("f = %f\n", 1 / (2 * tan(params.c.fov / 2)) * params.r.x / 2);
 	while (x <= params.r.x)
 	{
 		y = 0;
 		while (y <= params.r.y)
 		{
+			if (x <= y)
+				mlx_pixel_put(mlx_ptr, win_ptr, x, y, rgb(255, 0, 0));
 			if (do_intersect(&params, x, y))
 			{
 				mlx_pixel_put(mlx_ptr, win_ptr, x, y, rgb(255, 0, 0));

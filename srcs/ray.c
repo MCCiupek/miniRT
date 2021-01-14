@@ -14,6 +14,7 @@
 #include "vectors.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void	init_colors(t_color *c, int r, int g, int b)
 {
@@ -102,6 +103,7 @@ int	intersect_sphere(t_intersect *i, t_shape sphere)
 	d = r.direction;
 	p = r.origin;
 	t = resolve_eq(pow(len3(d), 2), 2 * dotprod(d, p), pow(len3(p), 2) - pow(sphere.d / 2, 2));
+	printf("t = %f\n", t);
 	if (t <= RAY_MIN || t >= i->t)
 		return (0);
 	i->t = t;
