@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 13:13:33 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/12 12:13:38 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:04:44 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,9 @@ void			init_ray(t_ray *r, t_vect origin, t_vect destination);
 void			init_intersect(t_intersect *i);
 t_vect			calculate(t_ray r, float t);
 t_vect			ft_position(t_intersect i);
-int				intersect(t_intersect i);
 float			resolve_eq(float a, float b, float c);
-int				intersect_plan(t_intersect i, t_shape *plan);
-int				intersect_sphere(t_intersect *i, t_shape sphere);
+int				intersect_plan(t_intersect *i, t_shape *plan);
+int				intersect_sphere(t_intersect *i, t_shape *sphere);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:15:01 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/13 18:56:04 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:07:59 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include "libft.h"
 #include <mlx.h>
+#include "display.h"
 
 void	ft_lstprint(t_list *lst)
 {
@@ -43,29 +44,40 @@ int	deal_key(int key, void **param)
 	return (0);
 }
 
-int	do_intersect(t_params *params, int x, int y)
+int	intersect(t_list *shapes, t_intersect *i)
+{
+	t_shape	*shape;
+
+	while (shapes)
+	{
+		shape = (t_shape *)shapes->content;
+		if (!ft_strncmp(shape->id, "sp", 3))
+			intersect_sphere(i, shape);
+		else if (!ft_strncmp(shape->id, "pl", 3))
+			intersect_plan(i, shape);
+		shapes = shapes->next;
+	}
+	return (i->shape != NULL);
+}
+
+int	do_intersect(t_params *params, t_px *px)
 {
 	t_intersect	i;
 	t_vect		dir;
-	//t_vect		right;
-	//t_vect		up;
-	//t_vect		forward;
-
-	x = x - params->r.x / 2;
-	y = y - params->r.y / 2;
-
-	//init_vect(&forward, sin(params->c.fov / 2) * params->r.x / 2, 0, 0);
-	//right = crossprod(forward, params->c.direction);
-	//up = crossprod(right, forward);
-
+	int		x;
+	int		y;
+	
+	x = px->x - params->r.x / 2;
+	y = px->y - params->r.y / 2;
 	init_intersect(&i);
-	//scalprod(&right, x);
-	//scalprod(&up, y);
-
-	//dir = add(forward, add(right, up));
 	init_vect(&dir, x, y, 1 / (2 * tan(params->c.fov / 2)) * params->r.x / 2);
 	init_ray(&i.ray, params->c.origin, dir);
-	return (intersect_sphere(&i, *(t_shape *)params->shapes->content));
+	if (intersect(params->shapes, &i))
+	{
+		px->col = i.shape->colors;
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -73,8 +85,7 @@ int	main(int argc, char **argv)
 	t_params	params;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	int			x;
-	int			y;
+	t_px		px;
 
 	params.shapes = NULL;
 	gnl(argc, argv, &params);
@@ -82,40 +93,18 @@ int	main(int argc, char **argv)
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, params.r.x, params.r.y, "miniRT");
 	
-	x = 0;
-	int nbpx = 0;
-	printf("f = %f\n", 1 / (2 * tan(params.c.fov / 2)) * params.r.x / 2);
-	while (x <= params.r.x)
+	px.x = 0;
+	while (px.x <= params.r.x)
 	{
-		y = 0;
-		while (y <= params.r.y)
+		px.y = 0;
+		while (px.y <= params.r.y)
 		{
-			if (x <= y)
-				mlx_pixel_put(mlx_ptr, win_ptr, x, y, rgb(255, 0, 0));
-			if (do_intersect(&params, x, y))
-			{
-				mlx_pixel_put(mlx_ptr, win_ptr, x, y, rgb(255, 0, 0));
-				nbpx++;
-			}
-			y++;
+			if (do_intersect(&params, &px))
+				mlx_pixel_put(mlx_ptr, win_ptr, px.x, px.y, rgb(px.col.r, px.col.g, px.col.b));
+			px.y++;
 		}
-		x++;
+		px.x++;
 	}
-	printf("nb red px = %i (over %.0d)\n", nbpx, params.r.x * params.r.y);
+	//printf("ok!\n");
 	mlx_loop(mlx_ptr);
-	
-	/*printf("camera origin : (%f, %f, %f).\n", params.c.origin.x, params.c.origin.y, params.c.origin.z);
-	printf("camera vect : (%f, %f, %f).\n", params.c.direction.x, params.c.direction.y, params.c.direction.z);
-	printf("camera fov : %f\n", params.c.fov);
-
-	printf("---------SPHERE 1----------\n");
-	ft_lstprint(params.shapes);
-
-	printf("-------INTERSECT----------\n");
-	init_intersect(&i);
-	init_vect(&p, -50, 0, 20);
-	init_vect(&d, 100, 0, 0);
-	init_ray(&i.ray, p, d);
-	printf("ray intersept shape sp1 ? %i\n", intersect_sphere(&i, *(t_shape *)params.shapes->content));
-	*/
 }

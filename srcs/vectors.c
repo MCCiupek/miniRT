@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 11:19:24 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/13 18:56:08 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/18 14:13:27 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_vect subs(t_vect u, t_vect v)
 
 float		dotprod(t_vect u, t_vect v)
 {
-	return (u.x * v.x + u.y * v.y + u.z + v.z);
+	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
 t_vect	crossprod(t_vect u, t_vect v)

@@ -6,7 +6,7 @@
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:28:07 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/13 14:20:42 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:59:25 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,21 @@ t_vect	ft_position(t_intersect i)
 	return (calculate(i.ray, i.t));
 }
 
-int	intersect(t_intersect i)
-{
-	return (!i.shape);
-}
-
-int	intersect_plan(t_intersect i, t_shape *plan)
+int	intersect_plan(t_intersect *i, t_shape *plan)
 {
 	float dn;
 	float t;
 	t_vect	n;
 
-	init_vect(&n, 1, 1, 1);
-	dn = dotprod(i.ray.direction, n);
+	n = copy(plan->direction);
+	dn = dotprod(i->ray.direction, n);
 	if (!dn)
 		return (0);
-	t = dotprod(subs(plan->p0, i.ray.origin), n) / dn;
-	if (t <= RAY_MIN || t >= i.t)
+	t = dotprod(subs(plan->p0, i->ray.origin), n) / dn;
+	if (t <= RAY_MIN || t >= i->t)
 		return (0);
-	i.t = t;
-	i.shape = plan;
+	i->t = t;
+	i->shape = plan;
 	return (1);
 }
 
@@ -85,11 +80,11 @@ float	resolve_eq(float a, float b, float c)
 	x1 = (-b - sqrt(delta)) / (2 * a);	
 	x2 = (-b + sqrt(delta)) / (2 * a);
 	if (x1 > x2)
-		return x2;
+		return (x2);
 	return (x1);
 }
 
-int	intersect_sphere(t_intersect *i, t_shape sphere)
+int	intersect_sphere(t_intersect *i, t_shape *sphere)
 {
 	t_ray	r;
 	float	t;
@@ -97,16 +92,28 @@ int	intersect_sphere(t_intersect *i, t_shape sphere)
 	t_vect	d;
 
 	r = i->ray;
-	r.origin.x -= sphere.p0.x;
-	r.origin.y -= sphere.p0.y;
-	r.origin.z -= sphere.p0.z;
 	d = r.direction;
-	p = r.origin;
-	t = resolve_eq(pow(len3(d), 2), 2 * dotprod(d, p), pow(len3(p), 2) - pow(sphere.d / 2, 2));
-	printf("t = %f\n", t);
+	p = subs(r.origin, sphere->p0);
+	t = resolve_eq(pow(len3(d), 2), 2 * dotprod(d, p), pow(len3(p), 2) - pow(sphere->d / 2, 2));
 	if (t <= RAY_MIN || t >= i->t)
 		return (0);
 	i->t = t;
-	i->shape = &sphere;
+	i->shape = sphere;
+	return (1);
+}
+
+int	get_norm_sq(t_shape *square)
+{
+	t_vect	sides[3];
+
+	init_vect(&sides[0], square->h / 2, square->h / 2, 0);
+	init_vect(&sides[0], - square->h / 2, square->h / 2, 0);
+	init_vect(&sides[0], square->h / 2, - square->h / 2, 0);
+
+	return (0);
+}
+
+int	intersect_sq(t_intersect *i, t_shape *sq)
+{
 	return (1);
 }
