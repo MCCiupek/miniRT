@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   intersect.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef INTERSECT_H
+# define INTERSECT_H
 
+# include "ray.h"
+# include "parser.h"
 # include "minirt.h"
 
-# define RAY_MIN 0.0001
-# define RAY_MAX 1.0e30
-
-typedef struct	s_ray
+typedef struct	s_intersect
 {
-	t_vect	origin;
-	t_vect	direction;
-	float	tmax;
-}				t_ray;
+	t_ray	ray;
+	float	t;
+	t_shape	*shape;
+    t_vect  n;
+}				t_intersect;
 
-void			init_ray(t_ray *r, t_vect origin, t_vect destination);
-t_vect			calculate(t_ray r, float t);
+void			init_intersect(t_intersect *i);
+float	        t_inter_plan(t_intersect *i, t_shape *shape);
+int				intersect_plan(t_intersect *i, t_shape *plan);
+int				intersect_sphere(t_intersect *i, t_shape *sphere);
+int				intersect_sq(t_intersect *i, t_shape *sq);
+int				intersect_tr(t_intersect *i, t_shape *tr);
+int				intersect_cy(t_intersect *i, t_shape *cy);
+t_vect			ft_position(t_intersect i);
+float			resolve_eq(float a, float b, float c);
+int             do_intersect(t_params *params, t_px *px);
+int             intersect(t_list *shapes, t_intersect *i);
 
 # endif

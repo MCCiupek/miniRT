@@ -1,35 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:28:07 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/20 12:49:44 by mciupek          ###   ########.fr       */
+/*   Created: 2021/01/08 11:19:24 by mciupek           #+#    #+#             */
+/*   Updated: 2021/01/20 12:51:22 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void	init_ray(t_ray *r, t_vect origin, t_vect dir)
+void	init_vect(t_vect *v, float x, float y, float z)
 {
-	r->origin = origin;
-	r->direction = dir;
-	r->tmax = RAY_MAX;
+	v->x = x;
+	v->y = y;
+	v->z = z;
 }
 
-t_vect	calculate(t_ray r, float t)
+void	init_vect_c(t_vect *v, float c)
 {
-	scalprod(&r.direction, t);
-	r.origin.x += r.direction.x;
-	r.origin.y += r.direction.y;
-	r.origin.z += r.direction.z;
-	return (r.origin);
+	v->x = c;
+	v->y = c;
+	v->z = c;
 }
 
-t_vect	ft_position(t_intersect i)
+void	init_vect_p(t_vect *v, t_vect *p1, t_vect *p2)
 {
-	return (calculate(i.ray, i.t));
+	v->x = p2->x - p1->x;
+	v->y = p2->y - p1->y;
+	v->z = p2->z - p1->z;
+}
+
+t_vect	copy(t_vect v)
+{
+	t_vect	res;
+
+	res.x = v.x;
+	res.y = v.y;
+	res.z = v.z;
+	return (res);
 }

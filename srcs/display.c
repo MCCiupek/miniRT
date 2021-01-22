@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 14:23:28 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/19 09:22:39 by mciupek          ###   ########.fr       */
+/*   Created: 2021/01/08 14:28:07 by mciupek           #+#    #+#             */
+/*   Updated: 2021/01/20 12:49:44 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#include "../includes/minirt.h"
+//#include "minirt.h"
 
-# include "minirt.h"
-
-typedef struct	s_color
+void	init_colors(t_color *c, int r, int g, int b)
 {
-	int	r;
-	int	g;
-	int b;
-}				t_color;
+	c->r = r;
+	c->g = g;
+	c->b = b;
+}
 
-typedef struct	s_px
+int	rgb(int r, int g, int b)
 {
-	int	x;
-	int	y;
-	t_color	col;
-}				t_px;
-
-void			init_colors(t_color *c, int r, int g, int b);
-int				rgb(int r, int g, int b);
-
-# endif
+	return (((r&0x0ff)<<16)|((g&0x0ff)<<8)|(b&0x0ff));
+}

@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   operation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 14:28:07 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/20 12:49:44 by mciupek          ###   ########.fr       */
+/*   Created: 2021/01/08 11:19:24 by mciupek           #+#    #+#             */
+/*   Updated: 2021/01/20 12:51:22 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void	init_ray(t_ray *r, t_vect origin, t_vect dir)
+t_vect add(t_vect u, t_vect v)
 {
-	r->origin = origin;
-	r->direction = dir;
-	r->tmax = RAY_MAX;
+	t_vect	res;
+
+	res.x = u.x + v.x;
+	res.y = u.y + v.y;
+	res.z = u.z + v.z;
+	return (res);
 }
 
-t_vect	calculate(t_ray r, float t)
+t_vect subs(t_vect u, t_vect v)
 {
-	scalprod(&r.direction, t);
-	r.origin.x += r.direction.x;
-	r.origin.y += r.direction.y;
-	r.origin.z += r.direction.z;
-	return (r.origin);
+	t_vect	res;
+
+	res.x = u.x - v.x;
+	res.y = u.y - v.y;
+	res.z = u.z - v.z;
+	return (res);
 }
 
-t_vect	ft_position(t_intersect i)
+void	normalize(t_vect *v)
 {
-	return (calculate(i.ray, i.t));
+	scalprod(v, 1 / len3(*v));
+}
+
+float		len3(t_vect v)
+{
+	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }

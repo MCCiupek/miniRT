@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,26 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
-# include "minirt.h"
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 32
+#endif
 
-typedef struct	s_color
-{
-	int	r;
-	int	g;
-	int b;
-}				t_color;
+/************ A SUPPRIMER !!!! ************/
+# include <stdio.h>
+/******************************************/
 
-typedef struct	s_px
-{
-	int	x;
-	int	y;
-	t_color	col;
-}				t_px;
+# include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
 
-void			init_colors(t_color *c, int r, int g, int b);
-int				rgb(int r, int g, int b);
+# include <mlx.h>
+
+# include "../libft/libft.h"
+# include "get_next_line.h"
+# include "display.h"
+# include "vectors.h"
+# include "intersect.h"
+# include "ray.h"
+# include "parser.h"
+# include "rotation.h"
+# include "light.h"
 
 # endif

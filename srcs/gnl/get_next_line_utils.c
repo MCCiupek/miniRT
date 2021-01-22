@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../includes/minirt.h"
+//#include "minirt.h"
 
 int			ft_gnl_strlen(char *str)
 {

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   light.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcciupek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 11:47:34 by mcciupek          #+#    #+#             */
-/*   Updated: 2021/01/11 17:50:22 by mciupek          ###   ########.fr       */
+/*   Created: 2020/12/17 18:02:09 by mcciupek          #+#    #+#             */
+/*   Updated: 2021/01/11 17:49:21 by mciupek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef LIGHT_H
+# define LIGHT_H
 
 # include "minirt.h"
 
-typedef struct		s_line
-{
-	int		count;
-	char	*txt;
-}					t_line;
-
-int					get_next_line(int fd, char **line);
-int					ft_gnl_strlen(char *str);
-int					ft_gnl_strchr(char *str, int ch);
-size_t				ft_gnl_strlcpy(char *dest, char *src, size_t size);
-char				*ft_gnl_strldup(char *src, size_t size);
-char				*ft_gnl_strjoin(char *s1, char *s2);
+void    get_norm_sp(t_intersect *i);
+void    get_norm_pl(t_intersect *i);
+void    get_norm_cy(t_intersect *i);
+void    get_norm_cy_base_up(t_intersect *i);
+void    get_norm_cy_base_down(t_intersect *i);
+void    get_i_norm(t_intersect *i);
+float   light(t_intersect *i, t_params *params);
+void    set_colors(t_px *px, t_intersect *i, t_params *params);
 
 # endif

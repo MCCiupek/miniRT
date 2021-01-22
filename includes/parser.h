@@ -13,7 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "libft.h"
+# include "minirt.h"
 
 typedef struct	s_resol
 {
@@ -41,6 +41,20 @@ typedef	struct	s_cam
 	float	fov;
 }				t_cam;
 
+typedef struct	s_shape
+{
+	char	id[3];
+	t_vect	p0;
+	t_vect	p1;
+	t_vect	p2;
+	t_vect	direction;
+	t_vect	n;
+	t_vect	sides[2];
+	float		h;
+	float		d;
+	t_color		colors;
+}				t_shape;
+
 typedef struct	s_params
 {
 	t_resol			r;
@@ -50,12 +64,13 @@ typedef struct	s_params
 	t_list			*shapes;
 }				t_params;
 
+void	ft_free(char **tab);
 void	init_resol(t_resol *r, char **tab);
 void	init_alight(t_alight *al, char **tab);
 void	init_light(t_light *l, char **tab);
 void	init_cam(t_cam	*c, char **tab);
-void	init_sp(t_shape	*s, char **tab);
+void	init_sh(t_shape	*s, char **tab);
 void	parse(char *line, t_params *params);
-int	gnl(int argc, char **argv, t_params *params);
+int		gnl(int argc, char **argv, t_params *params);
 
-#endif
+# endif

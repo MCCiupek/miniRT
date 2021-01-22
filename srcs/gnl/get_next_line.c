@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "get_next_line.h"
+#include "../../includes/minirt.h"
+//#include "minirt.h"
 
 static int	ft_err(int fd, char *buf, char **line)
 {
