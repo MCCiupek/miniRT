@@ -74,15 +74,21 @@ void    set_norm(t_intersect *i)
 float   light(t_intersect *i, t_params *params)
 {
     float   l;
-    t_vect  L;
-    float  nL;
+    t_vect  spot;
+    t_list  *lights;
+    t_light light;
 
     l = params->al.light;
-    L = subs(params->l.origin, calculate(i->ray, i->t));
-    set_norm(i);
-    nL = dotprod(i->n, L);
-    if (nL > 0)
-        l += params->l.light * nL / (len3(i->n) * len3(L));
+    lights = params->lights;
+    while (lights)
+	{
+		light = *(t_light *)lights->content;
+        spot = subs(light.origin, calculate(i->ray, i->t));
+        set_norm(i);
+        if (dotprod(i->n, spot) > 0)
+            l += light.light * dotprod(i->n, spot) / (len3(i->n) * len3(spot));
+        lights = lights->next;
+    }
     return (l);
 }
 
@@ -94,4 +100,11 @@ void    set_colors(t_px *px, t_intersect *i, t_params *params)
     px->col.r = i->shape->colors.r * l;
     px->col.g = i->shape->colors.g * l;
     px->col.b = i->shape->colors.b * l;
+}
+
+void    set_shadow(t_px *px)
+{
+    px->col.r = 0;
+    px->col.g = 0;
+    px->col.b = 0;
 }

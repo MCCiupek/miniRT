@@ -19,7 +19,7 @@ void	init_intersect(t_intersect *i)
 	i->shape = NULL;
 }
 
-int	intersect(t_list *shapes, t_intersect *i)
+int	intersect(t_list *shapes, t_intersect *i, int interrupt)
 {
 	t_shape	*shape;
 
@@ -40,6 +40,8 @@ int	intersect(t_list *shapes, t_intersect *i)
 		else if (!ft_strncmp(shape->id, "cy", 3))
 			intersect_cy(i, shape);
 		shapes = shapes->next;
+		if (interrupt && i->shape)
+			return (1);
 	}
     //printf("\n");
 	return (i->shape != NULL);
@@ -80,9 +82,10 @@ int	do_intersect(t_params *params, t_px *px)
 	init_vect(&dir, x, y, 1 / (2 * tan(params->c.fov / 2)) * params->r.x / 2);
     dir = look_at(dir, params->c.direction);
 	init_ray(&i.ray, params->c.origin, dir);
-	if (intersect(params->shapes, &i))
+	if (intersect(params->shapes, &i, 0))
 	{
 		set_colors(px, &i, params);
+		//get_shadows(px, &i, params);
 		return (1);
 	}
 	return (0);

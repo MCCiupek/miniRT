@@ -17,6 +17,10 @@
 # define BUFFER_SIZE 32
 #endif
 
+#ifndef PI
+# define PI 3.1416
+#endif
+
 /************ A SUPPRIMER !!!! ************/
 # include <stdio.h>
 /******************************************/
@@ -26,7 +30,7 @@
 # include <math.h>
 # include <fcntl.h>
 
-# include <mlx.h>
+# include "mlx.h"
 
 # include "../libft/libft.h"
 # include "get_next_line.h"

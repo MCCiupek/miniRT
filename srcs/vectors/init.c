@@ -43,3 +43,8 @@ t_vect	copy(t_vect v)
 	res.z = v.z;
 	return (res);
 }
+
+int		is_null(t_vect v)
+{
+	return (v.x == 0 && v.y == 0 && v.z == 0);
+}

@@ -62,6 +62,8 @@ typedef struct	s_params
 	t_light			l;
 	t_cam			c;
 	t_list			*shapes;
+	t_list			*cams;
+	t_list			*lights;
 }				t_params;
 
 void	ft_free(char **tab);

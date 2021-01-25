@@ -35,6 +35,6 @@ int				intersect_cy(t_intersect *i, t_shape *cy);
 t_vect			ft_position(t_intersect i);
 float			resolve_eq(float a, float b, float c);
 int             do_intersect(t_params *params, t_px *px);
-int             intersect(t_list *shapes, t_intersect *i);
+int             intersect(t_list *shapes, t_intersect *i, int interrupt);
 
 # endif

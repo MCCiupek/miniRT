@@ -1,4 +1,4 @@
-CC =			clang
+GCC =			clang
 
 FLAGS =			-Wall -Wextra -Werror
 
@@ -10,9 +10,11 @@ DIR_SRCS =		./srcs/
 
 DIR_OBJS =		./
 
-MLX_DIR = 		/usr/local/lib/
+MLX_DIR = 		./
+				# /usr/local/lib/
 
-MLX_HEADER = 	/usr/local/include/
+MLX_HEADER = 	./includes/
+				# /usr/local/include/
 
 MLX_FLAGS =		-lmlx -framework OpenGL -framework AppKit
 # LIBMLX =		libmlx.dylib \
@@ -47,6 +49,7 @@ SRC =			gnl/get_next_line_utils.c \
 				rotation.c \
 				\
 				light/light.c \
+				light/shadows.c \
 				\
 				main.c
 
@@ -61,17 +64,16 @@ NAME =			miniRT
 all:			$(NAME)
 
 $(NAME) :		$(OBJS)
-				@make -C ./mlx
-				@cp ./mlx/libmlx.a $(MLX_DIR)libmlx.a
-				@cp ./mlx/mlx.h $(MLX_HEADER)mlx.h
-				@make bonus -C ./libft
-				@cp ./libft/libft.a libft.a
 				$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) -L $(MLX_DIR) $(MLX_FLAGS) $(LIBFT) $(OBJS) -o $(NAME)
 
 %.o: %.c
-				@gcc $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
+				@$(MAKE) bonus -C ./libft
+				@cp ./libft/libft.a libft.a
+				@$(MAKE) -C ./mlx
+				@cp ./mlx/libmlx.a $(MLX_DIR)libmlx.a && cp ./mlx/mlx.h $(MLX_HEADER)mlx.h
+				@$(GCC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
-
+		
 bonus:
 
 norme:
@@ -82,11 +84,13 @@ clean:
 				$(RM) $(OBJS)
 
 fclean:			clean
-				@make clean -C ./libft
-				$(RM) libft.a
-				$(RM) libft/libft.a
+				$(MAKE) clean -C ./libft
+				$(MAKE) clean -C ./mlx
+				$(RM) $(LIBFT)
+				$(RM) $(MLX_DIR)libmlx.a
+				$(RM) $(MLX_HEADER)mlx.h
 				$(RM) $(NAME)
 
 re:				fclean all
 
-.PHONY:			all, clean, fclean, re, bonus
+.PHONY:			all, clean, fclean, re, bonus, norme

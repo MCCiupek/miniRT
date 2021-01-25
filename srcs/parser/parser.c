@@ -27,11 +27,15 @@ void	parse(char *line, t_params *params)
 {
 	int 	i;
 	char	**tab;
+	t_list	*elem;
 	t_shape	*shape;
-	t_list	*new_shape;
+	//t_light	*light;
+	//t_cam	*cam;
 	
 	i = 0;
 	tab = ft_split(line, '\t');
+	//printf("tab[0] = %s\n", tab[0]);
+	// tab = ft_split(line, '\t');
 	if (!tab[0])
 	{	
 		ft_free(tab);
@@ -42,17 +46,31 @@ void	parse(char *line, t_params *params)
 	if (!ft_strncmp(tab[0], "A", 2))
 		init_alight(&params->al, tab);
 	if (!ft_strncmp(tab[0], "c", 2))
+	{
+		//cam = malloc(sizeof(t_cam));
+		//init_cam(cam, tab);
+		//elem = ft_lstnew(cam);
 		init_cam(&params->c, tab);
+		elem = ft_lstnew(&params->c);
+		ft_lstadd_back(&params->cams, elem);
+	}
 	if (!ft_strncmp(tab[0], "l", 2))
+	{
+		//light = malloc(sizeof(t_light));
+		//init_light(light, tab);
+		//elem = ft_lstnew(light);
 		init_light(&params->l, tab);
+		elem = ft_lstnew(&params->l);
+		ft_lstadd_back(&params->lights, elem);
+	}
 	if (!ft_strncmp(tab[0], "sp", 3) || !ft_strncmp(tab[0], "pl", 3) || 
 		!ft_strncmp(tab[0], "sq", 3) || !ft_strncmp(tab[0], "cy", 3) || 
 		!ft_strncmp(tab[0], "tr", 3))
 	{
 		shape = malloc(sizeof(t_shape));
 		init_sh(shape, tab);
-		new_shape = ft_lstnew(shape);
-		ft_lstadd_back(&params->shapes, new_shape);
+		elem = ft_lstnew(shape);
+		ft_lstadd_back(&params->shapes, elem);
 	}
 	ft_free(tab);
 }
@@ -70,13 +88,16 @@ int		gnl(int argc, char **argv, t_params *params)
 		fd = open(argv[1], O_RDONLY);
 	else
 		return (2);
+	printf("Parsing... \n");
 	while ((i = get_next_line(fd, &line)) != -1)
 	{
 		parse(line, params);
+		printf("[%i] line = %s\n", i, line);
 		free(line);
 		if (i == 0)
 			break;
 	}
+	printf("PARSING DONE [SUCCESS]\n");
 	if (argc == 2)
 		close(fd);
 	return (0);

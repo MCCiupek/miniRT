@@ -38,7 +38,9 @@ int	main(int argc, char **argv)
 	gnl(argc, argv, &params);
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, params.r.x, params.r.y, "miniRT");
-	//printf("Nb shapes = %i\n", ft_lstsize(params.shapes));
+	printf("Nb shapes = %i\n", ft_lstsize(params.shapes));
+	printf("Nb lights = %i\n", ft_lstsize(params.lights));
+	printf("Nb cams = %i\n", ft_lstsize(params.cams));
 	//ft_lstprint(params.shapes);
 	px.x = 0;
 	while (px.x <= params.r.x)
