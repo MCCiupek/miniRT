@@ -31,12 +31,18 @@ int	main(int argc, char **argv)
 {
 	t_params	params;
 	void		*mlx_ptr;
+	void		*im_ptr;
 	void		*win_ptr;
 	t_px		px;
 
+	if (argc < 2 || ac > 3)
+		return (0);
+	if (argc == 3 && ft_strcmp(argv[2], "--save"))
+		return (0);
 	params.shapes = NULL;
 	gnl(argc, argv, &params);
 	mlx_ptr = mlx_init();
+	im_ptr = mlx_new_image(mlx_ptr, params.r.x, params.r.y);
 	win_ptr = mlx_new_window(mlx_ptr, params.r.x, params.r.y, "miniRT");
 	printf("Nb shapes = %i\n", ft_lstsize(params.shapes));
 	printf("Nb lights = %i\n", ft_lstsize(params.lights));

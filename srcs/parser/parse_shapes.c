@@ -50,8 +50,8 @@ void	init_sh(t_shape	*s, char **tab)
 		s->d = ft_atof(tab[2]);
 	if (!ft_strncmp(s->id, "cy", 3))
 	{
-		s->d = ft_atof(tab[4]);
-		s->h = ft_atof(tab[5]);
+		s->d = ft_atof(tab[3]);
+		s->h = ft_atof(tab[4]);
 	}
 	if (!ft_strncmp(s->id, "sq", 3))
 		s->h = ft_atof(tab[3]);

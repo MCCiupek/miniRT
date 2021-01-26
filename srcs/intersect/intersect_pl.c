@@ -15,12 +15,12 @@
 
 float	t_inter_plan(t_intersect *i, t_shape *shape)
 {
-	float dn;
-	float t;
+	float	dn;
+	float	t;
 
 	dn = dotprod(i->ray.direction, shape->n);
 	if (!dn)
-		return (-1);
+		return (RAY_MAX);
 	t = dotprod(subs(shape->p0, i->ray.origin), shape->n) / dn;
 	return (t);
 }

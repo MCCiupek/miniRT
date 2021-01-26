@@ -21,7 +21,7 @@ float	resolve_eq(float a, float b, float c)
 
 	delta = pow(b, 2) - 4 * a * c;
 	if (delta < 0)
-		return (-1);
+		return (RAY_MAX);
 	x1 = (-b - sqrt(delta)) / (2 * a);	
 	x2 = (-b + sqrt(delta)) / (2 * a);
 	if (x1 > x2)
