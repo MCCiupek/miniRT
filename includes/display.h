@@ -17,9 +17,9 @@
 
 typedef struct	s_color
 {
-	int	r;
-	int	g;
-	int b;
+	float	r;
+	float	g;
+	float b;
 }				t_color;
 
 typedef struct	s_px
@@ -29,7 +29,9 @@ typedef struct	s_px
 	t_color	col;
 }				t_px;
 
-void			init_colors(t_color *c, int r, int g, int b);
-int				rgb(int r, int g, int b);
+void			init_colors(t_color *c, float r, float g, float b);
+void			mix_colors(t_color *c, float coef, t_color colors);
+t_color			color_x_light(t_color color, t_color rgb);
+int				rgb(float r, float g, float b);
 
 # endif

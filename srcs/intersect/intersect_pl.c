@@ -29,7 +29,7 @@ int	intersect_plan(t_intersect *i, t_shape *plan)
 {
 	float t;
 
-	plan->n = copy(plan->direction);
+	plan->n = normalize_v(copy(plan->direction));
 	t = t_inter_plan(i, plan);
 	if (t <= RAY_MIN || t >= i->t)
 		return (0);

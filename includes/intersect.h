@@ -22,6 +22,7 @@ typedef struct	s_intersect
 	t_ray	ray;
 	float	t;
 	t_shape	*shape;
+    int     base;
     t_vect  n;
 }				t_intersect;
 

@@ -62,9 +62,9 @@ static t_vect		look_at(t_vect d, t_vect cam_dir)
 	else
 		x_axis = crossprod(tmp, z_axis);
 	y_axis = crossprod(z_axis, x_axis);
-	rotated.x = d.x * x_axis.x + d.y * x_axis.y + d.z * x_axis.z;
-	rotated.y = d.x * y_axis.x + d.y * y_axis.y + d.z * y_axis.z;
-	rotated.z = d.x * z_axis.x + d.y * z_axis.y + d.z * z_axis.z;
+	rotated.x = dotprod(d, x_axis);//d.x * x_axis.x + d.y * x_axis.y + d.z * x_axis.z;
+	rotated.y = dotprod(d, y_axis);//d.x * y_axis.x + d.y * y_axis.y + d.z * y_axis.z;
+	rotated.z = dotprod(d, z_axis);//d.x * z_axis.x + d.y * z_axis.y + d.z * z_axis.z;
 	return (rotated);
 }
 
@@ -72,15 +72,15 @@ int	do_intersect(t_params *params, t_px *px)
 {
 	t_intersect	i;
 	t_vect		dir;
-	int		x;
-	int		y;
+	float		x;
+	float		y;
 	
-	x = px->x - params->r.x / 2;
-	y = px->y - params->r.y / 2;
-    //printf("P(%i, %i)\n", x, y);
+	x = (px->x - params->r.y / 2.0) * params->r.y / params->r.x;
+	y = (- px->y + params->r.x / 2.0) * params->r.y / params->r.x;
 	init_intersect(&i);
-	init_vect(&dir, x, y, 1 / (2 * tan(params->c.fov / 2)) * params->r.x / 2);
-    dir = look_at(dir, params->c.direction);
+	init_vect(&dir, x, y, 1 / (2 * tan(PI / 180.0 * params->c.fov / 2)) * params->r.x / 2);
+	dir = look_at(dir, params->c.direction);
+	normalize(&dir);
 	init_ray(&i.ray, params->c.origin, dir);
 	if (intersect(params->shapes, &i, 0))
 	{
@@ -88,5 +88,6 @@ int	do_intersect(t_params *params, t_px *px)
 		//get_shadows(px, &i, params);
 		return (1);
 	}
+	//get_shadows(px, &i, params);
 	return (0);
 }

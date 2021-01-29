@@ -33,7 +33,7 @@ void	parse(char *line, t_params *params)
 	//t_cam	*cam;
 	
 	i = 0;
-	tab = ft_split(line, '\t');
+	tab = ft_split(line, ' ');
 	//printf("tab[0] = %s\n", tab[0]);
 	// tab = ft_split(line, '\t');
 	if (!tab[0])

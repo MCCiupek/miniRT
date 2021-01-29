@@ -61,50 +61,93 @@ void    set_norm(t_intersect *i)
 {
     if (!ft_strncmp(i->shape->id, "sp", 3))
         get_norm_sp(i);
-    if (!ft_strncmp(i->shape->id, "pl", 3) || !ft_strncmp(i->shape->id, "sq", 3) || !ft_strncmp(i->shape->id, "tr", 3))
+    else if (!ft_strncmp(i->shape->id, "pl", 3) || !ft_strncmp(i->shape->id, "sq", 3) || !ft_strncmp(i->shape->id, "tr", 3))
         get_norm_pl(i);
-    if (!ft_strncmp(i->shape->id, "cu", 3))
+    else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == 1)
         get_norm_cy_base_up(i);
-    if (!ft_strncmp(i->shape->id, "cd", 3))
+    else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == -1)
         get_norm_cy_base_down(i);
-    if (!ft_strncmp(i->shape->id, "cb", 3))
+    else if (!ft_strncmp(i->shape->id, "cy", 3))
         get_norm_cy(i);
 }
 
-float   light(t_intersect *i, t_params *params)
+t_color  intensity(t_color c, float l)
 {
-    float   l;
-    t_vect  spot;
-    t_list  *lights;
-    t_light light;
+    c.r *= l;
+    c.g *= l;
+    c.b *= l;
+    return (c);
+}
+
+t_color  add_colors(t_color c1, t_color c2)
+{
+    c1.r += c2.r;
+    c1.g += c2.r;
+    c1.b += c2.r;
+    return (c1);
+}
+
+t_color  mult_colors(t_color c1, t_color c2)
+{
+    c1.r *= c2.r;
+    c1.g *= c2.r;
+    c1.b *= c2.r;
+    return (c1);
+}
+
+int    is_lit(t_intersect *i, t_params *params, t_light light)
+{
+    float       alpha;
+    t_intersect i2;
+
+    alpha = get_alpha(light, calculate(i->ray, i->t));//i->ray.origin);
+    //printf("alpha = %f\n", alpha);
+    init_intersect(&i2);
+    init_ray(&i2.ray, calculate(i->ray, i->t), scalprod_v(normalize_v(get_direction(i->ray.direction, alpha)), -1));
+    if (intersect(params->shapes, &i2, 0))
+        if (len3(subs(light.origin, i2.ray.origin)) > len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
+            return (0);
+    return (1);
+}
+
+t_color   light_color(t_intersect *i, t_params *params)
+{
+    float       l;
+    t_color     l_col;
+    t_vect      spot;
+    t_list      *lights;
+    t_light     light;
 
     l = params->al.light;
+    init_colors(&l_col, 0, 0, 0);
+    mix_colors(&l_col, l, params->al.colors);
     lights = params->lights;
     while (lights)
 	{
 		light = *(t_light *)lights->content;
         spot = subs(light.origin, calculate(i->ray, i->t));
         set_norm(i);
-        if (dotprod(i->n, spot) > 0)
-            l += light.light * dotprod(i->n, spot) / (len3(i->n) * len3(spot));
+        if (dotprod(i->n, spot) > 0 && is_lit(i, params, light))
+        {
+            l = light.light * dotprod(i->n, spot) / (len3(i->n) * len3(spot));
+            mix_colors(&l_col, l, light.colors);
+        }
         lights = lights->next;
     }
-    return (l);
+    return (l_col);
 }
 
 void    set_colors(t_px *px, t_intersect *i, t_params *params)
 {
-    float   l;
+    t_color     l;
 
-    l = light(i, params);
-    px->col.r = i->shape->colors.r * l;
-    px->col.g = i->shape->colors.g * l;
-    px->col.b = i->shape->colors.b * l;
+    l = light_color(i, params);
+    px->col = color_x_light(l, i->shape->colors);
 }
 
-void    set_shadow(t_px *px)
+void    set_shadow(t_px *px, float l)
 {
-    px->col.r = 0;
-    px->col.g = 0;
-    px->col.b = 0;
+    px->col.r *= l;
+    px->col.g *= l;
+    px->col.b *= l;
 }

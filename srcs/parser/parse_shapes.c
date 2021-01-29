@@ -61,7 +61,7 @@ void	init_sh(t_shape	*s, char **tab)
 		coord = ft_split(tab[2], ',');
 		init_vect(&s->direction, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
 	}	
-	init_colors(&s->colors, ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
 	ft_free(coord);
 	ft_free(rgb);
 }
