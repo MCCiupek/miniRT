@@ -29,12 +29,27 @@ void	ft_lstprint(t_list *lst)
 	}
 }
 
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+int             close_win(int keycode, t_mlx *vars)
+{
+    mlx_destroy_window(vars->mlx, vars->win);
+	return (keycode);
+}
+
 int	main(int argc, char **argv)
 {
 	t_params	params;
-	void		*mlx_ptr;
-	//void		*im_ptr;
-	void		*win_ptr;
+	t_mlx		mlx;
+	//void		*mlx_ptr;
+	//void		*mlx_win;
+	t_data		img;
 	t_px		px;
 
 	if (argc < 2 || argc > 3)
@@ -43,28 +58,13 @@ int	main(int argc, char **argv)
 		return (0);
 	params.shapes = NULL;
 	gnl(argc, argv, &params);
-	mlx_ptr = mlx_init();
-	//im_ptr = mlx_new_image(mlx_ptr, params.r.x, params.r.y);
-	win_ptr = mlx_new_window(mlx_ptr, params.r.x, params.r.y, "miniRT");
-	printf("Nb shapes = %i\n", ft_lstsize(params.shapes));
-	printf("Nb lights = %i\n", ft_lstsize(params.lights));
-	printf("Nb cams = %i\n\n", ft_lstsize(params.cams));
+	mlx.mlx = mlx_init();
+	img.img = mlx_new_image(mlx.mlx, params.r.x, params.r.y);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+                                 &img.endian);
+	mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
 	params.c = *(t_cam *)params.cams->content;
-	printf("cam0 p0(%f, %f, %f)\n", ((t_cam *)params.cams->content)->origin.x, 
-									((t_cam *)params.cams->content)->origin.y,
-									((t_cam *)params.cams->content)->origin.z);
-	printf("c p0(%f, %f, %f)\n\n", params.c.origin.x, 
-									params.c.origin.y,
-									params.c.origin.z);
-	printf("cam0 d(%f, %f, %f)\n", ((t_cam *)params.cams->content)->direction.x, 
-									((t_cam *)params.cams->content)->direction.y,
-									((t_cam *)params.cams->content)->direction.z);
-	printf("c d(%f, %f, %f)\n\n", params.c.direction.x, 
-									params.c.direction.y,
-									params.c.direction.z);
-	printf("cam0 fov : %f\n", ((t_cam *)params.cams->content)->fov);
-	printf("c fov : %f\n\n", params.c.fov);
-	ft_lstprint(params.shapes);
+	//ft_lstprint(params.shapes);
 	px.x = 0;
 	while (px.x <= params.r.x)
 	{
@@ -72,12 +72,14 @@ int	main(int argc, char **argv)
 		while (px.y <= params.r.y)
 		{
 			if (do_intersect(&params, &px))
-				mlx_pixel_put(mlx_ptr, win_ptr, px.x, px.y, rgb(px.col.r, px.col.g, px.col.b));
+				my_mlx_pixel_put(&img, px.x, px.y, rgb(px.col.r, px.col.g, px.col.b));
 			px.y++;
 		}
 		px.x++;
 	}
 	ft_lstmap(params.shapes, (void *)free, (void *)ft_lstdelone);
 	//printf("ok!\n");
-	mlx_loop(mlx_ptr);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+	//mlx_hook(mlx.win, 2, 1L<<0, close_win, &mlx);
+	mlx_loop(mlx.mlx);
 }

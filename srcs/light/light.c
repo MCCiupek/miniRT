@@ -103,7 +103,7 @@ int    is_lit(t_intersect *i, t_params *params, t_light light)
     alpha = get_alpha(light, calculate(i->ray, i->t));//i->ray.origin);
     //printf("alpha = %f\n", alpha);
     init_intersect(&i2);
-    init_ray(&i2.ray, calculate(i->ray, i->t), scalprod_v(normalize_v(get_direction(i->ray.direction, alpha)), -1));
+    init_ray(&i2.ray, calculate(i->ray, i->t), normalize_v(get_direction(i->ray.direction, alpha)));
     if (intersect(params->shapes, &i2, 0))
         if (len3(subs(light.origin, i2.ray.origin)) > len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
             return (0);

@@ -88,16 +88,16 @@ int		gnl(int argc, char **argv, t_params *params)
 		fd = open(argv[1], O_RDONLY);
 	else
 		return (2);
-	printf("Parsing... \n");
+	//printf("Parsing... \n");
 	while ((i = get_next_line(fd, &line)) != -1)
 	{
 		parse(line, params);
-		printf("[%i] line = %s\n", i, line);
+		//printf("[%i] line = %s\n", i, line);
 		free(line);
 		if (i == 0)
 			break;
 	}
-	printf("PARSING DONE [SUCCESS]\n");
+	//printf("PARSING DONE [SUCCESS]\n");
 	if (argc == 2)
 		close(fd);
 	return (0);
