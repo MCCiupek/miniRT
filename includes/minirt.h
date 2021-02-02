@@ -21,6 +21,17 @@
 # define PI 3.1416
 #endif
 
+# define ESC_KEY 49
+# define SPC_KEY 53
+
+/*# define KEYPRESS 2
+
+typedef enum	e_xeventmask
+{
+	KEYPRESSMASK = 1L << 0,
+	STRUCTURENOTIFYMASK = 1L << 17
+}               t_xeventmask;*/
+
 /************ A SUPPRIMER !!!! ************/
 # include <stdio.h>
 /******************************************/

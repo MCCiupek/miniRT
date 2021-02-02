@@ -125,6 +125,7 @@ t_color   light_color(t_intersect *i, t_params *params)
     while (lights)
 	{
 		light = *(t_light *)lights->content;
+        //printf("\tlight : %f, %f, %f\n", light.origin.x, light.origin.y, light.origin.z);
         spot = subs(light.origin, calculate(i->ray, i->t));
         set_norm(i);
         if (dotprod(i->n, spot) > 0 && is_lit(i, params, light))

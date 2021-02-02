@@ -32,6 +32,7 @@ typedef struct	s_px
 typedef struct  s_mlx {
         void    *mlx;
         void    *win;
+		t_list	*imgs;
 }               t_mlx;
 
 typedef struct  s_data {
@@ -47,5 +48,6 @@ void			init_colors(t_color *c, float r, float g, float b);
 void			mix_colors(t_color *c, float coef, t_color colors);
 t_color			color_x_light(t_color color, t_color rgb);
 int				rgb(float r, float g, float b);
+void    		switch_cam();
 
 # endif

@@ -29,13 +29,11 @@ void	parse(char *line, t_params *params)
 	char	**tab;
 	t_list	*elem;
 	t_shape	*shape;
-	//t_light	*light;
-	//t_cam	*cam;
+	t_light	*light;
+	t_cam	*cam;
 	
 	i = 0;
 	tab = ft_split(line, ' ');
-	//printf("tab[0] = %s\n", tab[0]);
-	// tab = ft_split(line, '\t');
 	if (!tab[0])
 	{	
 		ft_free(tab);
@@ -47,20 +45,16 @@ void	parse(char *line, t_params *params)
 		init_alight(&params->al, tab);
 	if (!ft_strncmp(tab[0], "c", 2))
 	{
-		//cam = malloc(sizeof(t_cam));
-		//init_cam(cam, tab);
-		//elem = ft_lstnew(cam);
-		init_cam(&params->c, tab);
-		elem = ft_lstnew(&params->c);
+		cam = malloc(sizeof(t_cam));
+		init_cam(cam, tab);
+		elem = ft_lstnew(cam);
 		ft_lstadd_back(&params->cams, elem);
 	}
 	if (!ft_strncmp(tab[0], "l", 2))
 	{
-		//light = malloc(sizeof(t_light));
-		//init_light(light, tab);
-		//elem = ft_lstnew(light);
-		init_light(&params->l, tab);
-		elem = ft_lstnew(&params->l);
+		light = malloc(sizeof(t_light));
+		init_light(light, tab);
+		elem = ft_lstnew(light);
 		ft_lstadd_back(&params->lights, elem);
 	}
 	if (!ft_strncmp(tab[0], "sp", 3) || !ft_strncmp(tab[0], "pl", 3) || 

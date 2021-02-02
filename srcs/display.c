@@ -46,3 +46,8 @@ t_color		color_x_light(t_color color, t_color rgb)
     res.b = fmin(color.b * rgb.b, 255);
 	return (res);
 }
+
+void    switch_cam()
+{
+    
+}
