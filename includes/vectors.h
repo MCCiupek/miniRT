@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-typedef struct s_vect
+typedef struct	s_vect
 {
 	float	x;
 	float	y;
@@ -37,4 +37,4 @@ void	normalize(t_vect *v);
 t_vect	normalize_v(t_vect v);
 int		is_null(t_vect v);
 
-# endif
+#endif

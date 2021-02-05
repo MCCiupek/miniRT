@@ -50,20 +50,20 @@ typedef struct	s_shape
 	t_vect	direction;
 	t_vect	n;
 	t_vect	sides[2];
-	float		h;
-	float		d;
-	t_color		colors;
+	float	h;
+	float	d;
+	t_color	colors;
 }				t_shape;
 
 typedef struct	s_params
 {
-	t_resol			r;
-	t_alight		al;
-	t_light			l;
-	t_cam			c;
-	t_list			*shapes;
-	t_list			*cams;
-	t_list			*lights;
+	t_resol		r;
+	t_alight	al;
+	t_light		l;
+	t_cam		c;
+	t_list		*shapes;
+	t_list		*cams;
+	t_list		*lights;
 }				t_params;
 
 float	limit(float n, float min, float max);
@@ -78,4 +78,4 @@ void	init_sh(t_shape	*s, char **tab);
 void	parse(char *line, t_params *params);
 int		gnl(int argc, char **argv, t_params *params);
 
-# endif
+#endif

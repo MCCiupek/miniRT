@@ -110,6 +110,21 @@ int    is_lit(t_intersect *i, t_params *params, t_light light)
     return (1);
 }
 
+float		get_specular(
+	t_intersect *i, t_light *light, t_vect light_dir, double angle)
+{
+	t_vect	rev_dir;
+	t_vect	reflect;
+	float	coef;
+
+	coef = 0;
+	rev_dir = scalprod_v(i->ray.direction, -1);
+	reflect = subs(scalprod_v(i->n, 2 * angle), normalize_v(light_dir));
+	if (dotprod(reflect, rev_dir) > 0.0)
+		coef = light->light * pow(dotprod(reflect, rev_dir) / (len3(reflect) * len3(rev_dir)), GAMMA);
+	return (coef);
+}
+
 t_color   light_color(t_intersect *i, t_params *params)
 {
     float       l;
@@ -117,6 +132,8 @@ t_color   light_color(t_intersect *i, t_params *params)
     t_vect      spot;
     t_list      *lights;
     t_light     light;
+    //t_vect      vec;
+    float       alpha;
 
     l = params->al.light;
     init_colors(&l_col, 0, 0, 0);
@@ -127,10 +144,18 @@ t_color   light_color(t_intersect *i, t_params *params)
 		light = *(t_light *)lights->content;
         //printf("\tlight : %f, %f, %f\n", light.origin.x, light.origin.y, light.origin.z);
         spot = subs(light.origin, calculate(i->ray, i->t));
+        alpha = dotprod(i->n, normalize_v(spot));
         set_norm(i);
         if (dotprod(i->n, spot) > 0 && is_lit(i, params, light))
         {
             l = light.light * dotprod(i->n, spot) / (len3(i->n) * len3(spot));
+            mix_colors(&l_col, l, light.colors);
+            //alpha = 2 * get_alpha(light, calculate(i->ray, i->t));
+            //vec = subs(scalprod_v(i->n, 2.0 * alpha), normalize_v(spot));
+            //l = 0;
+            //if (dotprod(i->ray.direction, vec) > 0.0)
+            l = get_specular(i, &light, spot, alpha);
+                //l = light.light * pow(dotprod(i->ray.direction, vec) / (len3(i->ray.direction) * len3(vec)), GAMMA);
             mix_colors(&l_col, l, light.colors);
         }
         lights = lights->next;

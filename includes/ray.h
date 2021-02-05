@@ -28,4 +28,4 @@ typedef struct	s_ray
 void			init_ray(t_ray *r, t_vect origin, t_vect destination);
 t_vect			calculate(t_ray r, float t);
 
-# endif
+#endif

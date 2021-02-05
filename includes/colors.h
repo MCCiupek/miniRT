@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h c                                         :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,14 +18,14 @@
 typedef struct	s_color
 {
 	float	r;
-	float	g;
-	float b;
+	float   g;
+	float   b;
 }				t_color;
 
 typedef struct	s_px
 {
-	int	x;
-	int	y;
+	int	    x;
+	int     y;
 	t_color	col;
 }				t_px;
 
@@ -36,4 +36,4 @@ t_color			color_x_light(t_color color, t_color rgb);
 int				rgb(float r, float g, float b);
 void    		switch_cam();
 
-# endif
+#endif

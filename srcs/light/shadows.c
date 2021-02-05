@@ -13,7 +13,7 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-float nextRand(int s) 
+float next_rand(int s) 
 {
     s = (1664525u * s + 1013904223u);
     return (s&0x00FFFFFF / 0x01000000);
@@ -35,7 +35,7 @@ float   get_alpha(t_light light, t_vect position)
     return (acos(dotprod(to_light, to_light_edge)) * 2.0);
 }
 
-t_vect angleAxis3x3(float angle, t_vect axis, t_vect v) 
+t_vect angle_axis(float angle, t_vect axis, t_vect v) 
 {
     t_vect  r[3];
     float   t;
@@ -61,8 +61,8 @@ t_vect  get_direction(t_vect direction, float alpha)
     t_vect  north;
     t_vect  axis;
 
-    v.z = nextRand(1) * (1.0 - cos(alpha)) + cos(alpha);
-    phi = nextRand(1) * 2.0 * PI;
+    v.z = next_rand(1) * (1.0 - cos(alpha)) + cos(alpha);
+    phi = next_rand(1) * 2.0 * PI;
     v.x = sqrt(1.0 - v.z * v.z) * cos(phi);
     v.y = sqrt(1.0 - v.z * v.z) * sin(phi);
     init_vect(&north, 0, 0, 1);
@@ -71,30 +71,5 @@ t_vect  get_direction(t_vect direction, float alpha)
     //scalprod(&axis, angle);
     //rotate(&v, &axis);
     //return(scalprod_v(v, -1));
-    return(angleAxis3x3(angle, axis, v));
+    return(angle_axis(angle, axis, v));
 }
-
-/*void    get_shadows(t_px *px, t_intersect *i, t_params *params)
-{
-    float       alpha;
-    t_intersect i2;
-    t_list      *lights;
-    t_light     light;
-    float       l;
-
-    lights = params->lights;
-    while (lights)
-    {
-        light = *(t_light *)lights->content;
-        alpha = get_alpha(light, calculate(i->ray, i->t));//i->ray.origin);
-        init_intersect(&i2);
-        init_ray(&i2.ray, calculate(i->ray, i->t), normalize_v(get_direction(i->ray.direction, alpha)));
-        if (intersect(params->shapes, &i2, 0))
-            if (len3(subs(light.origin, i2.ray.origin)) > len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
-            {
-                l = light.light * fmax(0, dotprod(i2.shape->n, i2.ray.direction));
-                set_shadow(px, l);
-            }
-        lights = lights->next;
-    }
-}*/

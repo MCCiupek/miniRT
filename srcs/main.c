@@ -67,7 +67,6 @@ int	main(int argc, char **argv)
 	printf("DONE\n");
 	int size = ft_lstsize(params.cams);
 	mlx.imgs = NULL;
-	printf("slt %i\n", size);
 	while (params.cams)
 	{
 		printf("Building image %i/%i...\t", size + 1 - ft_lstsize(params.cams), size);

@@ -13,16 +13,14 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#ifndef BUFFER_SIZE
 # define BUFFER_SIZE 32
-#endif
 
-#ifndef PI
 # define PI 3.1416
-#endif
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1600
+
+# define GAMMA 70
 
 # define SPC_KEY 49
 # define ESC_KEY 53

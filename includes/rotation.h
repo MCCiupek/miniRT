@@ -21,4 +21,4 @@ void	rz(t_vect *vect, float z);
 void	rotate(t_vect *vect, t_vect *angle);
 void	anti_rot(t_vect *vect, t_vect *angle);
 
-# endif
+#endif

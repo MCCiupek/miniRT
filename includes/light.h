@@ -25,9 +25,8 @@ float   light(t_intersect *i, t_params *params);
 void    set_colors(t_px *px, t_intersect *i, t_params *params);
 void    set_shadow(t_px *px, float l);
 float   get_alpha(t_light light, t_vect position);
-float   nextRand(int s);
-t_vect  angleAxis3x3(float angle, t_vect axis, t_vect v);
+float   next_rand(int s);
+t_vect  angle_axis(float angle, t_vect axis, t_vect v);
 t_vect  get_direction(t_vect direction, float alpha);
-//void    get_shadows(t_px *px, t_intersect *i, t_params *params);
 
-# endif
+#endif

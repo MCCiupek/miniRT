@@ -28,4 +28,4 @@ size_t				ft_gnl_strlcpy(char *dest, char *src, size_t size);
 char				*ft_gnl_strldup(char *src, size_t size);
 char				*ft_gnl_strjoin(char *s1, char *s2);
 
-# endif
+#endif
