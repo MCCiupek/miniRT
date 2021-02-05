@@ -13,6 +13,16 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
+int		ft_tabsize(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
 void	ft_free(char **tab)
 {
 	int	i;
@@ -33,6 +43,7 @@ void	parse(char *line, t_params *params)
 	t_cam	*cam;
 	
 	i = 0;
+	//tab = ft_split(line, '\t');
 	tab = ft_split(line, ' ');
 	if (!tab[0])
 	{	
@@ -80,9 +91,12 @@ int		gnl(int argc, char **argv, t_params *params)
 		fd = 0;
 	else if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
+	else if (argc == 3)
+		fd = open(argv[2], O_RDONLY);
 	else
 		return (2);
-	//printf("Parsing... \n");
+	if (!fd)
+		error(4);
 	while ((i = get_next_line(fd, &line)) != -1)
 	{
 		parse(line, params);

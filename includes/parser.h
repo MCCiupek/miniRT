@@ -66,6 +66,9 @@ typedef struct	s_params
 	t_list			*lights;
 }				t_params;
 
+float	limit(float n, float min, float max);
+void	v_limit(t_vect *v, float min, float max);
+int		ft_tabsize(char **tab);
 void	ft_free(char **tab);
 void	init_resol(t_resol *r, char **tab);
 void	init_alight(t_alight *al, char **tab);

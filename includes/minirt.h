@@ -21,16 +21,14 @@
 # define PI 3.1416
 #endif
 
-# define ESC_KEY 49
-# define SPC_KEY 53
+# define RES_X_MAX 2560
+# define RES_Y_MAX 1600
 
-/*# define KEYPRESS 2
+# define SPC_KEY 49
+# define ESC_KEY 53
+# define DESTROYNOTIFY 17
 
-typedef enum	e_xeventmask
-{
-	KEYPRESSMASK = 1L << 0,
-	STRUCTURENOTIFYMASK = 1L << 17
-}               t_xeventmask;*/
+# define STRUCTURENOTIFYMASK 131072
 
 /************ A SUPPRIMER !!!! ************/
 # include <stdio.h>
@@ -45,12 +43,14 @@ typedef enum	e_xeventmask
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
-# include "display.h"
+# include "colors.h"
 # include "vectors.h"
 # include "intersect.h"
 # include "ray.h"
 # include "parser.h"
 # include "rotation.h"
 # include "light.h"
+# include "display.h"
+# include "error.h"
 
 # endif

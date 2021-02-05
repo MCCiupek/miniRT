@@ -1,4 +1,4 @@
-GCC =			clang
+CC =			clang
 
 FLAGS =			-Wall -Wextra -Werror
 
@@ -34,8 +34,7 @@ SRC =			gnl/get_next_line_utils.c \
 				vectors/init.c \
 				vectors/operations.c \
 				vectors/products.c \
-				\
-				display.c \
+				vectors/rotation.c \
 				\
 				intersect/intersect.c \
 				intersect/intersect_cy.c \
@@ -43,13 +42,16 @@ SRC =			gnl/get_next_line_utils.c \
 				intersect/intersect_sp.c \
 				intersect/intersect_sq.c \
 				intersect/intersect_tr.c \
-				\
-				ray.c \
-				\
-				rotation.c \
+				intersect/ray.c \
 				\
 				light/light.c \
 				light/shadows.c \
+				light/colors.c \
+				\
+				display/display.c \
+				display/save.c \
+				\
+				error.c \
 				\
 				main.c
 
@@ -71,7 +73,7 @@ $(NAME) :		$(OBJS)
 				@cp ./libft/libft.a libft.a
 				@$(MAKE) -C ./mlx
 				@cp ./mlx/libmlx.a $(MLX_DIR)libmlx.a && cp ./mlx/mlx.h $(MLX_HEADER)mlx.h
-				@$(GCC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
+				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
@@ -81,11 +83,11 @@ norme:
 				norminette $(DIR_HEADERS)
 
 clean:
+				$(MAKE) clean -C ./libft
+				$(MAKE) clean -C ./mlx
 				$(RM) $(OBJS)
 
 fclean:			clean
-				$(MAKE) clean -C ./libft
-				$(MAKE) clean -C ./mlx
 				$(RM) $(LIBFT)
 				$(RM) $(MLX_DIR)libmlx.a
 				$(RM) $(MLX_HEADER)mlx.h

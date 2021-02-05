@@ -29,66 +29,21 @@ void	ft_lstprint(t_list *lst)
 	}
 }
 
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char    *dst;
-
-	//printf("%i, %i\n", x, y);
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-int             handle_key(int keycode, t_mlx *vars)
-{
-	//printf("%i\n", keycode);
-	if (keycode == ESC_KEY)
-	{
-		printf("CHANGE CAM\n");
-		vars->imgs = vars->imgs->next;
-		mlx_put_image_to_window(vars->mlx, vars->win, (*(t_data *)vars->imgs->content).img, 0, 0);
-		return (0);
-	}
-	if (keycode == SPC_KEY)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		return (1);
-	}
-	return (0);
-}
-
 int	check_params(int argc, char **argv)
 {
+	char	**tab;
+
 	if (argc < 2 || argc > 3)
-		return (0);
-	if (argc == 3 && ft_strncmp(argv[2], "--save", 7))
-		return (0);
-	return (1);
-}
-
-t_data	*create_image(t_mlx *mlx, t_params *params)
-{
-	t_data		*img;
-	t_px		px;
-
-	//printf("\tcam : %f, %f, %f\n", params->c.origin.x, params->c.origin.y, params->c.origin.z);
-	img = malloc(sizeof(img));
-	img->img = mlx_new_image(mlx->mlx, params->r.x, params->r.y);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
-                                 &img->endian);
-	px.x = 0;
-	while (px.x < params->r.x)
+		error(1);
+	if (argc == 3 && ft_strncmp(argv[1], "-save", 6))
+		error(2);
+	if (argc == 2)
 	{
-		px.y = 0;
-		while (px.y < params->r.y)
-		{
-			//printf("%i, %i\t", px.x, px.y);
-			if (do_intersect(params, &px))
-				my_mlx_pixel_put(img, px.x, px.y, rgb(px.col.r, px.col.g, px.col.b));
-			px.y++;
-		}
-		px.x++;
+		tab = ft_split(argv[1], '.');
+		if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt", ft_strlen(tab[ft_tabsize(tab) - 1])))
+			error(3);
 	}
-	return (img);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -100,25 +55,44 @@ int	main(int argc, char **argv)
 
 	if (!check_params(argc, argv))
 		return (0);
+	printf("Parsing...\t\t");
+	//mlx_get_screen_size(mlx.mlx, params.r.xmax, params.r.ymax);
 	params.shapes = NULL;
 	gnl(argc, argv, &params);
+	printf("DONE\n");
+	printf("Init MLX...\t\t");
 	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
+	if (argc < 3)
+		mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
+	printf("DONE\n");
 	int size = ft_lstsize(params.cams);
 	mlx.imgs = NULL;
+	printf("slt %i\n", size);
 	while (params.cams)
 	{
-		printf("Building image %i/%i\n", size + 1 - ft_lstsize(params.cams), size);
+		printf("Building image %i/%i...\t", size + 1 - ft_lstsize(params.cams), size);
 		params.c = *(t_cam *)params.cams->content;
-		printf("\tcam : %f, %f, %f\n", params.c.origin.x, params.c.origin.y, params.c.origin.z);
+		printf("DONE\n");
+		//printf("\tcam : %f, %f, %f\n", params.c.origin.x, params.c.origin.y, params.c.origin.z);
 		img = create_image(&mlx, &params);
 		elem = ft_lstnew(img);
 		ft_lstadd_back(&mlx.imgs, elem);
 		params.cams = params.cams->next;
 	}
 	ft_lstlast(mlx.imgs)->next = mlx.imgs;
+	if (argc == 2)
+	{
+		printf("Preparing display...\t");
+		mlx_put_image_to_window(mlx.mlx, mlx.win, (*(t_data *)mlx.imgs->content).img, 0, 0);
+		printf("DONE\n");
+		printf("\nPress space bar to change camera.\n");
+		printf("Press escape or quit button to exit.\n\n");
+		mlx_key_hook(mlx.win, handle_key, &mlx);
+		mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_wdw, &mlx);
+		mlx_loop(mlx.mlx);
+	}
+	else if (argc == 3)
+		save_bmp(img, &params, "miniRT.bmp");
 	//ft_lstmap(params.shapes, (void *)free, (void *)ft_lstdelone);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, (*(t_data *)mlx.imgs->content).img, 0, 0);
-	mlx_key_hook(mlx.win, handle_key, &mlx);
-	mlx_loop(mlx.mlx);
+	return (0);
 }

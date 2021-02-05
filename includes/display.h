@@ -15,19 +15,14 @@
 
 # include "minirt.h"
 
-typedef struct	s_color
-{
-	float	r;
-	float	g;
-	float b;
-}				t_color;
-
-typedef struct	s_px
-{
-	int	x;
-	int	y;
-	t_color	col;
-}				t_px;
+# define BMP_FILENAME "miniRT.bmp"
+# define TRUE_COLOR 24
+# define DEFAULT_DPI 96
+# define PPM_CONV_FACTOR 39.375
+# define HEADER_BYTES 54
+# define DEFAULT_BIPLANES 1
+# define FILE_PERMISSIONS 0644
+# define PIXEL_LEN 4
 
 typedef struct  s_mlx {
         void    *mlx;
@@ -43,11 +38,33 @@ typedef struct  s_data {
     int         endian;
 }               t_data;
 
+typedef struct	s_bmp_h
+{
+	uint8_t		bmp_type[2];
+	int			file_size;
+	int16_t		reserved1;
+	int16_t		reserved2;
+	uint32_t	offset;
+}				t_bmp_h;
 
-void			init_colors(t_color *c, float r, float g, float b);
-void			mix_colors(t_color *c, float coef, t_color colors);
-t_color			color_x_light(t_color color, t_color rgb);
-int				rgb(float r, float g, float b);
-void    		switch_cam();
+typedef struct	s_dib_h
+{
+	uint32_t	size_header;
+	uint32_t	width;
+	uint32_t	height;
+	int16_t		planes;
+	int16_t		bit_count;
+	uint32_t	compr;
+	uint32_t	img_size;
+	uint32_t	ppm_x;
+	uint32_t	ppm_y;
+	uint32_t	clr_used;
+	uint32_t	clr_important;
+}				t_dib_h;
+
+int     close_wdw(int keycode, t_mlx *vars);
+int     handle_key(int keycode, t_mlx *vars);
+t_data	*create_image(t_mlx *mlx, t_params *params);
+void    save_bmp(t_data *img, t_params *params, const char *filename);
 
 # endif

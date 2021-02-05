@@ -32,8 +32,6 @@ float   get_alpha(t_light light, t_vect position)
     if (is_null(n))
         n.x = 1.0;
     to_light_edge = normalize_v(subs(add(light.origin, scalprod_v(n, light.light)), position));
-    //printf("pl = %f, %f, %f\n", pl.x, pl.y, pl.z);
-    //printf("pe = %f, %f, %f\n", pe.x, pe.y, pe.z);
     return (acos(dotprod(to_light, to_light_edge)) * 2.0);
 }
 
@@ -52,9 +50,6 @@ t_vect angleAxis3x3(float angle, t_vect axis, t_vect v)
     init_vect(&r[2], t * axis.x * axis.z - sin(angle) * axis.y,
                         t * axis.y * axis.z + sin(angle) * axis.x,
                         t * axis.z * axis.z + cos(angle));
-    //return((t_vect) {v.x * r[0].x + v.y * r[1].x + v.z * r[2].x, 
-    //                v.x * r[0].y + v.y * r[1].y + v.z * r[2].y, 
-    //                v.x * r[0].z + v.y * r[1].z + v.z * r[2].z});
     return((t_vect) {-dotprod(r[0], v), -dotprod(r[1], v), -dotprod(r[2], v)});
 }
 
@@ -73,10 +68,10 @@ t_vect  get_direction(t_vect direction, float alpha)
     init_vect(&north, 0, 0, 1);
     axis = normalize_v(crossprod(north, normalize_v(direction)));
     angle = acos(dotprod(normalize_v(direction), north));
-    scalprod(&axis, angle);
-    anti_rot(&v, &axis);
-    return(v);
-    //return(angleAxis3x3(angle, axis, v));
+    //scalprod(&axis, angle);
+    //rotate(&v, &axis);
+    //return(scalprod_v(v, -1));
+    return(angleAxis3x3(angle, axis, v));
 }
 
 /*void    get_shadows(t_px *px, t_intersect *i, t_params *params)
