@@ -75,8 +75,8 @@ int	do_intersect(t_params *params, t_px *px)
 	float		x;
 	float		y;
 	
-	x = (px->x - params->r.y / 2.0) * params->r.y / params->r.x;
-	y = (- px->y + params->r.x / 2.0) * params->r.y / params->r.x;
+	x = (px->x - params->r.x / 2.0) * params->r.x / params->r.y;
+	y = (- px->y + params->r.y / 2.0) * params->r.x / params->r.y;
 	init_intersect(&i);
 	init_vect(&dir, x, y, 1 / (2 * tan(PI / 180.0 * params->c.fov / 2)) * params->r.x / 2);
 	dir = look_at(dir, params->c.direction);
@@ -85,9 +85,7 @@ int	do_intersect(t_params *params, t_px *px)
 	if (intersect(params->shapes, &i, 0))
 	{
 		set_colors(px, &i, params);
-		//get_shadows(px, &i, params);
 		return (1);
 	}
-	//get_shadows(px, &i, params);
 	return (0);
 }

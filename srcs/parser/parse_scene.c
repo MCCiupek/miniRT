@@ -17,6 +17,7 @@ void	init_resol(t_resol	*r, char  **tab)
 {
 	r->x = (int)limit(ft_atoi(tab[1]), 0, RES_X_MAX);
 	r->y = (int)limit(ft_atoi(tab[2]), 0, RES_Y_MAX);
+	//printf("Resol = %i x %i\n", r->x, r->y);
 }
 
 void	init_alight(t_alight	*al, char  **tab)
