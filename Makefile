@@ -22,7 +22,7 @@ MLX_FLAGS =		-lmlx -framework OpenGL -framework AppKit
 
 LIBFT =			libft.a
 
-#SAVE =			-fsanitize=address
+SAVE =			-fsanitize=address
 
 SRC =			gnl/get_next_line_utils.c \
 				gnl/get_next_line.c \
@@ -57,7 +57,7 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) #$(SAVE)
+COMPIL =		$(FLAGS) $(SAVE)
 
 OBJS =			$(SRCS:.c=.o)
 

@@ -78,7 +78,7 @@ int	do_intersect(t_params *params, t_px *px)
 	x = (px->x - params->r.x / 2.0) * params->r.x / params->r.y;
 	y = (- px->y + params->r.y / 2.0) * params->r.x / params->r.y;
 	init_intersect(&i);
-	init_vect(&dir, x, y, 1 / (2 * tan(PI / 180.0 * params->c.fov / 2)) * params->r.x / 2);
+	init_vect(&dir, x, y, 1 / (tan(M_PI / 180.0 * params->c.fov / 2)) * params->r.x / 2);
 	dir = look_at(dir, params->c.direction);
 	normalize(&dir);
 	init_ray(&i.ray, params->c.origin, dir);

@@ -15,7 +15,7 @@
 
 # define BUFFER_SIZE 32
 
-# define PI 3.1416
+# define FILENAME "room.bmp"
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1600

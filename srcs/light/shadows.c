@@ -13,7 +13,50 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-float next_rand(int s) 
+void    get_norm_sp(t_intersect *i)
+{
+    t_vect  p;
+
+    p = calculate(i->ray, i->t);
+    i->n = subs(p, i->shape->p0);
+    normalize(&i->n);
+}
+
+void    get_norm_pl(t_intersect *i)
+{
+    i->n = i->shape->n;
+    normalize(&i->n);
+}
+
+void    get_norm_cy_base_up(t_intersect *i)
+{
+    i->n = i->shape->n;
+    normalize(&i->n);
+}
+
+void    get_norm_cy_base_down(t_intersect *i)
+{
+    i->n = scalprod_v(i->shape->n, -1);
+    normalize(&i->n);
+}
+
+void    get_norm_cy(t_intersect *i)
+{
+    t_vect base_tmp;
+    t_vect intersection_tmp;
+
+    base_tmp = copy(i->shape->p0);
+    intersection_tmp = copy(i->ray.direction);
+    anti_rot(&intersection_tmp, &i->shape->direction);
+    base_tmp.y = intersection_tmp.y;
+    rotate(&intersection_tmp, &i->shape->direction);
+    rotate(&base_tmp, &i->shape->direction);
+    init_vect(&i->n, i->ray.direction.x - base_tmp.x,
+                    i->ray.direction.y - base_tmp.y,
+                    i->ray.direction.z - base_tmp.z);
+    normalize(&i->n);
+}
+/*float next_rand(int s) 
 {
     s = (1664525u * s + 1013904223u);
     return (s&0x00FFFFFF / 0x01000000);
@@ -72,4 +115,4 @@ t_vect  get_direction(t_vect direction, float alpha)
     //rotate(&v, &axis);
     //return(scalprod_v(v, -1));
     return(angle_axis(angle, axis, v));
-}
+}*/

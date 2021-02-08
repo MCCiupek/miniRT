@@ -91,7 +91,7 @@ int	main(int argc, char **argv)
 		mlx_loop(mlx.mlx);
 	}
 	else if (argc == 3)
-		save_bmp(img, &params, "miniRT.bmp");
+		save_bmp(img, &params, FILENAME);
 	//ft_lstmap(params.shapes, (void *)free, (void *)ft_lstdelone);
 	return (0);
 }

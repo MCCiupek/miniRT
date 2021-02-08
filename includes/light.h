@@ -20,13 +20,13 @@ void    get_norm_pl(t_intersect *i);
 void    get_norm_cy(t_intersect *i);
 void    get_norm_cy_base_up(t_intersect *i);
 void    get_norm_cy_base_down(t_intersect *i);
-void    get_i_norm(t_intersect *i);
+void    set_norm(t_intersect *i);
 float   light(t_intersect *i, t_params *params);
 void    set_colors(t_px *px, t_intersect *i, t_params *params);
-void    set_shadow(t_px *px, float l);
-float   get_alpha(t_light light, t_vect position);
-float   next_rand(int s);
-t_vect  angle_axis(float angle, t_vect axis, t_vect v);
-t_vect  get_direction(t_vect direction, float alpha);
+//void    set_shadow(t_px *px, float l);
+//float   get_alpha(t_light light, t_vect position);
+//float   next_rand(int s);
+//t_vect  angle_axis(float angle, t_vect axis, t_vect v);
+//t_vect  get_direction(t_vect direction, float alpha);
 
 #endif
