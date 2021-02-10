@@ -73,19 +73,19 @@ NAME =			miniRT
 UNAME := 		$(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	COMPIL += $(MACOS_FLAGS)
+	MLX_FLAGS += $(MACOS_FLAGS)
 	MLX_DIR = ./mlx
 endif
 
 ifeq ($(UNAME),Linux)
-	COMPIL += $(LINUX_FLAGS)
+	MLX_FLAGS += $(LINUX_FLAGS)
 	MLX_DIR = ./mlx_linux
 endif
 
 all:			$(NAME)
 
 $(NAME) :		$(OBJS)
-				$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) -L $(MLX_DIR) $(MLX_FLAGS) $(LIBFT) $(OBJS) -o $(NAME)
+				$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) -L $(MLX_DIR) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
 
 %.o: %.c
 				@$(MAKE) bonus -C ./libft
