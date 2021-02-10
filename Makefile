@@ -85,10 +85,10 @@ endif
 all:			$(NAME)
 
 $(NAME) :		$(OBJS)
-				@$(MAKE) bonus -C ./libft
+				@$(MAKE) -C ./libft bonus
 				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/mlx.h $(MLX_HEADER)mlx.h
+				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
 				@$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) $(LIBFT) $(OBJS) -o $(NAME) -L $(MLX_DIR) $(MLX_FLAGS)
 
 %.o: %.c
@@ -102,8 +102,8 @@ norme:
 				norminette $(DIR_HEADERS)
 
 clean:
-				$(MAKE) clean -C ./libft
-				$(MAKE) clean -C $(MLX_DIR)
+				$(MAKE) -C ./libft clean
+				$(MAKE) -C $(MLX_DIR) clean
 				$(RM) $(OBJS)
 
 fclean:			clean
