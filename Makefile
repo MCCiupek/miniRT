@@ -86,7 +86,7 @@ all:			$(NAME)
 
 $(NAME) :		$(OBJS)
 				@$(MAKE) bonus -C ./libft
-				@cp ./libft/libft.a libft.a
+				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 				@$(MAKE) -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/mlx.h $(MLX_HEADER)mlx.h
 				@$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) $(LIBFT) $(OBJS) -o $(NAME) -L $(MLX_DIR) $(MLX_FLAGS)
