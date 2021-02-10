@@ -77,7 +77,7 @@ endif
 
 ifeq ($(UNAME),Linux)
 	COMPIL += $(LINUX_FLAGS)
-	MLX_DIR += ./mlx_linux
+	MLX_DIR = ./mlx_linux
 endif
 
 all:			$(NAME)
