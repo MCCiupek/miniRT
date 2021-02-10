@@ -85,14 +85,14 @@ endif
 all:			$(NAME)
 
 $(NAME) :		$(OBJS)
-				$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) -L $(MLX_DIR) $(LIBFT) $(OBJS) -o $(NAME) $(MLX_FLAGS)
-
-%.o: %.c
 				@$(MAKE) bonus -C ./libft
 				@cp ./libft/libft.a libft.a
 				@$(MAKE) -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/mlx.h $(MLX_HEADER)mlx.h
-				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@ $(MLX_FLAGS)
+				@$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) $(LIBFT) $(OBJS) -o $(NAME) -L $(MLX_DIR) $(MLX_FLAGS)
+
+%.o: %.c
+				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
