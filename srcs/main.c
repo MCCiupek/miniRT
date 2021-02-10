@@ -13,22 +13,6 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void	ft_lstprint(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		i++;
-		printf("[%i] id : %s\n", i, (*(t_shape *)(lst->content)).id);
-		printf("[%i] dir : (%f, %f, %f)\n", i, (*(t_shape *)(lst->content)).direction.x, (*(t_shape *)(lst->content)).direction.y, (*(t_shape *)(lst->content)).direction.z);
-		printf("[%i] d : %f\n", i, (*(t_shape *)(lst->content)).d);
-		printf("[%i] h : %f\n\n", i, (*(t_shape *)(lst->content)).h);
-		lst = lst->next;
-	}
-}
-
 void	check_params(int argc, char **argv)
 {
 	char	**tab;
