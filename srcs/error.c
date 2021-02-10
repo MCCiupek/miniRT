@@ -13,7 +13,7 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void	error(int	err)
+void    error(int err)
 {
 	ft_putstr_fd("Error :\n", 1);
 	if (err == 1)
@@ -24,6 +24,8 @@ void	error(int	err)
 		ft_putstr_fd(ERR_3, 1);
 	else if (err == 4)
 		ft_putstr_fd(ERR_4, 1);
+    else if (err == 5)
+		ft_putstr_fd(ERR_5, 1);
 	else
 		ft_putstr_fd(ERR, 1);
 	exit(EXIT_SUCCESS);

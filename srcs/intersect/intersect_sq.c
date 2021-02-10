@@ -26,9 +26,9 @@ static int	is_inside_square(t_shape *square, t_vect p)
 		&& (fabs(dist.z) <= border));
 }
 
-int	intersect_sq(t_intersect *i, t_shape *sq)
+int			intersect_sq(t_intersect *i, t_shape *sq)
 {
-	float t;
+	float	t;
 	t_vect	p;
 
 	sq->n = copy(sq->direction);

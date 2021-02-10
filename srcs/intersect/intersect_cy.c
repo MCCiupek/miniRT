@@ -41,27 +41,28 @@ float	inter_cy_base(t_intersect *i, t_shape *cy, int pl)
 
 int		intersect_cy(t_intersect *i, t_shape *cy)
 {
-	t_vect	p;
-	t_vect	d;
-	float	t;
-	float	y;
+	t_vect	v[2];
+	float	y[2];
 
 	normalize(&cy->direction);
-	d = scalprod_v(cy->direction, dotprod(i->ray.direction, cy->direction));
-    d = subs(i->ray.direction, d);
-    p = scalprod_v(cy->direction, dotprod(subs(i->ray.origin, cy->p0), cy->direction));
-    p = subs(subs(i->ray.origin, cy->p0), p);
-    t = resolve_eq(dotprod(d, d), 2 * dotprod(d, p), dotprod(p, p) - pow(cy->d / 2, 2));
-	y = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, t), subs(cy->p0, i->ray.origin)));
-	if (y >= cy->h || y <= 0)
-	{	
+	v[0] = scalprod_v(cy->direction, dotprod(i->ray.direction, cy->direction));
+    v[0] = subs(i->ray.direction, v[0]);
+    v[1] = scalprod_v(cy->direction, dotprod(subs(i->ray.origin, cy->p0),
+				cy->direction));
+    v[1] = subs(subs(i->ray.origin, cy->p0), v[1]);
+    y[0] = resolve_eq(dotprod(v[0], v[0]), 2 * dotprod(v[0], v[1]),
+				dotprod(v[1], v[1]) - pow(cy->d / 2, 2));
+	y[1] = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, y[0]),
+				subs(cy->p0, i->ray.origin)));
+	if (y[1] >= cy->h || y[1] <= RAY_MIN)
+	{
 		inter_cy_base(i, cy, 0);
 		inter_cy_base(i, cy, 1);
-		t = RAY_MAX;
+		y[0] = RAY_MAX;
 	}
-	if (t >= RAY_MIN && t < i->t)
+	if (y[0] >= RAY_MIN && y[0] < i->t)
 	{
-		i->t = t;
+		i->t = y[0];
 		i->shape = cy;
 	}
 	return (i->shape != NULL);

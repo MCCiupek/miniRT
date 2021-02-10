@@ -13,40 +13,39 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void	init_resol(t_resol	*r, char  **tab)
+void	init_resol(t_resol *r, char **tab)
 {
 	r->x = (int)limit(ft_atoi(tab[1]), 0, RES_X_MAX);
 	r->y = (int)limit(ft_atoi(tab[2]), 0, RES_Y_MAX);
-	//printf("Resol = %i x %i\n", r->x, r->y);
 }
 
-void	init_alight(t_alight	*al, char  **tab)
+void	init_alight(t_alight *al, char **tab)
 {
 	char	**rgb;
 
 	al->light = limit(ft_atof(tab[1]), 0.0, 1.0);
 	rgb = ft_split(tab[2], ',');
-	init_colors(&al->colors, 
-		limit(ft_atof(rgb[0]), 0, 255), 
-		limit(ft_atof(rgb[1]), 0, 255), 
+	init_colors(&al->colors,
+		limit(ft_atof(rgb[0]), 0, 255),
+		limit(ft_atof(rgb[1]), 0, 255),
 		limit(ft_atof(rgb[2]), 0, 255));
 	ft_free(rgb);
 }
 
-void	init_cam(t_cam	*c, char  **tab)
+void	init_cam(t_cam *c, char **tab)
 {
 	char	**coord;
 	char	**vect;
 
 	coord = ft_split(tab[1], ',');
 	vect = ft_split(tab[2], ',');
-	init_vect(&c->origin, 
-		ft_atof(coord[0]), 
-		ft_atof(coord[1]), 
+	init_vect(&c->origin,
+		ft_atof(coord[0]),
+		ft_atof(coord[1]),
 		ft_atof(coord[2]));
-	init_vect(&c->direction, 
-		limit(ft_atof(vect[0]), -1.0, 1.0), 
-		limit(ft_atof(vect[1]), -1.0, 1.0), 
+	init_vect(&c->direction,
+		limit(ft_atof(vect[0]), -1.0, 1.0),
+		limit(ft_atof(vect[1]), -1.0, 1.0),
 		limit(ft_atof(vect[2]), -1.0, 1.0));
 	c->fov = limit(ft_atof(tab[3]), 0.0, 180.0);
 	ft_free(coord);
@@ -60,14 +59,14 @@ void	init_light(t_light *l, char **tab)
 
 	coord = ft_split(tab[1], ',');
 	rgb = ft_split(tab[3], ',');
-	init_vect(&l->origin, 
-		ft_atof(coord[0]), 
-		ft_atof(coord[1]), 
+	init_vect(&l->origin,
+		ft_atof(coord[0]),
+		ft_atof(coord[1]),
 		ft_atof(coord[2]));
 	l->light = ft_atof(tab[2]);
-	init_colors(&l->colors, 
-		limit(ft_atof(rgb[0]), 0, 255), 
-		limit(ft_atof(rgb[1]), 0, 255), 
+	init_colors(&l->colors,
+		limit(ft_atof(rgb[0]), 0, 255),
+		limit(ft_atof(rgb[1]), 0, 255),
 		limit(ft_atof(rgb[2]), 0, 255));
 	ft_free(coord);
 	ft_free(rgb);

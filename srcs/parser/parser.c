@@ -13,16 +13,6 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-int		ft_tabsize(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
 void	ft_free(char **tab)
 {
 	int	i;
@@ -33,49 +23,48 @@ void	ft_free(char **tab)
 	free(tab);
 }
 
+void	init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
+							void *obj, char **tab)
+{
+	t_list	*elem;
+
+	f(obj, tab);
+	elem = ft_lstnew(obj);
+	ft_lstadd_back(lst, elem);
+}
+
+int		is_shape(char *tab)
+{
+	return (!ft_strncmp(tab, "sp", 3) || !ft_strncmp(tab, "pl", 3) ||
+			!ft_strncmp(tab, "sq", 3) || !ft_strncmp(tab, "cy", 3) ||
+			!ft_strncmp(tab, "tr", 3));
+}
+
 void	parse(char *line, t_params *params)
 {
-	int 	i;
 	char	**tab;
-	t_list	*elem;
-	t_shape	*shape;
-	t_light	*light;
-	t_cam	*cam;
-	
-	i = 0;
-	//tab = ft_split(line, '\t');
-	tab = ft_split(line, ' ');
-	if (!tab[0])
-	{	
-		ft_free(tab);
-		return ;
-	}
-	if (!ft_strncmp(tab[0],"R", 2))
+	void	*obj;
+
+	if (!(tab = ft_split(line, ' ')) || !tab[0])
+		return (ft_free(tab));
+	if (!ft_strncmp(tab[0], "R", 2))
 		init_resol(&params->r, tab);
 	if (!ft_strncmp(tab[0], "A", 2))
 		init_alight(&params->al, tab);
 	if (!ft_strncmp(tab[0], "c", 2))
 	{
-		cam = malloc(sizeof(t_cam));
-		init_cam(cam, tab);
-		elem = ft_lstnew(cam);
-		ft_lstadd_back(&params->cams, elem);
+		obj = (t_cam *)malloc(sizeof(t_cam));
+		init_obj_lst(&params->cams, (void *)init_cam, obj, tab);
 	}
 	if (!ft_strncmp(tab[0], "l", 2))
 	{
-		light = malloc(sizeof(t_light));
-		init_light(light, tab);
-		elem = ft_lstnew(light);
-		ft_lstadd_back(&params->lights, elem);
+		obj = (t_light *)malloc(sizeof(t_light));
+		init_obj_lst(&params->lights, (void *)init_light, obj, tab);
 	}
-	if (!ft_strncmp(tab[0], "sp", 3) || !ft_strncmp(tab[0], "pl", 3) || 
-		!ft_strncmp(tab[0], "sq", 3) || !ft_strncmp(tab[0], "cy", 3) || 
-		!ft_strncmp(tab[0], "tr", 3))
+	if (is_shape(tab[0]))
 	{
-		shape = malloc(sizeof(t_shape));
-		init_sh(shape, tab);
-		elem = ft_lstnew(shape);
-		ft_lstadd_back(&params->shapes, elem);
+		obj = (t_shape *)malloc(sizeof(t_shape));
+		init_obj_lst(&params->shapes, (void *)init_sh, obj, tab);
 	}
 	ft_free(tab);
 }
@@ -100,12 +89,10 @@ int		gnl(int argc, char **argv, t_params *params)
 	while ((i = get_next_line(fd, &line)) != -1)
 	{
 		parse(line, params);
-		//printf("[%i] line = %s\n", i, line);
 		free(line);
 		if (i == 0)
-			break;
+			break ;
 	}
-	//printf("PARSING DONE [SUCCESS]\n");
 	if (argc == 2)
 		close(fd);
 	return (0);

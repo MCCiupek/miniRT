@@ -36,5 +36,8 @@ t_vect	crossprod(t_vect u, t_vect v);
 void	normalize(t_vect *v);
 t_vect	normalize_v(t_vect v);
 int		is_null(t_vect v);
+void	v_limit(t_vect *v, float min, float max);
+float	limit(float n, float min, float max);
+int		ft_tabsize(char **tab);
 
 #endif

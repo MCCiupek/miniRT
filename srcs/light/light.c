@@ -13,55 +13,13 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-/*void    get_norm_sp(t_intersect *i)
-{
-    t_vect  p;
-
-    p = calculate(i->ray, i->t);
-    i->n = subs(p, i->shape->p0);
-    normalize(&i->n);
-}
-
-void    get_norm_pl(t_intersect *i)
-{
-    i->n = i->shape->n;
-    normalize(&i->n);
-}
-
-void    get_norm_cy_base_up(t_intersect *i)
-{
-    i->n = i->shape->n;
-    normalize(&i->n);
-}
-
-void    get_norm_cy_base_down(t_intersect *i)
-{
-    i->n = scalprod_v(i->shape->n, -1);
-    normalize(&i->n);
-}
-
-void    get_norm_cy(t_intersect *i)
-{
-    t_vect base_tmp;
-    t_vect intersection_tmp;
-
-    base_tmp = copy(i->shape->p0);
-    intersection_tmp = copy(i->ray.direction);
-    anti_rot(&intersection_tmp, &i->shape->direction);
-    base_tmp.y = intersection_tmp.y;
-    rotate(&intersection_tmp, &i->shape->direction);
-    rotate(&base_tmp, &i->shape->direction);
-    init_vect(&i->n, i->ray.direction.x - base_tmp.x,
-                    i->ray.direction.y - base_tmp.y,
-                    i->ray.direction.z - base_tmp.z);
-    normalize(&i->n);
-}*/
-
 void    set_norm(t_intersect *i)
 {
     if (!ft_strncmp(i->shape->id, "sp", 3))
         get_norm_sp(i);
-    else if (!ft_strncmp(i->shape->id, "pl", 3) || !ft_strncmp(i->shape->id, "sq", 3) || !ft_strncmp(i->shape->id, "tr", 3))
+    else if (!ft_strncmp(i->shape->id, "pl", 3) ||
+                !ft_strncmp(i->shape->id, "sq", 3) ||
+                !ft_strncmp(i->shape->id, "tr", 3))
         get_norm_pl(i);
     else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == 1)
         get_norm_cy_base_up(i);
@@ -71,43 +29,21 @@ void    set_norm(t_intersect *i)
         get_norm_cy(i);
 }
 
-/*t_color  intensity(t_color c, float l)
-{
-    c.r *= l;
-    c.g *= l;
-    c.b *= l;
-    return (c);
-}
-
-t_color  add_colors(t_color c1, t_color c2)
-{
-    c1.r += c2.r;
-    c1.g += c2.r;
-    c1.b += c2.r;
-    return (c1);
-}
-
-t_color  mult_colors(t_color c1, t_color c2)
-{
-    c1.r *= c2.r;
-    c1.g *= c2.r;
-    c1.b *= c2.r;
-    return (c1);
-}*/
-
-int    is_lit(t_intersect *i, t_params *params, t_light light, t_vect light_dir)
+int     is_lit(t_intersect *i, t_params *params, t_light light,
+                                                    t_vect light_dir)
 {
     t_intersect i2;
 
     init_intersect(&i2);
     init_ray(&i2.ray, calculate(i->ray, i->t), normalize_v(light_dir));
     if (intersect(params->shapes, &i2, 0))
-        if (len3(subs(light.origin, i2.ray.origin)) > len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
+        if (len3(subs(light.origin, i2.ray.origin)) >
+            len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
             return (0);
     return (1);
 }
 
-float		get_specular(
+float   get_specular(
 	t_intersect *i, t_light *light, t_vect light_dir, double angle)
 {
 	t_vect	rev_dir;
@@ -118,11 +54,12 @@ float		get_specular(
 	rev_dir = scalprod_v(i->ray.direction, -1);
 	reflect = subs(scalprod_v(i->n, 2 * angle), normalize_v(light_dir));
 	if (dotprod(reflect, rev_dir) > 0.0)
-		coef = light->light * pow(dotprod(reflect, rev_dir) / (len3(reflect) * len3(rev_dir)), GAMMA);
+		coef = light->light * pow(dotprod(reflect, rev_dir) /
+                    (len3(reflect) * len3(rev_dir)), GAMMA);
 	return (coef);
 }
 
-t_color   light_color(t_intersect *i, t_params *params)
+t_color light_color(t_intersect *i, t_params *params)
 {
     float       l;
     t_color     l_col;
@@ -136,7 +73,6 @@ t_color   light_color(t_intersect *i, t_params *params)
     while (lights)
 	{
 		light = *(t_light *)lights->content;
-        //printf("\tlight : %f, %f, %f\n", light.origin.x, light.origin.y, light.origin.z);
         spot = subs(light.origin, calculate(i->ray, i->t));
         set_norm(i);
         if (dotprod(i->n, spot) > 0 && is_lit(i, params, light, spot))
@@ -158,10 +94,3 @@ void    set_colors(t_px *px, t_intersect *i, t_params *params)
     l = light_color(i, params);
     px->col = color_x_light(l, i->shape->colors);
 }
-
-/*void    set_shadow(t_px *px, float l)
-{
-    px->col.r *= l;
-    px->col.g *= l;
-    px->col.b *= l;
-}*/

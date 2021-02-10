@@ -15,9 +15,6 @@
 
 # include "minirt.h"
 
-# define RAY_MIN 0.0001
-# define RAY_MAX 1.0e30
-
 typedef struct	s_ray
 {
 	t_vect	origin;

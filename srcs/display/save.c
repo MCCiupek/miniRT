@@ -24,10 +24,6 @@ static void	create_bmpfileheader(t_bmp_h *header, int size)
 	header->offset = HEADER_BYTES;
 }
 
-/*
-** This function fills the DIB header structure
-*/
-
 static void	create_bmpdibheader(t_params *params, t_dib_h *header, int size)
 {
 	int		ppm;
@@ -46,10 +42,6 @@ static void	create_bmpdibheader(t_params *params, t_dib_h *header, int size)
 	header->clr_used = 0;
 	header->clr_important = 0;
 }
-
-/*
-** This function writes headers to the file
-*/
 
 static void	write_bmpheaders(t_params *params, int fd)
 {
@@ -78,11 +70,11 @@ static void	write_bmpheaders(t_params *params, int fd)
 	write(fd, &(dib_header.clr_important), 4);
 }
 
-void    write_bmpdata(t_data *img, t_params *params, int fd)
+void        write_bmpdata(t_data *img, t_params *params, int fd)
 {
-    int		x;
-	int		y;
-	unsigned int		*pixel;
+    int             x;
+    int             y;
+	unsigned int    *pixel;
 
 	y = params->r.y - 1;
 	while (y > -1)
@@ -90,9 +82,8 @@ void    write_bmpdata(t_data *img, t_params *params, int fd)
 		x = 0;
 		while (x < params->r.x)
 		{
-            //pixel = (unsigned int*)(img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
-			//i = (x + params->r.x * y) * PIXEL_LEN;
-			pixel = (unsigned int *)(img->addr + (x + params->r.x * y) * PIXEL_LEN);
+			pixel = (unsigned int *)(img->addr + (x + params->r.x * y)
+                        * PIXEL_LEN);
 			if (write(fd, pixel, 3) < 0)
 				error(3);
 			x++;

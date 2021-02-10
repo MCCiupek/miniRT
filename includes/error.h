@@ -20,7 +20,8 @@
 # define ERR_2 "Unidentified input file type.\n"
 # define ERR_3 "File can't be opened.\n"
 # define ERR_4 "Unidentified flag.\n"
+# define ERR_5 "Malloc failed while parsing shapes.\n"
 
-void error(int	err);
+void    error(int err);
 
 # endif

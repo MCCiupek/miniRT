@@ -13,15 +13,15 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
+	char	*dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-int             close_wdw(int keycode, t_mlx *vars)
+int		close_wdw(int keycode, t_mlx *vars)
 {
 	(void)keycode;
 	(void)vars;
@@ -29,12 +29,13 @@ int             close_wdw(int keycode, t_mlx *vars)
 	return (0);
 }
 
-int             handle_key(int keycode, t_mlx *vars)
+int		handle_key(int keycode, t_mlx *vars)
 {
 	if (keycode == SPC_KEY)
 	{
 		vars->imgs = vars->imgs->next;
-		mlx_put_image_to_window(vars->mlx, vars->win, (*(t_data *)vars->imgs->content).img, 0, 0);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			(*(t_data *)vars->imgs->content).img, 0, 0);
 		return (1);
 	}
 	if (keycode == ESC_KEY)
@@ -52,8 +53,8 @@ t_data	*create_image(t_mlx *mlx, t_params *params)
 
 	img = malloc(sizeof(img));
 	img->img = mlx_new_image(mlx->mlx, params->r.x, params->r.y);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
-                                 &img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_length, &img->endian);
 	px.x = 0;
 	while (px.x < params->r.x)
 	{
@@ -61,7 +62,8 @@ t_data	*create_image(t_mlx *mlx, t_params *params)
 		while (px.y < params->r.y)
 		{
 			if (do_intersect(params, &px))
-				my_mlx_pixel_put(img, px.x, px.y, rgb(px.col.r, px.col.g, px.col.b));
+				my_mlx_pixel_put(img, px.x, px.y,
+					rgb(px.col.r, px.col.g, px.col.b));
 			px.y++;
 		}
 		px.x++;

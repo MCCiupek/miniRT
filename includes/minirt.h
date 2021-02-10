@@ -15,10 +15,13 @@
 
 # define BUFFER_SIZE 32
 
-# define FILENAME "room.bmp"
+# define FILENAME "render/miniRT.bmp"
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1600
+
+# define RAY_MIN 0.001
+# define RAY_MAX 1.0e30
 
 # define GAMMA 70
 

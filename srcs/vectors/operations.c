@@ -13,7 +13,7 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-t_vect add(t_vect u, t_vect v)
+t_vect	add(t_vect u, t_vect v)
 {
 	t_vect	res;
 
@@ -23,7 +23,7 @@ t_vect add(t_vect u, t_vect v)
 	return (res);
 }
 
-t_vect subs(t_vect u, t_vect v)
+t_vect	subs(t_vect u, t_vect v)
 {
 	t_vect	res;
 
@@ -43,7 +43,7 @@ t_vect	normalize_v(t_vect v)
 	return (scalprod_v(v, 1 / len3(v)));
 }
 
-float		len3(t_vect v)
+float	len3(t_vect v)
 {
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }

@@ -16,13 +16,17 @@ MLX_DIR = 		./
 MLX_HEADER = 	./includes/
 				# /usr/local/include/
 
-MLX_FLAGS =		-lmlx -framework OpenGL -framework AppKit
-# LIBMLX =		libmlx.dylib \
-				libmlx.a
+FLAGS		=	-g -lmlx
+
+MACOS_FLAGS =	-framework OpenGL -framework AppKit
+
+LINUX_FLAGS =	-lX11 -lXext -lm
+
+LIBMLX =		libmlx.a
 
 LIBFT =			libft.a
 
-SAVE =			-fsanitize=address
+FSAN =			-fsanitize=address
 
 SRC =			gnl/get_next_line_utils.c \
 				gnl/get_next_line.c \
@@ -35,6 +39,7 @@ SRC =			gnl/get_next_line_utils.c \
 				vectors/operations.c \
 				vectors/products.c \
 				vectors/rotation.c \
+				vectors/utils.c \
 				\
 				intersect/intersect.c \
 				intersect/intersect_cy.c \
@@ -57,11 +62,23 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) $(SAVE)
+COMPIL =		$(FLAGS) $(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
 
 NAME =			miniRT
+
+UNAME := 		$(shell uname)
+
+ifeq ($(UNAME),Darwin)
+	COMPIL += $(MACOS_FLAGS)
+	MLX_DIR = ./mlx
+endif
+
+ifeq ($(UNAME),Linux)
+	COMPIL += $(LINUX_FLAGS)
+	MLX_DIR += ./mlx_linux
+endif
 
 all:			$(NAME)
 
@@ -71,8 +88,8 @@ $(NAME) :		$(OBJS)
 %.o: %.c
 				@$(MAKE) bonus -C ./libft
 				@cp ./libft/libft.a libft.a
-				@$(MAKE) -C ./mlx
-				@cp ./mlx/libmlx.a $(MLX_DIR)libmlx.a && cp ./mlx/mlx.h $(MLX_HEADER)mlx.h
+				@$(MAKE) -C $(MLX_DIR)
+				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/mlx.h $(MLX_HEADER)mlx.h
 				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
@@ -84,12 +101,12 @@ norme:
 
 clean:
 				$(MAKE) clean -C ./libft
-				$(MAKE) clean -C ./mlx
+				$(MAKE) clean -C $(MLX_DIR)
 				$(RM) $(OBJS)
 
 fclean:			clean
 				$(RM) $(LIBFT)
-				$(RM) $(MLX_DIR)libmlx.a
+				$(RM) $(LIBMLX)
 				$(RM) $(MLX_HEADER)mlx.h
 				$(RM) $(NAME)
 

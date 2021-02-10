@@ -23,14 +23,14 @@ void	scalprod(t_vect *v, float n)
 t_vect	scalprod_v(t_vect v, float n)
 {
 	t_vect	res;
-	
+
 	res.x = v.x * n;
 	res.y = v.y * n;
 	res.z = v.z * n;
 	return (res);
 }
 
-float		dotprod(t_vect u, t_vect v)
+float	dotprod(t_vect u, t_vect v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
@@ -44,4 +44,3 @@ t_vect	crossprod(t_vect u, t_vect v)
 	res.z = u.x * v.y - u.y * v.x;
 	return (res);
 }
-

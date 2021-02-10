@@ -13,63 +13,58 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-float	limit(float n, float min, float max)
+static void	split_and_init(char **dest, char *src, t_vect *vec, int free_dest)
 {
-	return(fmax(min, fmin(n, max)));
+	if (free_dest)
+		free(dest);
+	dest = ft_split(src, ',');
+	init_vect(vec, ft_atof(dest[0]), ft_atof(dest[1]), ft_atof(dest[2]));
 }
 
-void	v_limit(t_vect *v, float min, float max)
+void		init_tr(char **coord, char **tab, t_shape *s)
 {
-	v->x = limit(v->x, min, max);
-	v->y = limit(v->y, min, max);
-	v->z = limit(v->z, min, max);
+	split_and_init(coord, tab[2], &s->p1, 1);
+	split_and_init(coord, tab[3], &s->p2, 1);
 }
 
-void	c_limit(t_color *c)
+void		init_cy(char **tab, t_shape *s)
 {
-	c->r = limit(c->r, 0, 255);
-	c->g = limit(c->g, 0, 255);
-	c->b = limit(c->b, 0, 255);
+	s->d = fabs(ft_atof(tab[3]));
+	s->h = fabs(ft_atof(tab[4]));
 }
 
-void	init_sh(t_shape	*s, char **tab)
+void		init_rgb(char **rgb, char **tab, t_shape *s)
+{
+	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
+	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
+	free(rgb);
+}
+
+void		init_sh(t_shape *s, char **tab)
 {
 	char	**coord;
 	char	**rgb;
 
 	if (!s)
-		exit(4);
+		error(5);
 	ft_strlcpy(s->id, tab[0], 3);
-	coord = ft_split(tab[1], ',');
-	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
-	init_vect(&s->p0, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	coord = NULL;
+	rgb = NULL;
+	init_rgb(rgb, tab, s);
+	split_and_init(coord, tab[1], &s->p0, 0);
 	if (!ft_strncmp(s->id, "tr", 3))
-	{
-		free(coord);
-		coord = ft_split(tab[2], ',');
-		init_vect(&s->p1, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
-		free(coord);
-		coord = ft_split(tab[3], ',');
-		init_vect(&s->p2, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
-	}
+		init_tr(coord, tab, s);
 	if (!ft_strncmp(s->id, "sp", 3))
 		s->d = fabs(ft_atof(tab[2]));
 	if (!ft_strncmp(s->id, "cy", 3))
-	{
-		s->d = fabs(ft_atof(tab[3]));
-		s->h = fabs(ft_atof(tab[4]));
-	}
+		init_cy(tab, s);
 	if (!ft_strncmp(s->id, "sq", 3))
 		s->h = fabs(ft_atof(tab[3]));
-	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3) || !ft_strncmp(s->id, "cy", 3))
+	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3) ||
+					!ft_strncmp(s->id, "cy", 3))
 	{
-		free(coord);
-		coord = ft_split(tab[2], ',');
-		init_vect(&s->direction, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+		split_and_init(coord, tab[2], &s->direction, 1);
 		v_limit(&s->direction, -1.0, 1.0);
-	}	
-	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
-	c_limit(&s->colors);
-	ft_free(coord);
-	ft_free(rgb);
+	}
+	free(coord);
 }
