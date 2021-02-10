@@ -40,6 +40,30 @@ typedef struct  s_data {
 
 typedef struct	s_bmp_h
 {
+	unsigned char	bmp_type[2];
+	int				file_size;
+	short			reserved1;
+	short			reserved2;
+	unsigned int	offset;
+}				t_bmp_h;
+
+typedef struct	s_dib_h
+{
+	unsigned int	size_header;
+	unsigned int	width;
+	unsigned int	height;
+	short			planes;
+	short			bit_count;
+	unsigned int	compr;
+	unsigned int	img_size;
+	unsigned int	ppm_x;
+	unsigned int	ppm_y;
+	unsigned int	clr_used;
+	unsigned int	clr_important;
+}				t_dib_h;
+
+/*typedef struct	s_bmp_h
+{
 	uint8_t		bmp_type[2];
 	int			file_size;
 	int16_t		reserved1;
@@ -60,7 +84,7 @@ typedef struct	s_dib_h
 	uint32_t	ppm_y;
 	uint32_t	clr_used;
 	uint32_t	clr_important;
-}				t_dib_h;
+}				t_dib_h;*/
 
 int     close_wdw(int keycode, t_mlx *vars);
 int     handle_key(int keycode, t_mlx *vars);
