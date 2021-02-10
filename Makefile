@@ -92,7 +92,7 @@ $(NAME) :		$(OBJS)
 				@cp ./libft/libft.a libft.a
 				@$(MAKE) -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/mlx.h $(MLX_HEADER)mlx.h
-				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
+				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@ $(MLX_FLAGS)
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
