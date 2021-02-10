@@ -16,7 +16,9 @@ MLX_DIR = 		./
 MLX_HEADER = 	./includes/
 				# /usr/local/include/
 
-FLAGS		=	-g -lmlx
+FLAGS		=	-g
+
+MLX_FLAGS	=	-lmlx
 
 MACOS_FLAGS =	-framework OpenGL -framework AppKit
 
