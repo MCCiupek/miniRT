@@ -1,6 +1,6 @@
 CC =			clang
 
-FLAGS =			-Wall -Wextra -Werror
+FLAGS =			-Wall -Wextra -Werror -g
 
 RM =			rm -rf
 
@@ -15,8 +15,6 @@ MLX_DIR = 		./
 
 MLX_HEADER = 	./includes/
 				# /usr/local/include/
-
-FLAGS		=	-g
 
 MLX_FLAGS	=	-lmlx
 
@@ -75,11 +73,16 @@ UNAME := 		$(shell uname)
 ifeq ($(UNAME),Darwin)
 	MLX_FLAGS += $(MACOS_FLAGS)
 	MLX_DIR = ./mlx
+	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
+	FLAGS += -I$(DIR_HEADERS) -Imlx
 endif
 
 ifeq ($(UNAME),Linux)
 	MLX_FLAGS += $(LINUX_FLAGS)
 	MLX_DIR = ./mlx_linux
+	COMPIL += -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux $(LINUX_FLAGS) -lz
+	FLAGS += -I$(DIR_HEADERS) -I/usr/include -Imlx_linux
+
 endif
 
 all:			$(NAME)
@@ -89,10 +92,10 @@ $(NAME) :		$(OBJS)
 				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
-				@$(CC) $(COMPIL) -I $(DIR_HEADERS) -I $(MLX_HEADER) $(LIBFT) $(OBJS) -o $(NAME) -L $(MLX_DIR) $(MLX_FLAGS)
+				@$(CC) $(COMPIL) -I$(DIR_HEADERS) $(LIBFT) $(OBJS) -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) -I $(DIR_HEADERS) -c $< -o $@
+				@$(CC) $(FLAGS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
