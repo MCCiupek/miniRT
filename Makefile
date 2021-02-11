@@ -76,11 +76,9 @@ ifeq ($(UNAME),Darwin)
 endif
 
 ifeq ($(UNAME),Linux)
-	MLX_FLAGS += $(LINUX_FLAGS)
 	MLX_DIR = ./mlx_linux
 	MLX_FLAGS = -Lmlx_Linux -lmlx_Linux -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -I/usr/local/include -Imlx_linux
-
 endif
 
 all:			$(NAME)
