@@ -25,10 +25,16 @@
 
 # define GAMMA 70
 
-# define SPC_KEY 49
-# define ESC_KEY 53
-# define DESTROYNOTIFY 17
+# ifdef LINUX
+#  define SPC_KEY 32
+#  define ESC_KEY 65307
+# endif
+# ifdef MACOS
+#  define SPC_KEY 49
+#  define ESC_KEY 53
+# endif
 
+# define DESTROYNOTIFY 17
 # define STRUCTURENOTIFYMASK 131072
 
 /************ A SUPPRIMER !!!! ************/
