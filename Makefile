@@ -60,7 +60,7 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) $(FSAN)
+COMPIL =		$(FLAGS) #$(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
 
@@ -78,8 +78,8 @@ endif
 ifeq ($(UNAME),Linux)
 	MLX_FLAGS += $(LINUX_FLAGS)
 	MLX_DIR = ./mlx_linux
-	COMPIL += -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux $(LINUX_FLAGS) -lz
-	FLAGS += -I$(DIR_HEADERS) -I/usr/include -Imlx_linux
+	MLX_FLAGS = -Lmlx_Linux -lmlx_Linux -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
+	FLAGS += -I$(DIR_HEADERS) -I/usr/local/include -Imlx_linux
 
 endif
 
@@ -90,10 +90,11 @@ $(NAME) :		$(OBJS)
 				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
-				@$(CC) $(COMPIL) -I$(DIR_HEADERS) $(OBJS) -L $(LIB)libft -lft -o $(NAME)
+				@sudo cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/ && cp $(MLX_DIR)/*.h /usr/local/include
+				$(CC) $(COMPIL) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) -c $< -o $@
+				$(CC) $(FLAGS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
