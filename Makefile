@@ -73,12 +73,14 @@ ifeq ($(UNAME),Darwin)
 	MLX_DIR = ./mlx
 	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -Imlx
+	OS = -D MACOS
 endif
 
 ifeq ($(UNAME),Linux)
 	MLX_DIR = ./mlx_linux
 	MLX_FLAGS = -Lmlx_Linux -lmlx_Linux -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -I/usr/local/include -Imlx_linux
+	OS = -D LINUX
 endif
 
 all:			$(NAME)
@@ -89,10 +91,10 @@ $(NAME) :		$(OBJS)
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
 				@sudo cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/ && cp $(MLX_DIR)/*.h /usr/local/include
-				@$(CC) $(COMPIL) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+				@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) -c $< -o $@
+				@$(CC) $(FLAGS) $(OS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:
