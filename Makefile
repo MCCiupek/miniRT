@@ -11,10 +11,8 @@ DIR_SRCS =		./srcs/
 DIR_OBJS =		./
 
 MLX_DIR = 		./
-				# /usr/local/lib/
 
 MLX_HEADER = 	./includes/
-				# /usr/local/include/
 
 MLX_FLAGS	=	-lmlx
 
@@ -91,8 +89,8 @@ $(NAME) :		$(OBJS)
 				@$(MAKE) -C ./libft bonus
 				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-				@cp $(MLX_DIR)/$(LIBMLX) ./$(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
-				@$(CC) $(COMPIL) -I$(DIR_HEADERS) $(LIBFT) $(OBJS) -o $(NAME)
+				@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
+				@$(CC) $(COMPIL) -I$(DIR_HEADERS) $(OBJS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
 				@$(CC) $(FLAGS) -c $< -o $@
