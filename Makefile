@@ -108,6 +108,7 @@ clean:
 				$(RM) $(OBJS)
 
 fclean:			clean
+				$(MAKE) -C ./libft fclean
 				$(RM) $(LIBFT)
 				$(RM) $(LIBMLX)
 				$(RM) $(MLX_HEADER)mlx.h
