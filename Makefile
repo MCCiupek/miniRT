@@ -60,7 +60,7 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) #$(FSAN)
+COMPIL =		$(FLAGS) $(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
 
@@ -89,10 +89,10 @@ $(NAME) :		$(OBJS)
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
 				@sudo cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/ && cp $(MLX_DIR)/*.h /usr/local/include
-				$(CC) $(COMPIL) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+				@$(CC) $(COMPIL) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
-				$(CC) $(FLAGS) -c $< -o $@
+				@$(CC) $(FLAGS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 bonus:

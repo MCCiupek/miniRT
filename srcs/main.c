@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:15:01 by mciupek           #+#    #+#             */
-/*   Updated: 2021/01/20 12:42:33 by mciupek          ###   ########.fr       */
+/*   Updated: 2021/02/11 11:46:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		main(int argc, char **argv)
 	printf("Parsing...\t\t");
 	//mlx_get_screen_size(mlx.mlx, params.r.xmax, params.r.ymax);
 	params.shapes = NULL;
+	params.cams = NULL;
+	params.lights = NULL;
 	gnl(argc, argv, &params);
 	printf("DONE\n");
 	printf("Init MLX...\t\t");
