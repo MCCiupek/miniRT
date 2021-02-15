@@ -90,7 +90,6 @@ $(NAME) :		$(OBJS)
 			@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
 			@cp $(MLX_DIR)/*.h /usr/local/include
 			@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-			#@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
 			@cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/
 
 
@@ -115,7 +114,6 @@ fclean:			clean
 				$(MAKE) -C ./libft fclean
 				$(RM) $(LIBFT)
 				$(RM) $(LIBMLX)
-				#$(RM) $(MLX_HEADER)mlx.h
 				$(RM) $(NAME)
 
 re:				fclean all
