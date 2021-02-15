@@ -15,9 +15,9 @@
 
 void    free_lsts(t_params *params)
 {
-    ft_lstmap(params->shapes, (void *)free, (void *)ft_lstdelone);
-	ft_lstmap(params->cams, (void *)free, (void *)ft_lstdelone);
-	ft_lstmap(params->lights, (void *)free, (void *)ft_lstdelone);
+    ft_lstiter(params->shapes, (void *)free);
+	ft_lstiter(params->cams, (void *)free);
+	ft_lstiter(params->lights, (void *)free);
 }
 
 void    error(int err)
