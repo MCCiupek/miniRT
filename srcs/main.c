@@ -11,6 +11,20 @@
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+#ifdef MACOS
+# include <OpenGL/gl.h>
+# include <OpenGL/glu.h>
+# include <GLUT/glut.h>
+void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
+{
+	GLint maxViewportSize[2];
+
+	(void)mlx;
+	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
+	x_max = &maxViewportSize[0];
+	y_max = &maxViewportSize[1];
+}
+#endif
 //#include "minirt.h"
 
 void	check_params(int argc, char **argv)
@@ -29,6 +43,17 @@ void	check_params(int argc, char **argv)
 	}
 }
 
+void	get_screen_size(t_mlx mlx, t_params *params)
+{
+	if (OS == 2)
+		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
+	else if (OS == 1)
+		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
+	printf("xmax = %d\n", params->r.x_max);
+	params->r.x = (int)limit(params->r.x, 0, params->r.x_max);
+	params->r.y = (int)limit(params->r.y, 0, params->r.y_max);
+}
+
 int		main(int argc, char **argv)
 {
 	t_params	params;
@@ -38,7 +63,6 @@ int		main(int argc, char **argv)
 
 	check_params(argc, argv);
 	printf("Parsing...\t\t");
-	//mlx_get_screen_size(mlx.mlx, params.r.xmax, params.r.ymax);
 	params.shapes = NULL;
 	params.cams = NULL;
 	params.lights = NULL;
@@ -46,6 +70,7 @@ int		main(int argc, char **argv)
 	printf("DONE\n");
 	printf("Init MLX...\t\t");
 	mlx.mlx = mlx_init();
+	get_screen_size(mlx, &params);
 	if (argc < 3)
 		mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
 	printf("DONE\n");

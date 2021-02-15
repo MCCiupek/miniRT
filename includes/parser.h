@@ -17,6 +17,8 @@
 
 typedef struct	s_resol
 {
+	int	x_max;
+	int	y_max;
 	int	x;
 	int	y;
 }				t_resol;

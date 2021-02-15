@@ -13,6 +13,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# define GL_SILENCE_DEPRECATION
+
 # define BUFFER_SIZE 32
 
 # define FILENAME "render/miniRT.bmp"
@@ -26,10 +28,12 @@
 # define GAMMA 70
 
 # ifdef LINUX
+#  define OS 2
 #  define SPC_KEY 32
 #  define ESC_KEY 65307
 # endif
 # ifdef MACOS
+#  define OS 1
 #  define SPC_KEY 49
 #  define ESC_KEY 53
 # endif

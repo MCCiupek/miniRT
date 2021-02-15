@@ -15,8 +15,10 @@
 
 void	init_resol(t_resol *r, char **tab)
 {
-	r->x = (int)limit(ft_atoi(tab[1]), 0, RES_X_MAX);
-	r->y = (int)limit(ft_atoi(tab[2]), 0, RES_Y_MAX);
+	r->x = ft_atoi(tab[1]);
+	r->y = ft_atoi(tab[2]);
+	//r->x = (int)limit(ft_atoi(tab[1]), 0, r->x_max);
+	//r->y = (int)limit(ft_atoi(tab[2]), 0, r->y_max);
 }
 
 void	init_alight(t_alight *al, char **tab)
