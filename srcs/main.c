@@ -90,12 +90,12 @@ int		main(int argc, char **argv)
 		printf("DONE\n");
 		if (argc == 3)
 		{
-			//free_lsts(&params);
+			free_lsts(&params);
 			save_bmp(img, &params, FILENAME);
 		}
 	}
 	ft_lstlast(mlx.imgs)->next = mlx.imgs;
-	//free_lsts(&params);
+	free_lsts(&params);
 	if (argc == 2)
 	{
 		printf("Preparing display...\t");

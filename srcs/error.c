@@ -16,8 +16,11 @@
 void    free_lsts(t_params *params)
 {
     ft_lstclear(&params->shapes, (void *)free);
+    free(params->shapes);
 	ft_lstclear(&params->cams, (void *)free);
+    free(params->cams);
 	ft_lstclear(&params->lights, (void *)free);
+    free(params->lights);
 }
 
 void    error(int err)
