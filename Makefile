@@ -78,7 +78,7 @@ endif
 
 ifeq ($(UNAME),Linux)
 	MLX_DIR = ./mlx_linux
-	MLX_FLAGS = -Lmlx_Linux -lmlx_Linux -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
+	MLX_FLAGS = -Lmlx -lmlx -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -I/usr/local/include -Imlx_linux
 	OS = -D LINUX
 endif
@@ -86,12 +86,15 @@ endif
 all:			$(NAME)
 
 $(NAME) :		$(OBJS)
-				@$(MAKE) -C ./libft bonus
-				@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
-				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-				@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
-				@sudo cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/ && cp $(MLX_DIR)/*.h /usr/local/include
-				@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+			@$(MAKE) -C ./libft bonus
+			@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
+			@cp $(MLX_DIR)/*.h /usr/local/include
+			@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
+			#@cp $(MLX_DIR)/$(LIBMLX) $(LIBMLX) && cp $(MLX_DIR)/*.h $(MLX_HEADER)
+			@cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/
+
+
+			@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
 				@$(CC) $(FLAGS) $(OS) -c $< -o $@
@@ -112,7 +115,7 @@ fclean:			clean
 				$(MAKE) -C ./libft fclean
 				$(RM) $(LIBFT)
 				$(RM) $(LIBMLX)
-				$(RM) $(MLX_HEADER)mlx.h
+				#$(RM) $(MLX_HEADER)mlx.h
 				$(RM) $(NAME)
 
 re:				fclean all
