@@ -6,7 +6,7 @@
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 11:15:01 by mciupek           #+#    #+#             */
-/*   Updated: 2021/02/11 11:46:04 by root             ###   ########.fr       */
+/*   Updated: 2021/02/15 15:21:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	get_screen_size(t_mlx mlx, t_params *params)
 		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
 	else if (OS == 1)
 		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
-	printf("xmax = %d\n", params->r.x_max);
 	params->r.x = (int)limit(params->r.x, 0, params->r.x_max);
 	params->r.y = (int)limit(params->r.y, 0, params->r.y_max);
 }
