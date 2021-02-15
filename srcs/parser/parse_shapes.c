@@ -37,7 +37,7 @@ void		init_rgb(char **rgb, char **tab, t_shape *s)
 {
 	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
 	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
-	free(rgb);
+	ft_free(rgb);
 }
 
 void		init_sh(t_shape *s, char **tab)
