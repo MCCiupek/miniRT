@@ -8,11 +8,11 @@ DIR_HEADERS =	./includes/
 
 DIR_SRCS =		./srcs/
 
-DIR_OBJS =		./
-
 MLX_DIR = 		./
 
-MLX_HEADER = 	./includes/
+MLX_HEADER = 	/usr/local/include/
+
+MLX_LIB = 		/usr/local/lib/
 
 MLX_FLAGS	=	-lmlx
 
@@ -69,8 +69,8 @@ NAME =			miniRT
 UNAME := 		$(shell uname)
 
 ifeq ($(UNAME),Darwin)
-	MLX_FLAGS += $(MACOS_FLAGS)
 	MLX_DIR = ./mlx
+	MLX_FLAGS += $(MACOS_FLAGS)
 	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -Imlx
 	OS = -D MACOS
@@ -78,22 +78,21 @@ endif
 
 ifeq ($(UNAME),Linux)
 	MLX_DIR = ./mlx_linux
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/local/lib -Imlx_linux $(LINUX_FLAGS)
-	FLAGS += -I$(DIR_HEADERS) -I/usr/local/include -Imlx_linux
+	MLX_FLAGS = -Lmlx -lmlx -L$(MLX_LIB) -Imlx_linux $(LINUX_FLAGS)
+	FLAGS += -I$(DIR_HEADERS) -I$(MLX_HEADER) -Imlx_linux
 	OS = -D LINUX
 endif
 
 all:			$(NAME)
+				@echo "Compiled "$(NAME)" successfully!"
 
 $(NAME) :		$(OBJS)
-			@$(MAKE) -C ./libft bonus
-			@cp ./libft/libft.a libft.a && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
-			@cp $(MLX_DIR)/*.h /usr/local/include
-			@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-			@cp $(MLX_DIR)/$(LIBMLX) /usr/local/lib/
-
-
-			@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+				@$(MAKE) -C ./libft bonus
+				@cp ./libft/$(LIBFT) $(LIBFT) && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
+				@cp $(MLX_DIR)/*.h $(MLX_HEADER)
+				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
+				@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
+				@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
 				@$(CC) $(FLAGS) $(OS) -c $< -o $@
