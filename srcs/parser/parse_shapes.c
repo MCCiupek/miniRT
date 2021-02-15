@@ -16,15 +16,16 @@
 static void	split_and_init(char **dest, char *src, t_vect *vec, int free_dest)
 {
 	if (free_dest)
-		free(dest);
+		ft_free(dest);
 	dest = ft_split(src, ',');
 	init_vect(vec, ft_atof(dest[0]), ft_atof(dest[1]), ft_atof(dest[2]));
+	ft_free(dest);
 }
 
 void		init_tr(char **coord, char **tab, t_shape *s)
 {
-	split_and_init(coord, tab[2], &s->p1, 1);
-	split_and_init(coord, tab[3], &s->p2, 1);
+	split_and_init(coord, tab[2], &s->p1, 0);
+	split_and_init(coord, tab[3], &s->p2, 0);
 }
 
 void		init_cy(char **tab, t_shape *s)
@@ -63,8 +64,8 @@ void		init_sh(t_shape *s, char **tab)
 	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3) ||
 					!ft_strncmp(s->id, "cy", 3))
 	{
-		split_and_init(coord, tab[2], &s->direction, 1);
+		split_and_init(coord, tab[2], &s->direction, 0);
 		v_limit(&s->direction, -1.0, 1.0);
 	}
-	free(coord);
+	//free(coord);
 }
