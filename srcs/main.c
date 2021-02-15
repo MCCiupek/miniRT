@@ -17,12 +17,12 @@
 # include <GLUT/glut.h>
 void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 {
-	GLint maxViewportSize[2];
+	//GLint maxViewportSize[2];
 
 	(void)mlx;
-	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
-	x_max = &maxViewportSize[0];
-	y_max = &maxViewportSize[1];
+	//glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
+	*x_max = RES_X_MAX;//&maxViewportSize[0];
+	*y_max = RES_Y_MAX;//&maxViewportSize[1];
 }
 #endif
 //#include "minirt.h"
@@ -39,7 +39,11 @@ void	check_params(int argc, char **argv)
 	{
 		tab = ft_split(argv[1], '.');
 		if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt", ft_strlen(tab[ft_tabsize(tab) - 1])))
+		{
+			ft_free(tab);
 			error(3);
+		}
+		ft_free(tab);
 	}
 }
 
@@ -99,8 +103,5 @@ int		main(int argc, char **argv)
 		mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_wdw, &mlx);
 		mlx_loop(mlx.mlx);
 	}
-	//ft_lstmap(params.shapes, (void *)free, (void *)ft_lstdelone);
-	//ft_lstmap(params.cams, (void *)free, (void *)ft_lstdelone);
-	//ft_lstmap(params.lights, (void *)free, (void *)ft_lstdelone);
 	return (0);
 }

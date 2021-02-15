@@ -13,6 +13,13 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
+void    free_lsts(t_params *params)
+{
+    ft_lstmap(params->shapes, (void *)free, (void *)ft_lstdelone);
+	ft_lstmap(params->cams, (void *)free, (void *)ft_lstdelone);
+	ft_lstmap(params->lights, (void *)free, (void *)ft_lstdelone);
+}
+
 void    error(int err)
 {
 	ft_putstr_fd("Error :\n", 1);
