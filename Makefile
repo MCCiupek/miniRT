@@ -99,8 +99,6 @@ $(NAME) :		$(OBJS)
 				@$(CC) $(FLAGS) $(OS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
-bonus:
-
 norme:
 				norminette $(DIR_SRCS)
 				norminette $(DIR_HEADERS)
@@ -118,4 +116,4 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all, clean, fclean, re, bonus, norme
+.PHONY:			all, clean, fclean, re, norme
