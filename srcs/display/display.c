@@ -20,7 +20,6 @@ void    free_imgs(t_mlx *mlx)
 
 	elem = mlx->imgs->next;
 	mlx->imgs->next = NULL;
-	//ft_lstclear(&elem, (void *)free);
 	while (elem)
 	{
 		tmp = elem->next;
@@ -37,6 +36,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
+
+int		reload_image(t_mlx *mlx)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win, (*(t_data *)mlx->imgs->content).img, 0, 0);
+	return (0);
+}
+
 
 int		close_wdw(int keycode, t_mlx *vars)
 {

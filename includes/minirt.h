@@ -38,6 +38,7 @@
 #  define ESC_KEY 53
 # endif
 
+# define MAPNOTIFY 19
 # define DESTROYNOTIFY 17
 # define STRUCTURENOTIFYMASK 131072
 

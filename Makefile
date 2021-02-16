@@ -60,7 +60,7 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) $(FSAN)
+COMPIL =		$(FLAGS)# $(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
 
@@ -95,7 +95,7 @@ $(NAME) :		$(OBJS)
 				@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) $(FSAN) $(OS) -c $< -o $@
+				@$(CC) $(FLAGS) $(OS) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 norme:
