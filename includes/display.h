@@ -63,7 +63,7 @@ typedef struct	s_dib_h
 }				t_dib_h;
 
 void    free_imgs(t_mlx *mlx);
-int		reload_image(int keycode, t_mlx *mlx);
+int		reload_image(t_mlx *mlx);
 int     close_wdw(int keycode, t_mlx *vars);
 int     handle_key(int keycode, t_mlx *vars);
 void	create_image(t_data *img, t_mlx *mlx, t_params *params);
