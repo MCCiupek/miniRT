@@ -37,10 +37,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int		reload_image(t_mlx *mlx)
+int		reload_image(int keycode, t_mlx *mlx)
 {
+	(void)keycode;
 	mlx_put_image_to_window(mlx->mlx, mlx->win, (*(t_data *)mlx->imgs->content).img, 0, 0);
-	return (0);
+	return (1);
 }
 
 
