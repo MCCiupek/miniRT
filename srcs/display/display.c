@@ -46,7 +46,7 @@ int		reload_image(t_mlx *mlx)
 int		close_wdw(t_mlx *mlx)
 {
 	(void)mlx;
-	//free_imgs(vars);
+	free_imgs(mlx);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
