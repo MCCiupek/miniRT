@@ -107,8 +107,8 @@ int		main(int argc, char **argv)
 		printf("\nPress space bar to change camera.\n");
 		printf("Press escape or quit button to exit.\n\n");
 		mlx_key_hook(mlx.win, handle_key, &mlx);
-		mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_wdw, &mlx);
 		mlx_hook(mlx.win, MAPNOTIFY, STRUCTURENOTIFYMASK, reload_image, &mlx);
+		mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_wdw, &mlx);
 		mlx_loop(mlx.mlx);
 	}
 	return (0);
