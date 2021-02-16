@@ -62,30 +62,7 @@ typedef struct	s_dib_h
 	unsigned int	clr_important;
 }				t_dib_h;
 
-/*typedef struct	s_bmp_h
-{
-	uint8_t		bmp_type[2];
-	int			file_size;
-	int16_t		reserved1;
-	int16_t		reserved2;
-	uint32_t	offset;
-}				t_bmp_h;
-
-typedef struct	s_dib_h
-{
-	uint32_t	size_header;
-	uint32_t	width;
-	uint32_t	height;
-	int16_t		planes;
-	int16_t		bit_count;
-	uint32_t	compr;
-	uint32_t	img_size;
-	uint32_t	ppm_x;
-	uint32_t	ppm_y;
-	uint32_t	clr_used;
-	uint32_t	clr_important;
-}				t_dib_h;*/
-
+void    free_imgs(t_mlx *mlx);
 int     close_wdw(int keycode, t_mlx *vars);
 int     handle_key(int keycode, t_mlx *vars);
 t_data	*create_image(t_mlx *mlx, t_params *params);

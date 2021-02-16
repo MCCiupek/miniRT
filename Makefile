@@ -60,7 +60,7 @@ SRC =			gnl/get_next_line_utils.c \
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
 
-COMPIL =		$(FLAGS) $(FSAN)
+COMPIL =		$(FLAGS)# $(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
 

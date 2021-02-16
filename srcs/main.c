@@ -88,7 +88,6 @@ int		main(int argc, char **argv)
 		img = create_image(&mlx, &params);
 		if (argc == 3)
 		{
-			free(img);
 			free_lsts(&params, first);
 			save_bmp(img, &params, FILENAME);
 		}

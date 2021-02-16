@@ -13,20 +13,14 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void    free_imgs(t_mlx *mlx)
-{
-    ft_lstclear(&mlx->imgs, (void *)free);
-    free(mlx->imgs);
-}
-
 void    free_lsts(t_params *params, t_list *first_cam)
 {
     ft_lstclear(&params->shapes, (void *)free);
-    free(params->shapes);
+    //free(params->shapes);
 	ft_lstclear(&first_cam, (void *)free);
-    free(params->cams);
+    //free(params->cams);
 	ft_lstclear(&params->lights, (void *)free);
-    free(params->lights);
+    //free(params->lights);
 }
 
 void    error(int err)

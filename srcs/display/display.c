@@ -13,6 +13,24 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
+void    free_imgs(t_mlx *mlx)
+{
+	t_list	*elem;
+	//t_list	*tmp;
+
+	elem = mlx->imgs->next;
+	mlx->imgs->next = NULL;
+	ft_lstclear(&elem, (void *)free);
+	/*while (elem)
+	{
+		tmp = elem->next;
+		ft_lstdelone(elem, (void *)free);
+		elem = tmp;
+	}*/
+	//ft_lstclear(&mlx->imgs, (void *)free);
+    //free(mlx->imgs);
+}
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -25,7 +43,7 @@ int		close_wdw(int keycode, t_mlx *vars)
 {
 	(void)keycode;
 	(void)vars;
-	free_imgs(vars);
+	//free_imgs(vars);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

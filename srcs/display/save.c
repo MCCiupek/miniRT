@@ -103,5 +103,6 @@ void		save_bmp(t_data *img, t_params *params, const char *filename)
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
 	close(fd);
+	free(img);
 	exit(EXIT_SUCCESS);
 }
