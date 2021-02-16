@@ -47,6 +47,7 @@ int		close_wdw(t_mlx *mlx)
 {
 	(void)mlx;
 	free_imgs(mlx);
+	mlx_destroy_window(mlx->mlx, mlx->win);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
