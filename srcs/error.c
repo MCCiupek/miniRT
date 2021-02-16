@@ -13,6 +13,12 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
+void    free_imgs(t_mlx *mlx)
+{
+    ft_lstclear(&mlx->imgs, (void *)free);
+    free(mlx->imgs);
+}
+
 void    free_lsts(t_params *params, t_list *first_cam)
 {
     ft_lstclear(&params->shapes, (void *)free);

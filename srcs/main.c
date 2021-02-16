@@ -86,15 +86,16 @@ int		main(int argc, char **argv)
 		printf("Building image %i/%i...\t", size + 1 - ft_lstsize(params.cams), size);
 		params.c = *(t_cam *)params.cams->content;
 		img = create_image(&mlx, &params);
+		if (argc == 3)
+		{
+			free(img);
+			free_lsts(&params, first);
+			save_bmp(img, &params, FILENAME);
+		}
 		elem = ft_lstnew(img);
 		ft_lstadd_back(&mlx.imgs, elem);
 		params.cams = params.cams->next;
 		printf("DONE\n");
-		if (argc == 3)
-		{
-			free_lsts(&params, first);
-			save_bmp(img, &params, FILENAME);
-		}
 	}
 	ft_lstlast(mlx.imgs)->next = mlx.imgs;
 	free_lsts(&params, first);

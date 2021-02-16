@@ -25,6 +25,7 @@ int		close_wdw(int keycode, t_mlx *vars)
 {
 	(void)keycode;
 	(void)vars;
+	free_imgs(vars);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -40,6 +41,7 @@ int		handle_key(int keycode, t_mlx *vars)
 	}
 	if (keycode == ESC_KEY)
 	{
+		free_imgs(vars);
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(EXIT_SUCCESS);
 	}
