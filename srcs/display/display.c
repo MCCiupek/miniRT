@@ -16,19 +16,18 @@
 void    free_imgs(t_mlx *mlx)
 {
 	t_list	*elem;
-	//t_list	*tmp;
+	t_list	*tmp;
 
 	elem = mlx->imgs->next;
 	mlx->imgs->next = NULL;
-	ft_lstclear(&elem, (void *)free);
-	/*while (elem)
+	//ft_lstclear(&elem, (void *)free);
+	while (elem)
 	{
 		tmp = elem->next;
-		ft_lstdelone(elem, (void *)free);
+		mlx_destroy_image(mlx->mlx, ((t_data *)elem->content)->img);
 		elem = tmp;
-	}*/
-	//ft_lstclear(&mlx->imgs, (void *)free);
-    //free(mlx->imgs);
+	}
+	//ft_lstclear(&elem, (void *)mlx_destroy_image);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
