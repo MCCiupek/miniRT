@@ -25,6 +25,7 @@ void    free_imgs(t_mlx *mlx)
 	{
 		tmp = elem->next;
 		mlx_destroy_image(mlx->mlx, ((t_data *)elem->content)->img);
+		free(elem);
 		elem = tmp;
 	}
 }
