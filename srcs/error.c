@@ -13,11 +13,11 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void    free_lsts(t_params *params)
+void    free_lsts(t_params *params, t_list *first_cam)
 {
     ft_lstclear(&params->shapes, (void *)free);
     free(params->shapes);
-	ft_lstclear(&params->cams, (void *)free);
+	ft_lstclear(&first_cam, (void *)free);
     free(params->cams);
 	ft_lstclear(&params->lights, (void *)free);
     free(params->lights);

@@ -22,7 +22,7 @@
 # define ERR_4 "Unidentified flag.\n"
 # define ERR_5 "Malloc failed while parsing shapes.\n"
 
-void    free_lsts(t_params *params);
+void    free_lsts(t_params *params, t_list *first_cam);
 void    error(int err);
 
 # endif

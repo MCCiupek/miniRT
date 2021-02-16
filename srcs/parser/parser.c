@@ -76,14 +76,10 @@ int		gnl(int argc, char **argv, t_params *params)
 	int		i;
 
 	i = 0;
-	if (argc == 1)
-		fd = 0;
-	else if (argc == 2)
+	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
-	else if (argc == 3)
-		fd = open(argv[2], O_RDONLY);
 	else
-		return (2);
+		fd = open(argv[2], O_RDONLY);
 	if (!fd)
 		error(4);
 	while ((i = get_next_line(fd, &line)) != -1)

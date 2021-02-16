@@ -63,6 +63,7 @@ int		main(int argc, char **argv)
 	t_mlx		mlx;
 	t_data		*img;
 	t_list		*elem;
+	t_list		*first;
 
 	check_params(argc, argv);
 	printf("Parsing...\t\t");
@@ -79,6 +80,7 @@ int		main(int argc, char **argv)
 	printf("DONE\n");
 	int size = argc == 3 ? 1 : ft_lstsize(params.cams);
 	mlx.imgs = NULL;
+	first = params.cams;
 	while (params.cams)
 	{
 		printf("Building image %i/%i...\t", size + 1 - ft_lstsize(params.cams), size);
@@ -90,12 +92,12 @@ int		main(int argc, char **argv)
 		printf("DONE\n");
 		if (argc == 3)
 		{
-			free_lsts(&params);
+			free_lsts(&params, first);
 			save_bmp(img, &params, FILENAME);
 		}
 	}
 	ft_lstlast(mlx.imgs)->next = mlx.imgs;
-	free_lsts(&params);
+	free_lsts(&params, first);
 	if (argc == 2)
 	{
 		printf("Preparing display...\t");
