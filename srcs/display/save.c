@@ -93,7 +93,7 @@ void        write_bmpdata(t_data *img, t_params *params, int fd)
 	printf("\nImage saved as '%s' in working dir.\n", FILENAME);
 }
 
-void		save_bmp(t_data *img, t_params *params, const char *filename)
+void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 {
 	int		fd;
 
@@ -103,6 +103,6 @@ void		save_bmp(t_data *img, t_params *params, const char *filename)
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
 	close(fd);
-	free(img);
+	mlx_destroy_image(mlx->mlx ,img);
 	exit(EXIT_SUCCESS);
 }

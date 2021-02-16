@@ -85,11 +85,12 @@ int		main(int argc, char **argv)
 	{
 		printf("Building image %i/%i...\t", size + 1 - ft_lstsize(params.cams), size);
 		params.c = *(t_cam *)params.cams->content;
-		img = create_image(&mlx, &params);
+		img = (t_data *)malloc(sizeof(t_data));
+		create_image(img, &mlx, &params);
 		if (argc == 3)
 		{
 			free_lsts(&params, first);
-			save_bmp(img, &params, FILENAME);
+			save_bmp(&mlx, img, &params, FILENAME);
 		}
 		elem = ft_lstnew(img);
 		ft_lstadd_back(&mlx.imgs, elem);

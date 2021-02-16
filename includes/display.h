@@ -65,7 +65,7 @@ typedef struct	s_dib_h
 void    free_imgs(t_mlx *mlx);
 int     close_wdw(int keycode, t_mlx *vars);
 int     handle_key(int keycode, t_mlx *vars);
-t_data	*create_image(t_mlx *mlx, t_params *params);
-void    save_bmp(t_data *img, t_params *params, const char *filename);
+void	create_image(t_data *img, t_mlx *mlx, t_params *params);
+void    save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename);
 
 #endif

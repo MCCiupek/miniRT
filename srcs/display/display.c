@@ -27,7 +27,6 @@ void    free_imgs(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, ((t_data *)elem->content)->img);
 		elem = tmp;
 	}
-	//ft_lstclear(&elem, (void *)mlx_destroy_image);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -65,12 +64,10 @@ int		handle_key(int keycode, t_mlx *vars)
 	return (1);
 }
 
-t_data	*create_image(t_mlx *mlx, t_params *params)
+void	create_image(t_data *img, t_mlx *mlx, t_params *params)
 {
-	t_data		*img;
 	t_px		px;
 
-	img = malloc(sizeof(img));
 	img->img = mlx_new_image(mlx->mlx, params->r.x, params->r.y);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
@@ -87,5 +84,4 @@ t_data	*create_image(t_mlx *mlx, t_params *params)
 		}
 		px.x++;
 	}
-	return (img);
 }
