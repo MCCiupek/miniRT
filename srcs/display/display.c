@@ -44,7 +44,6 @@ int		reload_image(int keycode, t_mlx *mlx)
 	return (1);
 }
 
-
 int		close_wdw(int keycode, t_mlx *vars)
 {
 	(void)keycode;
