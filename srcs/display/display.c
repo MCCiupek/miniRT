@@ -43,10 +43,9 @@ int		reload_image(t_mlx *mlx)
 	return (1);
 }
 
-int		close_wdw(int keycode, t_mlx *vars)
+int		close_wdw(t_mlx *mlx)
 {
-	(void)keycode;
-	(void)vars;
+	(void)mlx;
 	//free_imgs(vars);
 	exit(EXIT_SUCCESS);
 	return (0);
