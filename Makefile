@@ -18,7 +18,7 @@ MLX_FLAGS	=	-lmlx
 
 MACOS_FLAGS =	-framework OpenGL -framework AppKit
 
-LINUX_FLAGS =	-lX11 -lXext -lm
+LINUX_FLAGS =	-lXext -lX11 -lm
 
 LIBMLX =		libmlx.a
 
