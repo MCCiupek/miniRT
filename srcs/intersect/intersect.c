@@ -15,6 +15,7 @@
 
 void	init_intersect(t_intersect *i)
 {
+	i->base = 0;
 	i->t = RAY_MAX;
 	i->shape = NULL;
 }

@@ -15,8 +15,6 @@
 
 void    set_norm(t_intersect *i)
 {
-    if (!i->base)
-        i->base = 0;
     if (!ft_strncmp(i->shape->id, "sp", 3))
         get_norm_sp(i);
     else if (!ft_strncmp(i->shape->id, "pl", 3) ||
