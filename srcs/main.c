@@ -75,8 +75,6 @@ int		main(int argc, char **argv)
 	printf("Init MLX...\t\t");
 	mlx.mlx = mlx_init();
 	get_screen_size(mlx, &params);
-	if (argc < 3)
-		mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
 	printf("DONE\n");
 	int size = argc == 3 ? 1 : ft_lstsize(params.cams);
 	mlx.imgs = NULL;
@@ -97,6 +95,7 @@ int		main(int argc, char **argv)
 		params.cams = params.cams->next;
 		printf("DONE\n");
 	}
+	mlx.win = mlx_new_window(mlx.mlx, params.r.x, params.r.y, "miniRT");
 	ft_lstlast(mlx.imgs)->next = mlx.imgs;
 	free_lsts(&params, first);
 	if (argc == 2)
