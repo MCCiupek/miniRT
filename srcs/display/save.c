@@ -108,8 +108,9 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
 	close(fd);
-	mlx_destroy_image(mlx->mlx ,img);
+	mlx_destroy_image(mlx->mlx, img);
 	if (OS == 2)
 		mlx_destroy_display(mlx->mlx);
+	free(mlx->mlx);
 	exit(EXIT_SUCCESS);
 }
