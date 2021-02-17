@@ -31,15 +31,16 @@
 #  define OS 2
 #  define SPC_KEY 32
 #  define ESC_KEY 65307
+#  define DESTROYNOTIFY 33
 # endif
 # ifdef MACOS
 #  define OS 1
 #  define SPC_KEY 49
 #  define ESC_KEY 53
+#  define DESTROYNOTIFY 17
 # endif
 
 # define MAPNOTIFY 19
-# define DESTROYNOTIFY 17
 # define STRUCTURENOTIFYMASK 131072
 
 /************ A SUPPRIMER !!!! ************/
