@@ -27,6 +27,8 @@ void    free_imgs(t_mlx *mlx)
 		free(elem);
 		elem = tmp;
 	}
+	//mlx_destroy_image(mlx->mlx, ((t_data *)elem->content)->img);
+	//free(elem);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
