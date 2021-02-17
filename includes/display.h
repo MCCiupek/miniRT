@@ -62,6 +62,10 @@ typedef struct	s_dib_h
 	unsigned int	clr_important;
 }				t_dib_h;
 
+# ifdef MACOS
+void mlx_destroy_display(void *mlx);
+# endif
+
 void    free_imgs(t_mlx *mlx);
 int		reload_image(t_mlx *mlx);
 int     close_wdw(t_mlx *mlx);

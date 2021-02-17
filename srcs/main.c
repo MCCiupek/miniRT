@@ -15,7 +15,7 @@
 # include <OpenGL/gl.h>
 # include <OpenGL/glu.h>
 # include <GLUT/glut.h>
-void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
+static void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 {
 	//GLint maxViewportSize[2];
 

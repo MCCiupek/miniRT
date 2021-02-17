@@ -48,6 +48,8 @@ int		close_wdw(t_mlx *mlx)
 	(void)mlx;
 	free_imgs(mlx);
 	mlx_destroy_window(mlx->mlx, mlx->win);
+	if (OS == 2)
+		mlx_destroy_display(mlx->mlx);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
@@ -65,6 +67,8 @@ int		handle_key(int keycode, t_mlx *vars)
 	{
 		free_imgs(vars);
 		mlx_destroy_window(vars->mlx, vars->win);
+		if (OS == 2)
+			mlx_destroy_display(vars->mlx);
 		exit(EXIT_SUCCESS);
 	}
 	return (1);
