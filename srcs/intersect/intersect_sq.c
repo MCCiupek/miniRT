@@ -26,7 +26,7 @@ static int	is_inside_square(t_shape *square, t_vect p)
 		&& (fabs(dist.z) <= border));
 }
 
-int			intersect_sq(t_intersect *i, t_shape *sq)
+int	intersect_sq(t_intersect *i, t_shape *sq)
 {
 	float	t;
 	t_vect	p;
@@ -35,7 +35,7 @@ int			intersect_sq(t_intersect *i, t_shape *sq)
 	t = t_inter_plan(i, sq);
 	if (t <= RAY_MIN || t >= i->t)
 		return (0);
-    p = calculate(i->ray, t);
+	p = calculate(i->ray, t);
 	if (is_inside_square(sq, p))
 	{
 		i->t = t;

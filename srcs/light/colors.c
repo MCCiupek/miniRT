@@ -28,11 +28,11 @@ void	init_colors(t_color *c, float r, float g, float b)
 	c_limit(c);
 }
 
-int		rgb(float r, float g, float b)
+int	rgb(float r, float g, float b)
 {
-	return ((((int)r & 0x0ff) << 16) |
-			(((int)g & 0x0ff) << 8) |
-			((int)b & 0x0ff));
+	return ((((int)r & 0x0ff) << 16)
+		 | (((int)g & 0x0ff) << 8)
+		 | ((int)b & 0x0ff));
 }
 
 void	mix_colors(t_color *c, float coef, t_color colors)

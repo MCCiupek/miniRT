@@ -15,9 +15,9 @@
 
 float	resolve_eq(float a, float b, float c)
 {
-	float delta;
-	float x1;
-	float x2;
+	float	delta;
+	float	x1;
+	float	x2;
 
 	delta = pow(b, 2) - 4 * a * c;
 	if (delta < 0)
@@ -29,7 +29,7 @@ float	resolve_eq(float a, float b, float c)
 	return (x1);
 }
 
-int		intersect_sphere(t_intersect *i, t_shape *sphere)
+int	intersect_sphere(t_intersect *i, t_shape *sphere)
 {
 	t_ray	r;
 	float	t;
@@ -40,7 +40,7 @@ int		intersect_sphere(t_intersect *i, t_shape *sphere)
 	d = r.direction;
 	p = subs(r.origin, sphere->p0);
 	t = resolve_eq(pow(len3(d), 2), 2 * dotprod(d, p),
-				pow(len3(p), 2) - pow(sphere->d / 2, 2));
+			pow(len3(p), 2) - pow(sphere->d / 2, 2));
 	if (t <= RAY_MIN || t >= i->t)
 		return (0);
 	i->t = t;

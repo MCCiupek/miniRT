@@ -27,7 +27,7 @@ float	t_inter_plan(t_intersect *i, t_shape *shape)
 
 int	intersect_plan(t_intersect *i, t_shape *plan)
 {
-	float t;
+	float	t;
 
 	plan->n = normalize_v(copy(plan->direction));
 	t = t_inter_plan(i, plan);

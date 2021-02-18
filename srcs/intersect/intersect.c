@@ -44,7 +44,7 @@ int	intersect(t_list *shapes, t_intersect *i, int interrupt)
 	return (i->shape != NULL);
 }
 
-static t_vect		look_at(t_vect d, t_vect cam_dir)
+static t_vect	look_at(t_vect d, t_vect cam_dir)
 {
 	t_vect	x_axis;
 	t_vect	y_axis;
@@ -55,7 +55,7 @@ static t_vect		look_at(t_vect d, t_vect cam_dir)
 	init_vect(&tmp, 0, 1, 0);
 	z_axis = cam_dir;
 	if (cam_dir.y == 1 || cam_dir.y == -1)
-		x_axis = (t_vect) {cam_dir.y, 0, 0};
+		x_axis = (t_vect){cam_dir.y, 0, 0};
 	else
 		x_axis = crossprod(tmp, z_axis);
 	y_axis = crossprod(z_axis, x_axis);
