@@ -76,6 +76,7 @@ static int	ft_stock(t_line *nl, char **line)
 
 	i = -1;
 	eof = 1;
+	c = '\0';
 	while (nl->txt && *(nl->txt + ++i))
 	{
 		c = *(nl->txt + i);
