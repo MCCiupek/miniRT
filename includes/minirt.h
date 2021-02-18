@@ -64,8 +64,4 @@
 # include "display.h"
 # include "error.h"
 
-# ifdef MACOS
-int mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
-# endif
-
-# endif
+#endif

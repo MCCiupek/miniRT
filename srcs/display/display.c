@@ -46,7 +46,6 @@ int		reload_image(t_mlx *mlx)
 
 int		close_wdw(t_mlx *mlx)
 {
-	//(void)mlx;
 	free_imgs(mlx);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	if (OS == 2)

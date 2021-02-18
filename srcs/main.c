@@ -13,15 +13,7 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-int	mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
-{
-	(void)mlx;
-	*x_max = RES_X_MAX;
-	*y_max = RES_Y_MAX;
-	return (0);
-}
-
-void	check_params(int argc, char **argv)
+static void	check_params(int argc, char **argv)
 {
 	char	**tab;
 
@@ -42,17 +34,7 @@ void	check_params(int argc, char **argv)
 	}
 }
 
-void	get_screen_size(t_mlx mlx, t_params *params)
-{
-	if (OS == 2)
-		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
-	else if (OS == 1)
-		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
-	params->r.x = (int)limit(params->r.x, 0, params->r.x_max);
-	params->r.y = (int)limit(params->r.y, 0, params->r.y_max);
-}
-
-void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
+static void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 {
 	check_params(argc, argv);
 	params->shapes = NULL;
@@ -64,15 +46,7 @@ void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 	get_screen_size(*mlx, params);
 }
 
-void	mlx_events(t_mlx mlx)
-{
-	mlx_key_hook(mlx.win, handle_key, &mlx);
-	mlx_hook(mlx.win, MAPNOTIFY, STRUCTURENOTIFYMASK, reload_image, &mlx);
-	mlx_hook(mlx.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_wdw, &mlx);
-	mlx_loop(mlx.mlx);
-}
-
-t_data	*switch_cam(t_params *params, t_mlx *mlx)
+static t_data	*switch_cam(t_params *params, t_mlx *mlx)
 {
 	t_data		*img;
 	t_list		*elem;

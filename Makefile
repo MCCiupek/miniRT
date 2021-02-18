@@ -53,6 +53,7 @@ SRC =			gnl/get_next_line_utils.c \
 				\
 				display/display.c \
 				display/save.c \
+				display/mlx_utils.c \
 				\
 				error.c \
 				\
