@@ -15,17 +15,17 @@
 
 # include "minirt.h"
 
-typedef struct	s_color
+typedef struct s_color
 {
 	float	r;
-	float   g;
-	float   b;
+	float	g;
+	float	b;
 }				t_color;
 
-typedef struct	s_px
+typedef struct s_px
 {
-	int	    x;
-	int     y;
+	int		x;
+	int		y;
 	t_color	col;
 }				t_px;
 

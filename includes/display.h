@@ -24,21 +24,21 @@
 # define FILE_PERMISSIONS 0644
 # define PIXEL_LEN 4
 
-typedef struct  s_mlx {
-        void    *mlx;
-        void    *win;
-		t_list	*imgs;
-}               t_mlx;
+typedef struct s_mlx {
+	void	*mlx;
+	void	*win;
+	t_list	*imgs;
+}				t_mlx;
 
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_data;
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
 
-typedef struct	s_bmp_h
+typedef struct s_bmp_h
 {
 	unsigned char	bmp_type[2];
 	int				file_size;
@@ -47,7 +47,7 @@ typedef struct	s_bmp_h
 	unsigned int	offset;
 }				t_bmp_h;
 
-typedef struct	s_dib_h
+typedef struct s_dib_h
 {
 	unsigned int	size_header;
 	unsigned int	width;
@@ -63,17 +63,18 @@ typedef struct	s_dib_h
 }				t_dib_h;
 
 # ifdef MACOS
-void mlx_destroy_display(void *mlx);
-int mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
+void	mlx_destroy_display(void *mlx);
+int		mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
 # endif
 
-int	mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
+int		mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
 void	get_screen_size(t_mlx mlx, t_params *params);
 void	mlx_events(t_mlx mlx);
 int		reload_image(t_mlx *mlx);
-int     close_wdw(t_mlx *mlx);
-int     handle_key(int keycode, t_mlx *vars);
+int		close_wdw(t_mlx *mlx);
+int		handle_key(int keycode, t_mlx *vars);
 void	create_image(t_data *img, t_mlx *mlx, t_params *params);
-void    save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename);
+void	save_bmp(t_mlx *mlx, t_data *img, t_params *params,
+			const char *filename);
 
 #endif

@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-typedef struct	s_vect
+typedef struct s_vect
 {
 	float	x;
 	float	y;

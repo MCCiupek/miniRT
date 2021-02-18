@@ -73,26 +73,23 @@ static int	ft_stock(t_line *nl, char **line)
 	int		i;
 	int		eof;
 	char	c;
-	char	*tmp;
 
 	i = -1;
 	eof = 1;
-	while (nl->txt && (c = *(nl->txt + ++i)))
+	while (nl->txt && *(nl->txt + ++i))
+	{
+		c = *(nl->txt + i);
 		if (c == '\n')
 			break ;
+	}
 	if (c == '\n')
 		eof = 0;
-	if (!(*line = ft_gnl_strldup(nl->txt, i)))
+	*line = ft_gnl_strldup(nl->txt, i);
+	if (!(*line))
 		return (-1);
 	if (!eof)
-	{
-		if (!(tmp = ft_gnl_strldup(nl->txt + i + 1, ft_gnl_strlen(nl->txt) - i - 1)))
+		if (ft_tmp(nl, i) < 0)
 			return (-1);
-		free(nl->txt);
-		if (!(nl->txt = ft_gnl_strldup(tmp, ft_gnl_strlen(tmp))))
-			return (-1);
-		free(tmp);
-	}
 	return (eof == 0);
 }
 

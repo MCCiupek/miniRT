@@ -21,9 +21,10 @@
 # define ERR_3 "File can't be opened.\n"
 # define ERR_4 "Unidentified flag.\n"
 # define ERR_5 "Malloc failed while parsing shapes.\n"
-# define ERR_6 "Ambiant light (A) and resolution (R) can only be declared once.\n"
+# define ERR_6 "Ambiant light (A) and resolution (R) \
+     can only be declared once.\n"
 
-void    free_lsts(t_params *params, t_list *first_cam);
-void    error(int err);
+void	free_lsts(t_params *params, t_list *first_cam);
+void	error(int err);
 
-# endif
+#endif

@@ -27,6 +27,7 @@ LIBFT =			libft.a
 FSAN =			-fsanitize=address
 
 SRC =			gnl/get_next_line_utils.c \
+				gnl/get_next_line_utils2.c \
 				gnl/get_next_line.c \
 				\
 				parser/parse_scene.c \

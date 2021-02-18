@@ -15,17 +15,18 @@
 
 # include "minirt.h"
 
-typedef struct		s_line
+typedef struct s_line
 {
 	int		count;
 	char	*txt;
-}					t_line;
+}			t_line;
 
-int					get_next_line(int fd, char **line);
-int					ft_gnl_strlen(char *str);
-int					ft_gnl_strchr(char *str, int ch);
-size_t				ft_gnl_strlcpy(char *dest, char *src, size_t size);
-char				*ft_gnl_strldup(char *src, size_t size);
-char				*ft_gnl_strjoin(char *s1, char *s2);
+int		ft_tmp(t_line *nl, int i);
+int		get_next_line(int fd, char **line);
+int		ft_gnl_strlen(char *str);
+int		ft_gnl_strchr(char *str, int ch);
+size_t	ft_gnl_strlcpy(char *dest, char *src, size_t size);
+char	*ft_gnl_strldup(char *src, size_t size);
+char	*ft_gnl_strjoin(char *s1, char *s2);
 
 #endif

@@ -65,7 +65,7 @@
 # include "error.h"
 
 void	ft_free(char **tab);
-void    free_imgs(t_mlx *mlx);
+void	free_imgs(t_mlx *mlx);
 void	free_mlx(t_mlx *mlx);
 
 #endif
