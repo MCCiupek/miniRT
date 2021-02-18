@@ -107,8 +107,8 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	{
 		//mlx_destroy_image(mlx->mlx, img);
 		free(img);
-		if (OS == 2)
-			mlx_destroy_display(mlx->mlx);
+		//if (OS == 2)
+		//	mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
 		error(3);
 	}
@@ -117,8 +117,8 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	close(fd);
 	//mlx_destroy_image(mlx->mlx, img);
 	free(img);
-	if (OS == 2)
-		mlx_destroy_display(mlx->mlx);
+	//if (OS == 2)
+	//	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
 	exit(EXIT_SUCCESS);
 }
