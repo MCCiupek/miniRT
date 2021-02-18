@@ -106,7 +106,7 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	if (fd < 1)
 	{
 		mlx_destroy_image(mlx->mlx, img);
-		free(img);
+		//free(img);
 		if (OS == 2)
 			mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
@@ -116,7 +116,7 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	write_bmpdata(img, params, fd);
 	close(fd);
 	mlx_destroy_image(mlx->mlx, img);
-	free(img);
+	//free(img);
 	if (OS == 2)
 		mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
