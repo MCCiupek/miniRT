@@ -85,13 +85,13 @@ int		main(int argc, char **argv)
 		params.c = *(t_cam *)params.cams->content;
 		img = (t_data *)malloc(sizeof(t_data));
 		create_image(img, &mlx, &params);
+		elem = ft_lstnew(img);
+		ft_lstadd_back(&mlx.imgs, elem);
 		if (argc == 3)
 		{
 			free_lsts(&params, first);
 			save_bmp(&mlx, img, &params, FILENAME);
 		}
-		elem = ft_lstnew(img);
-		ft_lstadd_back(&mlx.imgs, elem);
 		params.cams = params.cams->next;
 		printf("DONE\n");
 	}
