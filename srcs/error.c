@@ -13,17 +13,14 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void    free_lsts(t_params *params, t_list *first_cam)
+void	free_lsts(t_params *params, t_list *first_cam)
 {
-    ft_lstclear(&params->shapes, (void *)free);
-    //free(params->shapes);
+	ft_lstclear(&params->shapes, (void *)free);
 	ft_lstclear(&first_cam, (void *)free);
-    //free(params->cams);
 	ft_lstclear(&params->lights, (void *)free);
-    //free(params->lights);
 }
 
-void    error(int err)
+void	error(int err)
 {
 	ft_putstr_fd("Error :\n", 1);
 	if (err == 1)
@@ -34,7 +31,7 @@ void    error(int err)
 		ft_putstr_fd(ERR_3, 1);
 	else if (err == 4)
 		ft_putstr_fd(ERR_4, 1);
-    else if (err == 5)
+	else if (err == 5)
 		ft_putstr_fd(ERR_5, 1);
 	else
 		ft_putstr_fd(ERR, 1);
