@@ -68,12 +68,18 @@ NAME =			miniRT
 
 UNAME := 		$(shell uname)
 
+Y_MAX :=	$(shell xwininfo -root|sed '/Height/!d;s/.* //')
+
+X_MAX :=	$(shell xwininfo -root|sed '/Width/!d;s/.* //')
+
+RES =			-D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
+
 ifeq ($(UNAME),Darwin)
 	MLX_DIR = ./mlx
 	MLX_FLAGS += $(MACOS_FLAGS)
 	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -Imlx
-	OS = -D MACOS
+	OS = -D MACOS $(RES)
 endif
 
 ifeq ($(UNAME),Linux)

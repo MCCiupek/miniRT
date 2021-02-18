@@ -19,9 +19,6 @@
 
 # define FILENAME "render/miniRT.bmp"
 
-# define RES_X_MAX 2560
-# define RES_Y_MAX 1600
-
 # define RAY_MIN 0.001
 # define RAY_MAX 1.0e30
 
@@ -33,6 +30,7 @@
 #  define ESC_KEY 65307
 #  define DESTROYNOTIFY 33
 # endif
+
 # ifdef MACOS
 #  define OS 1
 #  define SPC_KEY 49
@@ -65,5 +63,9 @@
 # include "light.h"
 # include "display.h"
 # include "error.h"
+
+# ifdef MACOS
+void mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
+# endif
 
 # endif

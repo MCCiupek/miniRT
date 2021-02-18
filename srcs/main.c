@@ -11,21 +11,14 @@
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
-#ifdef MACOS
-# include <OpenGL/gl.h>
-# include <OpenGL/glu.h>
-# include <GLUT/glut.h>
-static void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
-{
-	//GLint maxViewportSize[2];
-
-	(void)mlx;
-	//glGetIntegerv(GL_MAX_VIEWPORT_DIMS, maxViewportSize);
-	*x_max = RES_X_MAX;//&maxViewportSize[0];
-	*y_max = RES_Y_MAX;//&maxViewportSize[1];
-}
-#endif
 //#include "minirt.h"
+
+void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
+{
+	(void)mlx;
+	*x_max = RES_X_MAX;
+	*y_max = RES_Y_MAX;
+}
 
 void	check_params(int argc, char **argv)
 {
