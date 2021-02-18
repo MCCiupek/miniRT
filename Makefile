@@ -79,7 +79,7 @@ ifeq ($(UNAME),Darwin)
 	MLX_FLAGS += $(MACOS_FLAGS)
 	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -Imlx
-	OS = -D MACOS $(RES)
+	OS = -D MACOS
 endif
 
 ifeq ($(UNAME),Linux)
@@ -98,10 +98,10 @@ $(NAME) :		$(OBJS)
 				@cp $(MLX_DIR)/*.h $(MLX_HEADER)
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
 				@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
-				@$(CC) $(COMPIL) $(OS) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+				@$(CC) $(COMPIL) $(OS) $(RES) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c
-				@$(CC) $(FLAGS) $(OS) -c $< -o $@
+				@$(CC) $(FLAGS) $(OS) $(RES) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
 		
 norme:
