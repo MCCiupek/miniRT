@@ -74,6 +74,8 @@ void	init_alight(t_alight *al, char **tab);
 void	init_light(t_light *l, char **tab);
 void	init_cam(t_cam	*c, char **tab);
 void	init_sh(t_shape	*s, char **tab);
+void	init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
+							void *obj, char **tab);
 void	parse(char *line, t_params *params);
 int		gnl(int argc, char **argv, t_params *params);
 
