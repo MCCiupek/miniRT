@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void		rx(t_vect *vect, float x)
+void	rx(t_vect *vect, float x)
 {
 	t_vect	tmp;
 
@@ -23,7 +23,7 @@ void		rx(t_vect *vect, float x)
 	*vect = tmp;
 }
 
-void		ry(t_vect *vect, float y)
+void	ry(t_vect *vect, float y)
 {
 	t_vect	tmp;
 
@@ -33,7 +33,7 @@ void		ry(t_vect *vect, float y)
 	*vect = tmp;
 }
 
-void		rz(t_vect *vect, float z)
+void	rz(t_vect *vect, float z)
 {
 	t_vect	tmp;
 
@@ -43,14 +43,14 @@ void		rz(t_vect *vect, float z)
 	*vect = tmp;
 }
 
-void		rotate(t_vect *vect, t_vect *angle)
+void	rotate(t_vect *vect, t_vect *angle)
 {
 	rx(vect, angle->x);
 	ry(vect, angle->y);
 	rz(vect, angle->z);
 }
 
-void		anti_rot(t_vect *vect, t_vect *angle)
+void	anti_rot(t_vect *vect, t_vect *angle)
 {
 	rz(vect, -angle->z);
 	ry(vect, -angle->y);

@@ -13,7 +13,7 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-int		ft_tabsize(char **tab)
+int	ft_tabsize(char **tab)
 {
 	int	i;
 

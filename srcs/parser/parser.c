@@ -13,16 +13,6 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void	ft_free(char **tab)
-{
-	int	i;
-
-	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
-}
-
 void	init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
 							void *obj, char **tab)
 {
@@ -33,11 +23,27 @@ void	init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
 	ft_lstadd_back(lst, elem);
 }
 
-int		is_shape(char *tab)
+int	is_shape(char *tab)
 {
-	return (!ft_strncmp(tab, "sp", 3) || !ft_strncmp(tab, "pl", 3) ||
-			!ft_strncmp(tab, "sq", 3) || !ft_strncmp(tab, "cy", 3) ||
-			!ft_strncmp(tab, "tr", 3));
+	return (!ft_strncmp(tab, "sp", 3) || !ft_strncmp(tab, "pl", 3)
+		 || !ft_strncmp(tab, "sq", 3) || !ft_strncmp(tab, "cy", 3)
+		 || !ft_strncmp(tab, "tr", 3));
+}
+
+static void	parse_resol_al(t_params *params, char **tab)
+{
+	if (!ft_strncmp(tab[0], "R", 2))
+	{
+		if (params->r.count)
+			error(6);
+		init_resol(&params->r, tab);
+	}
+	if (!ft_strncmp(tab[0], "A", 2))
+	{
+		if (params->al.count)
+			error(6);
+		init_alight(&params->al, tab);
+	}
 }
 
 void	parse(char *line, t_params *params)
@@ -45,12 +51,10 @@ void	parse(char *line, t_params *params)
 	char	**tab;
 	void	*obj;
 
-	if (!(tab = ft_split(line, ' ')) || !tab[0])
+	tab = ft_split(line, ' ');
+	if (!tab || !tab[0])
 		return (ft_free(tab));
-	if (!ft_strncmp(tab[0], "R", 2))
-		init_resol(&params->r, tab);
-	if (!ft_strncmp(tab[0], "A", 2))
-		init_alight(&params->al, tab);
+	parse_resol_al(params, tab);
 	if (!ft_strncmp(tab[0], "c", 2))
 	{
 		obj = (t_cam *)malloc(sizeof(t_cam));
@@ -69,7 +73,7 @@ void	parse(char *line, t_params *params)
 	ft_free(tab);
 }
 
-int		gnl(int argc, char **argv, t_params *params)
+int	gnl(int argc, char **argv, t_params *params)
 {
 	int		fd;
 	char	*line;
@@ -82,12 +86,14 @@ int		gnl(int argc, char **argv, t_params *params)
 		fd = open(argv[2], O_RDONLY);
 	if (!fd)
 		error(4);
-	while ((i = get_next_line(fd, &line)) != -1)
+	i = get_next_line(fd, &line);
+	while (i != -1)
 	{
 		parse(line, params);
 		free(line);
 		if (i == 0)
 			break ;
+		i = get_next_line(fd, &line);
 	}
 	if (argc == 2)
 		close(fd);

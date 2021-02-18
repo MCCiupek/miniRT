@@ -17,6 +17,7 @@ void	init_resol(t_resol *r, char **tab)
 {
 	r->x = ft_atoi(tab[1]);
 	r->y = ft_atoi(tab[2]);
+	r->count++;
 }
 
 void	init_alight(t_alight *al, char **tab)
@@ -30,6 +31,7 @@ void	init_alight(t_alight *al, char **tab)
 		limit(ft_atof(rgb[1]), 0, 255),
 		limit(ft_atof(rgb[2]), 0, 255));
 	ft_free(rgb);
+	al->count++;
 }
 
 void	init_cam(t_cam *c, char **tab)

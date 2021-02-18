@@ -64,4 +64,6 @@
 # include "display.h"
 # include "error.h"
 
+void	ft_free(char **tab);
+
 #endif

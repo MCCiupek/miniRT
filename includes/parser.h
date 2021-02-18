@@ -21,12 +21,14 @@ typedef struct	s_resol
 	int	y_max;
 	int	x;
 	int	y;
+	int	count;
 }				t_resol;
 
 typedef struct	s_alight
 {
 	float	light;
 	t_color	colors;
+	int	count;
 }				t_alight;
 
 typedef struct	s_light
@@ -68,7 +70,6 @@ typedef struct	s_params
 	t_list		*lights;
 }				t_params;
 
-void	ft_free(char **tab);
 void	init_resol(t_resol *r, char **tab);
 void	init_alight(t_alight *al, char **tab);
 void	init_light(t_light *l, char **tab);

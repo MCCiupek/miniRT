@@ -37,6 +37,8 @@ static void	check_params(int argc, char **argv)
 static void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 {
 	check_params(argc, argv);
+	params->r.count = 0;
+	params->al.count = 0;
 	params->shapes = NULL;
 	params->cams = NULL;
 	params->lights = NULL;

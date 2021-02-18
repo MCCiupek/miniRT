@@ -57,6 +57,8 @@ SRC =			gnl/get_next_line_utils.c \
 				\
 				error.c \
 				\
+				utils.c \
+				\
 				main.c
 
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))

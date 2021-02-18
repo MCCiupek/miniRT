@@ -20,26 +20,26 @@ static void	split_and_init(char **dest, char *src, t_vect *vec)
 	ft_free(dest);
 }
 
-void		init_tr(char **coord, char **tab, t_shape *s)
+void	init_tr(char **coord, char **tab, t_shape *s)
 {
 	split_and_init(coord, tab[2], &s->p1);
 	split_and_init(coord, tab[3], &s->p2);
 }
 
-void		init_cy(char **tab, t_shape *s)
+void	init_cy(char **tab, t_shape *s)
 {
 	s->d = fabs(ft_atof(tab[3]));
 	s->h = fabs(ft_atof(tab[4]));
 }
 
-void		init_rgb(char **rgb, char **tab, t_shape *s)
+void	init_rgb(char **rgb, char **tab, t_shape *s)
 {
 	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
 	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
 	ft_free(rgb);
 }
 
-void		init_sh(t_shape *s, char **tab)
+void	init_sh(t_shape *s, char **tab)
 {
 	char	**coord;
 	char	**rgb;
@@ -59,8 +59,8 @@ void		init_sh(t_shape *s, char **tab)
 		init_cy(tab, s);
 	if (!ft_strncmp(s->id, "sq", 3))
 		s->h = fabs(ft_atof(tab[3]));
-	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3) ||
-					!ft_strncmp(s->id, "cy", 3))
+	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3)
+		 || !ft_strncmp(s->id, "cy", 3))
 	{
 		split_and_init(coord, tab[2], &s->direction);
 		v_limit(&s->direction, -1.0, 1.0);
