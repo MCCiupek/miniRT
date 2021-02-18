@@ -13,11 +13,12 @@
 #include "../includes/minirt.h"
 //#include "minirt.h"
 
-void mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
+int		mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 {
 	(void)mlx;
 	*x_max = RES_X_MAX;
 	*y_max = RES_Y_MAX;
+	return (0);
 }
 
 void	check_params(int argc, char **argv)
