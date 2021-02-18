@@ -103,12 +103,20 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	int		fd;
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, FILE_PERMISSIONS);
-	if (!fd)
+	if (fd < 1)
+	{
+		mlx_destroy_image(mlx->mlx, img);
+		free(img);
+		if (OS == 2)
+			mlx_destroy_display(mlx->mlx);
+		free(mlx->mlx);
 		error(3);
+	}
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
 	close(fd);
 	mlx_destroy_image(mlx->mlx, img);
+	free(img);
 	if (OS == 2)
 		mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
