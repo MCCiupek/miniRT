@@ -70,7 +70,6 @@ int mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
 int	mlx_get_screen_size(void *mlx, int *x_max, int *y_max);
 void	get_screen_size(t_mlx mlx, t_params *params);
 void	mlx_events(t_mlx mlx);
-void    free_imgs(t_mlx *mlx);
 int		reload_image(t_mlx *mlx);
 int     close_wdw(t_mlx *mlx);
 int     handle_key(int keycode, t_mlx *vars);

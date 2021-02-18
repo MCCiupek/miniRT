@@ -33,11 +33,13 @@ static int	ft_read(int fd, char *buf, t_line *nl, int ret)
 
 	while (ret >= 0)
 	{
-		if (!(tmp = ft_gnl_strjoin(nl->txt, buf)))
+		tmp = ft_gnl_strjoin(nl->txt, buf);
+		if (!tmp)
 			return (-1);
 		if (nl->count++)
 			free(nl->txt);
-		if (!(nl->txt = ft_gnl_strldup(tmp, ft_gnl_strlen(tmp))))
+		nl->txt = ft_gnl_strldup(tmp, ft_gnl_strlen(tmp));
+		if (!nl->txt)
 			return (-1);
 		free(tmp);
 		if (ft_gnl_strchr(buf, '\n') || !ret)
@@ -55,7 +57,8 @@ static int	ft_reset(t_line *nl, char **line, int b_line, int ret_val)
 {
 	if (b_line)
 	{
-		if (!(*line = (char *)malloc(sizeof(char) * 1)))
+		*line = (char *)malloc(sizeof(char) * 1);
+		if (!(*line))
 			ret_val = -1;
 		else
 			*(line[0]) = 0;
@@ -93,7 +96,7 @@ static int	ft_stock(t_line *nl, char **line)
 	return (eof == 0);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char			*buf;
 	static t_line	nl;
@@ -101,13 +104,17 @@ int			get_next_line(int fd, char **line)
 
 	if (!nl.count)
 		nl.txt = NULL;
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (-1);
-	if ((err = ft_err(fd, buf, line)) == -1)
+	err = ft_err(fd, buf, line);
+	if (err == -1)
 		return (-1);
-	if ((err = ft_read(fd, buf, &nl, err)) == -1)
+	err = ft_read(fd, buf, &nl, err);
+	if (err == -1)
 		return (ft_reset(&nl, line, 1, -1));
-	if (!(err = ft_stock(&nl, line)))
+	err = ft_stock(&nl, line);
+	if (!err)
 		ft_reset(&nl, line, 0, err);
 	return (err);
 }

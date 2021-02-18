@@ -13,11 +13,6 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void mlx_detroy_display(void *mlx)
-{
-	(void)mlx;
-}
-
 static void	create_bmpfileheader(t_bmp_h *header, int size)
 {
 	ft_bzero(header, sizeof(t_bmp_h));
@@ -75,11 +70,11 @@ static void	write_bmpheaders(t_params *params, int fd)
 	write(fd, &(dib_header.clr_important), 4);
 }
 
-void        write_bmpdata(t_data *img, t_params *params, int fd)
+void	write_bmpdata(t_data *img, t_params *params, int fd)
 {
-    int             x;
-    int             y;
-	unsigned int    *pixel;
+	int				x;
+	int				y;
+	unsigned int	*pixel;
 
 	y = params->r.y - 1;
 	while (y > -1)
@@ -88,7 +83,7 @@ void        write_bmpdata(t_data *img, t_params *params, int fd)
 		while (x < params->r.x)
 		{
 			pixel = (unsigned int *)(img->addr + (x + params->r.x * y)
-                        * PIXEL_LEN);
+					* PIXEL_LEN);
 			if (write(fd, pixel, 3) < 0)
 				error(3);
 			x++;
@@ -98,17 +93,8 @@ void        write_bmpdata(t_data *img, t_params *params, int fd)
 	printf("\nImage saved as '%s' in working dir.\n", FILENAME);
 }
 
-static void free_mlx(t_mlx *mlx)
-{
-	mlx_destroy_image(mlx->mlx, ((t_data *)mlx->imgs->content)->img);
-	free((t_data *)mlx->imgs->content);
-	free(mlx->imgs);
-	if (OS == 2)
-		mlx_destroy_display(mlx->mlx);
-	free(mlx->mlx);
-}
-
-void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
+void	save_bmp(t_mlx *mlx, t_data *img, t_params *params,
+	const char *filename)
 {
 	int		fd;
 
@@ -116,23 +102,11 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params, const char *filename)
 	if (fd < 1)
 	{
 		free_mlx(mlx);
-		/*mlx_destroy_image(mlx->mlx, ((t_data *)mlx->imgs->content)->img);
-		free((t_data *)mlx->imgs->content);
-		free(mlx->imgs);
-		if (OS == 2)
-			mlx_destroy_display(mlx->mlx);
-		free(mlx->mlx);*/
 		error(3);
 	}
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
 	close(fd);
-	/*mlx_destroy_image(mlx->mlx, ((t_data *)mlx->imgs->content)->img);
-	free((t_data *)mlx->imgs->content);
-	free(mlx->imgs);
-	if (OS == 2)
-		mlx_destroy_display(mlx->mlx);
-	free(mlx->mlx);*/
 	free_mlx(mlx);
 	exit(EXIT_SUCCESS);
 }

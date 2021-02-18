@@ -13,6 +13,11 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
+void	mlx_detroy_display(void *mlx)
+{
+	(void)mlx;
+}
+
 int	mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 {
 	(void)mlx;

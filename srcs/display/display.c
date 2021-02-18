@@ -13,23 +13,6 @@
 #include "../../includes/minirt.h"
 //#include "minirt.h"
 
-void    free_imgs(t_mlx *mlx)
-{
-	t_list	*elem;
-	t_list	*tmp;
-
-	elem = mlx->imgs->next;
-	mlx->imgs->next = NULL;
-	while (elem)
-	{
-		tmp = elem->next;
-		mlx_destroy_image(mlx->mlx, ((t_data *)elem->content)->img);
-		free((t_data *)elem->content);
-		free(elem);
-		elem = tmp;
-	}
-}
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -38,13 +21,14 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int		reload_image(t_mlx *mlx)
+int	reload_image(t_mlx *mlx)
 {
-	mlx_put_image_to_window(mlx->mlx, mlx->win, ((t_data *)mlx->imgs->content)->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win,
+		 ((t_data *)mlx->imgs->content)->img, 0, 0);
 	return (1);
 }
 
-int		close_wdw(t_mlx *mlx)
+int	close_wdw(t_mlx *mlx)
 {
 	free_imgs(mlx);
 	mlx_destroy_window(mlx->mlx, mlx->win);
@@ -55,7 +39,7 @@ int		close_wdw(t_mlx *mlx)
 	return (0);
 }
 
-int		handle_key(int keycode, t_mlx *vars)
+int	handle_key(int keycode, t_mlx *vars)
 {
 	if (keycode == SPC_KEY)
 	{
