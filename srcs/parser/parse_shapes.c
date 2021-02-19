@@ -10,45 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 static void	split_and_init(char **dest, char *src, t_vect *vec)
 {
 	dest = ft_split(src, ',');
+	check_coord(dest);
 	init_vect(vec, ft_atof(dest[0]), ft_atof(dest[1]), ft_atof(dest[2]));
 	ft_free(dest);
 }
 
-void	init_tr(char **coord, char **tab, t_shape *s)
+void		init_tr(char **coord, char **tab, t_shape *s)
 {
+	if (ft_tabsize(tab) != 5)
+		error(SQUARE_FMT);
 	split_and_init(coord, tab[2], &s->p1);
 	split_and_init(coord, tab[3], &s->p2);
 }
 
-void	init_cy(char **tab, t_shape *s)
+void		init_cy(char **tab, t_shape *s)
 {
+	if (ft_tabsize(tab) != 6 || !is_num(tab[3], 1, 0) || !is_num(tab[4], 1, 0))
+		error(CYL_FMT);
 	s->d = fabs(ft_atof(tab[3]));
 	s->h = fabs(ft_atof(tab[4]));
 }
 
-void	init_rgb(char **rgb, char **tab, t_shape *s)
+void		check_shapes(t_shape *s, char **tab)
 {
-	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
-	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
-	ft_free(rgb);
+	if (!ft_strncmp(s->id, "sp", 3)
+		&& (ft_tabsize(tab) != 4 || !is_num(tab[2], 1, 0)))
+		error(SPHERE_FMT);
+	if (!ft_strncmp(s->id, "pl", 3) && ft_tabsize(tab) != 4)
+		error(PLANE_FMT);
+	if (!ft_strncmp(s->id, "sq", 3)
+		&& (ft_tabsize(tab) != 5 || !is_num(tab[3], 1, 0)))
+		error(SQUARE_FMT);
 }
 
-void	init_sh(t_shape *s, char **tab)
+void		init_sh(t_shape *s, char **tab)
 {
 	char	**coord;
 	char	**rgb;
 
 	if (!s)
-		error(5);
+		error(MEM_ERR);
 	ft_strlcpy(s->id, tab[0], 3);
 	coord = NULL;
 	rgb = NULL;
+	check_shapes(s, tab);
 	init_rgb(rgb, tab, s);
 	split_and_init(coord, tab[1], &s->p0);
 	if (!ft_strncmp(s->id, "tr", 3))
@@ -60,7 +70,7 @@ void	init_sh(t_shape *s, char **tab)
 	if (!ft_strncmp(s->id, "sq", 3))
 		s->h = fabs(ft_atof(tab[3]));
 	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3)
-		 || !ft_strncmp(s->id, "cy", 3))
+		|| !ft_strncmp(s->id, "cy", 3))
 	{
 		split_and_init(coord, tab[2], &s->direction);
 		v_limit(&s->direction, -1.0, 1.0);

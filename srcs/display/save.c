@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 static void	create_bmpfileheader(t_bmp_h *header, int size)
 {
@@ -70,7 +69,7 @@ static void	write_bmpheaders(t_params *params, int fd)
 	write(fd, &(dib_header.clr_important), 4);
 }
 
-void	write_bmpdata(t_data *img, t_params *params, int fd)
+void		write_bmpdata(t_data *img, t_params *params, int fd)
 {
 	int				x;
 	int				y;
@@ -93,7 +92,7 @@ void	write_bmpdata(t_data *img, t_params *params, int fd)
 	printf("\nImage saved as '%s' in working dir.\n", FILENAME);
 }
 
-void	save_bmp(t_mlx *mlx, t_data *img, t_params *params,
+void		save_bmp(t_mlx *mlx, t_data *img, t_params *params,
 	const char *filename)
 {
 	int		fd;

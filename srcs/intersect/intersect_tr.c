@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 t_vect	get_norm_tr(t_shape *tr)
 {
@@ -26,7 +25,7 @@ t_vect	get_norm_tr(t_shape *tr)
 	return (n);
 }
 
-int	intersect_tr(t_intersect *i, t_shape *tr)
+int		intersect_tr(t_intersect *i, t_shape *tr)
 {
 	float	t;
 	t_vect	p;
@@ -45,8 +44,8 @@ int	intersect_tr(t_intersect *i, t_shape *tr)
 	c[1] = subs(p, tr->p1);
 	c[2] = subs(p, tr->p2);
 	if (dotprod(tr->n, crossprod(e[0], c[0])) > 0
-		 && dotprod(tr->n, crossprod(e[1], c[1])) > 0
-		 && dotprod(tr->n, crossprod(e[2], c[2])) > 0)
+		&& dotprod(tr->n, crossprod(e[1], c[1])) > 0
+		&& dotprod(tr->n, crossprod(e[2], c[2])) > 0)
 	{
 		i->t = t;
 		i->shape = tr;

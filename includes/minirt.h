@@ -41,14 +41,14 @@
 # define MAPNOTIFY 19
 # define STRUCTURENOTIFYMASK 131072
 
-/************ A SUPPRIMER !!!! ************/
 # include <stdio.h>
-/******************************************/
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
 # include "mlx.h"
 
@@ -67,5 +67,6 @@
 void	ft_free(char **tab);
 void	free_imgs(t_mlx *mlx);
 void	free_mlx(t_mlx *mlx);
+void	free_lsts(t_params *params, t_list *first_cam);
 
 #endif

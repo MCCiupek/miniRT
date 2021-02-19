@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	rx(t_vect *vect, float x)
 {

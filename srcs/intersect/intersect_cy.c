@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 float	inter_cy_base(t_intersect *i, t_shape *cy, int pl)
 {
@@ -39,7 +38,7 @@ float	inter_cy_base(t_intersect *i, t_shape *cy, int pl)
 	return (1);
 }
 
-int	intersect_cy(t_intersect *i, t_shape *cy)
+int		intersect_cy(t_intersect *i, t_shape *cy)
 {
 	t_vect	v[2];
 	float	y[2];

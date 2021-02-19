@@ -10,15 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	mlx_detroy_display(void *mlx)
 {
 	(void)mlx;
 }
 
-int	mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
+int		mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 {
 	(void)mlx;
 	*x_max = RES_X_MAX;
@@ -32,8 +31,8 @@ void	get_screen_size(t_mlx mlx, t_params *params)
 		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
 	else if (OS == 1)
 		mlx_get_screen_size(mlx.mlx, &params->r.x_max, &params->r.y_max);
-	params->r.x = (int)limit(params->r.x, 0, params->r.x_max);
-	params->r.y = (int)limit(params->r.y, 0, params->r.y_max);
+	params->r.x = (int)limit(params->r.x, 1, params->r.x_max);
+	params->r.y = (int)limit(params->r.y, 1, params->r.y_max);
 }
 
 void	mlx_events(t_mlx mlx)

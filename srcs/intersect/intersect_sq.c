@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 static int	is_inside_square(t_shape *square, t_vect p)
 {
@@ -26,7 +25,7 @@ static int	is_inside_square(t_shape *square, t_vect p)
 		&& (fabs(dist.z) <= border));
 }
 
-int	intersect_sq(t_intersect *i, t_shape *sq)
+int			intersect_sq(t_intersect *i, t_shape *sq)
 {
 	float	t;
 	t_vect	p;

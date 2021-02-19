@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 float	resolve_eq(float a, float b, float c)
 {
@@ -29,7 +28,7 @@ float	resolve_eq(float a, float b, float c)
 	return (x1);
 }
 
-int	intersect_sphere(t_intersect *i, t_shape *sphere)
+int		intersect_sphere(t_intersect *i, t_shape *sphere)
 {
 	t_ray	r;
 	float	t;

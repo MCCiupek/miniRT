@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 float	t_inter_plan(t_intersect *i, t_shape *shape)
 {
@@ -25,7 +24,7 @@ float	t_inter_plan(t_intersect *i, t_shape *shape)
 	return (t);
 }
 
-int	intersect_plan(t_intersect *i, t_shape *plan)
+int		intersect_plan(t_intersect *i, t_shape *plan)
 {
 	float	t;
 

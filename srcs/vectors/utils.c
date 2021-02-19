@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
-int	ft_tabsize(char **tab)
+int		ft_tabsize(char **tab)
 {
 	int	i;
 
@@ -30,7 +29,7 @@ float	limit(float n, float min, float max)
 
 void	v_limit(t_vect *v, float min, float max)
 {
-	v->x = limit(v->x, min, max);
-	v->y = limit(v->y, min, max);
-	v->z = limit(v->z, min, max);
+	if (v->x != limit(v->x, min, max) || v->y != limit(v->y, min, max)
+		|| v->z != limit(v->z, min, max))
+		error(COORD_FMT);
 }

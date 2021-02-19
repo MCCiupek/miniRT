@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-typedef struct s_ray
+typedef struct	s_ray
 {
 	t_vect	origin;
 	t_vect	direction;

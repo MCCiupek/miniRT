@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
-static void	check_params(int argc, char **argv)
+static void		check_params(int argc, char **argv)
 {
 	char	**tab;
 
 	if (argc < 2 || argc > 3)
-		error(1);
+		error(NB_ARG);
 	if (argc == 3 && ft_strncmp(argv[1], "-save", 6))
-		error(2);
+		error(OPT_ERR);
 	if (argc == 2)
 	{
 		tab = ft_split(argv[1], '.');
@@ -28,13 +27,13 @@ static void	check_params(int argc, char **argv)
 				ft_strlen(tab[ft_tabsize(tab) - 1])))
 		{
 			ft_free(tab);
-			error(3);
+			error(FILENAME_ERR);
 		}
 		ft_free(tab);
 	}
 }
 
-static void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
+static void		init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 {
 	check_params(argc, argv);
 	params->r.count = 0;
@@ -44,6 +43,12 @@ static void	init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 	params->lights = NULL;
 	mlx->imgs = NULL;
 	gnl(argc, argv, params);
+	if (!params->r.count)
+		error(NO_RES);
+	if (!params->al.count)
+		error(NO_AMB);
+	if (!ft_lstsize(params->cams))
+		error(NO_CAM);
 	mlx->mlx = mlx_init();
 	get_screen_size(*mlx, params);
 }
@@ -61,7 +66,7 @@ static t_data	*switch_cam(t_params *params, t_mlx *mlx)
 	return (img);
 }
 
-int	main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_params	params;
 	t_mlx		mlx;

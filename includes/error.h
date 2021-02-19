@@ -15,16 +15,45 @@
 
 # include "minirt.h"
 
-# define ERR "Unidentified error.\n"
-# define ERR_1 "Incorrect number of arguments.\n"
-# define ERR_2 "Unidentified input file type.\n"
-# define ERR_3 "File can't be opened.\n"
-# define ERR_4 "Unidentified flag.\n"
-# define ERR_5 "Malloc failed while parsing shapes.\n"
-# define ERR_6 "Ambiant light (A) and resolution (R) \
-     can only be declared once.\n"
+typedef enum	e_err
+{
+	ERRNO_TO_STR = -1,
+	UKN_ERR,
+	NB_ARG,
+	FILENAME_ERR,
+	RD_ERR,
+	OPT_ERR,
+	MEM_ERR,
+	AR_DUP,
+	AMB_FMT,
+	RES_FMT,
+	CAM_FMT,
+	LIGHT_FMT,
+	SPHERE_FMT,
+	PLANE_FMT,
+	SQUARE_FMT,
+	TR_FMT,
+	CYL_FMT,
+	COLOR_FMT,
+	COORD_FMT,
+	FLOAT_FMT,
+	NUM_FMT,
+	ID_ERR,
+	NO_AMB,
+	NO_CAM,
+	NO_LIGHT,
+	NO_OBJ,
+	NO_RES,
+	RES_LOW,
+	SCENE_FMT
+}				t_err;
 
-void	free_lsts(t_params *params, t_list *first_cam);
-void	error(int err);
+typedef struct	s_error
+{
+	t_err	u_id;
+	char	*msg;
+}				t_error;
+
+void			error(t_err raised);
 
 #endif

@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	c_limit(t_color *c)
 {
-	c->r = limit(c->r, 0, 255);
-	c->g = limit(c->g, 0, 255);
-	c->b = limit(c->b, 0, 255);
+	if (c->r != limit(c->r, 0, 255) || c->g != limit(c->g, 0, 255)
+		|| c->b != limit(c->b, 0, 255))
+		error(COLOR_FMT);
 }
 
 void	init_colors(t_color *c, float r, float g, float b)
@@ -28,11 +27,11 @@ void	init_colors(t_color *c, float r, float g, float b)
 	c_limit(c);
 }
 
-int	rgb(float r, float g, float b)
+int		rgb(float r, float g, float b)
 {
 	return ((((int)r & 0x0ff) << 16)
-		 | (((int)g & 0x0ff) << 8)
-		 | ((int)b & 0x0ff));
+		| (((int)g & 0x0ff) << 8)
+		| ((int)b & 0x0ff));
 }
 
 void	mix_colors(t_color *c, float coef, t_color colors)

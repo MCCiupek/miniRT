@@ -32,6 +32,7 @@ SRC =			gnl/get_next_line_utils.c \
 				\
 				parser/parse_scene.c \
 				parser/parse_shapes.c \
+				parser/parse_utils.c \
 				parser/parser.c \
 				\
 				vectors/init.c \
@@ -72,9 +73,11 @@ NAME =			miniRT
 
 UNAME := 		$(shell uname)
 
-Y_MAX :=	$(shell xwininfo -root|sed '/Height/!d;s/.* //')
+Y_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$4}')
+#Y_MAX :=	$(shell xwininfo -root|sed '/Height/!d;s/.* //')
 
-X_MAX :=	$(shell xwininfo -root|sed '/Width/!d;s/.* //')
+X_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
+#X_MAX :=	$(shell xwininfo -root|sed '/Width/!d;s/.* //')
 
 RES =			-D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
 
@@ -99,9 +102,9 @@ all:			$(NAME)
 $(NAME) :		$(OBJS)
 				@$(MAKE) -C ./libft bonus
 				@cp ./libft/$(LIBFT) $(LIBFT) && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
-				@cp $(MLX_DIR)/*.h $(MLX_HEADER)
+				#@cp $(MLX_DIR)/*.h $(MLX_HEADER)
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-				@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
+				#@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
 				@$(CC) $(COMPIL) $(OS) $(RES) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c

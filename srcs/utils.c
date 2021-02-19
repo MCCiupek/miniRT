@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	ft_free(char **tab)
 {
@@ -48,4 +47,11 @@ void	free_mlx(t_mlx *mlx)
 	if (OS == 2)
 		mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
+}
+
+void	free_lsts(t_params *params, t_list *first_cam)
+{
+	ft_lstclear(&params->shapes, (void *)free);
+	ft_lstclear(&first_cam, (void *)free);
+	ft_lstclear(&params->lights, (void *)free);
 }

@@ -23,6 +23,5 @@ void	get_norm_cy_base_down(t_intersect *i);
 void	set_norm(t_intersect *i);
 float	light(t_intersect *i, t_params *params);
 void	set_colors(t_px *px, t_intersect *i, t_params *params);
-void	c_limit(t_color *c);
 
 #endif

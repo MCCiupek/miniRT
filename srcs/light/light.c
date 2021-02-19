@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	set_norm(t_intersect *i)
 {
 	if (!ft_strncmp(i->shape->id, "sp", 3))
 		get_norm_sp(i);
 	else if (!ft_strncmp(i->shape->id, "pl", 3)
-		 || !ft_strncmp(i->shape->id, "sq", 3)
-		 || !ft_strncmp(i->shape->id, "tr", 3))
+		|| !ft_strncmp(i->shape->id, "sq", 3)
+		|| !ft_strncmp(i->shape->id, "tr", 3))
 		get_norm_pl(i);
 	else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == 1)
 		get_norm_cy_base_up(i);
@@ -29,7 +28,7 @@ void	set_norm(t_intersect *i)
 		get_norm_cy(i);
 }
 
-int	is_lit(t_intersect *i, t_params *params, t_light light,
+int		is_lit(t_intersect *i, t_params *params, t_light light,
 	t_vect light_dir)
 {
 	t_intersect	i2;
@@ -38,7 +37,7 @@ int	is_lit(t_intersect *i, t_params *params, t_light light,
 	init_ray(&i2.ray, calculate(i->ray, i->t), normalize_v(light_dir));
 	if (intersect(params->shapes, &i2, 0))
 		if (len3(subs(light.origin, i2.ray.origin))
-			 > len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
+			> len3(subs(calculate(i2.ray, i2.t), i2.ray.origin)))
 			return (0);
 	return (1);
 }
@@ -55,7 +54,7 @@ float	get_specular(
 	reflect = subs(scalprod_v(i->n, 2 * angle), normalize_v(light_dir));
 	if (dotprod(reflect, rev_dir) > 0.0)
 		coef = light->light * pow(dotprod(reflect, rev_dir)
-				 / (len3(reflect) * len3(rev_dir)), GAMMA);
+				/ (len3(reflect) * len3(rev_dir)), GAMMA);
 	return (coef);
 }
 

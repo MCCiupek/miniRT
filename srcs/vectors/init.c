@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
 void	init_vect(t_vect *v, float x, float y, float z)
 {
@@ -44,7 +43,7 @@ t_vect	copy(t_vect v)
 	return (res);
 }
 
-int	is_null(t_vect v)
+int		is_null(t_vect v)
 {
 	return (v.x == 0 && v.y == 0 && v.z == 0);
 }

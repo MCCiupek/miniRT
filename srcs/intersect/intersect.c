@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minirt.h"
-//#include "minirt.h"
+#include "minirt.h"
 
-void	init_intersect(t_intersect *i)
+void			init_intersect(t_intersect *i)
 {
 	i->base = 0;
 	i->t = RAY_MAX;
 	i->shape = NULL;
 }
 
-int	intersect(t_list *shapes, t_intersect *i, int interrupt)
+int				intersect(t_list *shapes, t_intersect *i, int interrupt)
 {
 	t_shape	*shape;
 
@@ -65,7 +64,7 @@ static t_vect	look_at(t_vect d, t_vect cam_dir)
 	return (rotated);
 }
 
-int	do_intersect(t_params *params, t_px *px)
+int				do_intersect(t_params *params, t_px *px)
 {
 	t_intersect	i;
 	t_vect		dir;
