@@ -19,7 +19,7 @@ int			is_shape(char *tab)
 		|| !ft_strncmp(tab, "tr", 3));
 }
 
-int		init_obj_lst(t_params *params, void *(*f)(void *, char **tab),
+int			init_obj_lst(t_params *params, void *(*f)(void *, char **tab),
 							void *obj, char **tab)
 {
 	t_list	*elem;
@@ -62,7 +62,7 @@ static int	parse_lsts(t_params *params, char **tab)
 	return (-1);
 }
 
-int		parse(char *line, t_params *params)
+int			parse(char *line, t_params *params)
 {
 	char	**tab;
 	int		err;

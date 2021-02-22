@@ -24,7 +24,7 @@ int	init_rgb(char **tab, t_shape *s)
 	return (ft_free(rgb));
 }
 
-int		is_num(char *s, int is_float, int is_neg)
+int	is_num(char *s, int is_float, int is_neg)
 {
 	int	cpt_minus;
 	int	cpt_dot;
@@ -58,7 +58,8 @@ int	check_col(char **rgb)
 	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_num(rgb[0], 1, 0)
 		|| !is_num(rgb[1], 1, 0) || !is_num(rgb[2], 1, 0))
 		return (COLOR_FMT);
-	if (ft_atof(rgb[0]) != limit(ft_atof(rgb[0]), 0, 255) || ft_atof(rgb[1]) != limit(ft_atof(rgb[1]), 0, 255)
+	if (ft_atof(rgb[0]) != limit(ft_atof(rgb[0]), 0, 255) ||
+		ft_atof(rgb[1]) != limit(ft_atof(rgb[1]), 0, 255)
 		|| ft_atof(rgb[2]) != limit(ft_atof(rgb[2]), 0, 255))
 		return (COLOR_FMT);
 	return (0);

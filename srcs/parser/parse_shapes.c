@@ -24,7 +24,7 @@ static int	split_and_init(char *src, t_vect *vec)
 	return (ft_free(coord));
 }
 
-int		init_tr(char **tab, t_shape *s)
+int			init_tr(char **tab, t_shape *s)
 {
 	char	**coord;
 
@@ -37,7 +37,7 @@ int		init_tr(char **tab, t_shape *s)
 	return (0);
 }
 
-int		init_cy(char **tab, t_shape *s)
+int			init_cy(char **tab, t_shape *s)
 {
 	if (ft_tabsize(tab) != 6 || !is_num(tab[3], 1, 0) || !is_num(tab[4], 1, 0))
 		return (CYL_FMT);
@@ -46,7 +46,7 @@ int		init_cy(char **tab, t_shape *s)
 	return (0);
 }
 
-int		check_shapes(t_shape *s, char **tab)
+int			check_shapes(t_shape *s, char **tab)
 {
 	if (!ft_strncmp(s->id, "sp", 3)
 		&& (ft_tabsize(tab) != 4 || !is_num(tab[2], 1, 0)))
@@ -59,7 +59,7 @@ int		check_shapes(t_shape *s, char **tab)
 	return (0);
 }
 
-int		init_sh(t_shape *s, char **tab)
+int			init_sh(t_shape *s, char **tab)
 {
 	int	err;
 
@@ -83,10 +83,7 @@ int		init_sh(t_shape *s, char **tab)
 		s->h = fabs(ft_atof(tab[3]));
 	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3)
 		|| !ft_strncmp(s->id, "cy", 3))
-	{
-		if (split_and_init(tab[2], &s->direction)
-			|| v_limit(&s->direction, -1.0, 1.0))
+		if (split_and_init(tab[2], &s->direction) || v_limit(&s->direction, -1, 1))
 			return (COORD_FMT);
-	}
 	return (0);
 }

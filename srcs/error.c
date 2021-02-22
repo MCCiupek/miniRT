@@ -47,7 +47,8 @@ static char	*get_error_msg(t_err raised)
 	return ((char *)strerror(errno));
 }
 
-void		error(t_err raised, char **tab_to_free, char *line_to_free, t_params *params)
+void		error(t_err raised, char **tab_to_free,
+				char *line_to_free, t_params *params)
 {
 	char	*msg;
 

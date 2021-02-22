@@ -27,7 +27,7 @@ float	limit(float n, float min, float max)
 	return (fmax(min, fmin(n, max)));
 }
 
-int	v_limit(t_vect *v, float min, float max)
+int		v_limit(t_vect *v, float min, float max)
 {
 	if (v->x != limit(v->x, min, max) || v->y != limit(v->y, min, max)
 		|| v->z != limit(v->z, min, max))

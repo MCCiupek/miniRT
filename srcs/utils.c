@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int	ft_free(char **tab)
+int		ft_free(char **tab)
 {
 	int	i;
 

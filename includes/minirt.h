@@ -64,7 +64,7 @@
 # include "display.h"
 # include "error.h"
 
-int	    ft_free(char **tab);
+int		ft_free(char **tab);
 void	free_imgs(t_mlx *mlx);
 void	free_mlx(t_mlx *mlx);
 void	free_lsts(t_params *params, t_list *first_cam);
