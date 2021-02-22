@@ -137,7 +137,7 @@ fclean:			clean
 
 git:			fclean
 				git add .
-				git commit -m """$(shell date)"""
+				git commit -m "$(shell date)"
 				git push
 
 re:				fclean all
