@@ -79,9 +79,14 @@ Y_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{p
 X_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
 #X_MAX :=	$(shell xwininfo -root|sed '/Width/!d;s/.* //')
 
+CP_MLX_H =		@cp $(MLX_DIR)/*.h $(MLX_HEADER)
+CP_MLX_LIB =	@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
+
 RES =			-D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
 
 ifeq ($(UNAME),Darwin)
+	CP_MLX_H = @echo "Using local mlx headers"
+	CP_MLX_LIB = @echo "Using local mlx library"
 	MLX_DIR = ./mlx
 	MLX_FLAGS += $(MACOS_FLAGS)
 	COMPIL += -Lmlx -lmlx $(MACOS_FLAGS)
@@ -90,6 +95,8 @@ ifeq ($(UNAME),Darwin)
 endif
 
 ifeq ($(UNAME),Linux)
+	CP_MLX_H += @echo "Copying mlx headers"
+	CP_MLX_LIB += @echo "Copying mlx library"
 	MLX_DIR = ./mlx_linux
 	MLX_FLAGS = -Lmlx -lmlx -L$(MLX_LIB) -Imlx_linux $(LINUX_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -I$(MLX_HEADER) -Imlx_linux
@@ -102,9 +109,9 @@ all:			$(NAME)
 $(NAME) :		$(OBJS)
 				@$(MAKE) -C ./libft bonus
 				@cp ./libft/$(LIBFT) $(LIBFT) && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
-				#@cp $(MLX_DIR)/*.h $(MLX_HEADER)
+				$(CP_MLX_H)
 				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
-				#@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
+				$(CP_MLX_LIB)
 				@$(CC) $(COMPIL) $(OS) $(RES) $(OBJS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
 
 %.o: %.c

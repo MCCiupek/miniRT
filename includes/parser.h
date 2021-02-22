@@ -73,6 +73,7 @@ typedef struct	s_params
 int				is_num(char *s, int is_float, int is_neg);
 void			check_col(char **rgb);
 void			check_coord(char **coord);
+void			init_rgb(char **rgb, char **tab, t_shape *s);
 void			init_resol(t_resol *r, char **tab);
 void			init_alight(t_alight *al, char **tab);
 void			init_light(t_light *l, char **tab);
