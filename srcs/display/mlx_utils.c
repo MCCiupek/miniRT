@@ -12,6 +12,7 @@
 
 #include "minirt.h"
 
+#ifdef MACOS
 void	mlx_detroy_display(void *mlx)
 {
 	(void)mlx;
@@ -24,6 +25,7 @@ int		mlx_get_screen_size(void *mlx, int *x_max, int *y_max)
 	*y_max = RES_Y_MAX;
 	return (0);
 }
+#endif
 
 void	get_screen_size(t_mlx mlx, t_params *params)
 {

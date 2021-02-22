@@ -95,12 +95,14 @@ ifeq ($(UNAME),Darwin)
 endif
 
 ifeq ($(UNAME),Linux)
-	CP_MLX_H += @echo "Copying mlx headers"
-	CP_MLX_LIB += @echo "Copying mlx library"
+	CP_MLX_H += && echo "Copying mlx headers"
+	CP_MLX_LIB += && echo "Copying mlx library"
 	MLX_DIR = ./mlx_linux
 	MLX_FLAGS = -Lmlx -lmlx -L$(MLX_LIB) -Imlx_linux $(LINUX_FLAGS)
 	FLAGS += -I$(DIR_HEADERS) -I$(MLX_HEADER) -Imlx_linux
 	OS = -D LINUX
+	X_MAX = 0
+	Y_MAX = 0
 endif
 
 all:			$(NAME)
