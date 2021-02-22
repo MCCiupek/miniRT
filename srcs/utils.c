@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	ft_free(char **tab)
+int	ft_free(char **tab)
 {
 	int	i;
 
@@ -20,6 +20,7 @@ void	ft_free(char **tab)
 	while (tab[++i])
 		free(tab[i]);
 	free(tab);
+	return (0);
 }
 
 void	free_imgs(t_mlx *mlx)

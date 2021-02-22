@@ -12,69 +12,87 @@
 
 #include "minirt.h"
 
-static void	split_and_init(char *src, t_vect *vec, char *line, t_params *params)
+static int	split_and_init(char *src, t_vect *vec)
 {
 	char	**coord;
 
 	coord = NULL;
 	coord = ft_split(src, ',');
-	check_coord(coord, line, params);
+	if (check_coord(coord))
+		return (ft_free(coord) + COORD_FMT);
 	init_vect(vec, ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
-	ft_free(coord);
+	return (ft_free(coord));
 }
 
-void		init_tr(char **tab, t_shape *s, char *line, t_params *params)
+int		init_tr(char **tab, t_shape *s)
 {
 	char	**coord;
 
 	coord = NULL;
 	if (ft_tabsize(tab) != 5)
-		error(TR_FMT, tab, line, params);
-	split_and_init(tab[2], &s->p1, line, params);
-	split_and_init(tab[3], &s->p2, line, params);
+		return (TR_FMT);
+	//	error(TR_FMT, tab, line, params);
+	if (split_and_init(tab[2], &s->p1)
+		|| split_and_init(tab[3], &s->p2))
+		return (COORD_FMT);
+	return (0);
 }
 
-void		init_cy(char **tab, t_shape *s, char *line, t_params *params)
+int		init_cy(char **tab, t_shape *s)
 {
 	if (ft_tabsize(tab) != 6 || !is_num(tab[3], 1, 0) || !is_num(tab[4], 1, 0))
-		error(CYL_FMT, tab, line, params);
+		return (CYL_FMT);
+	//	error(CYL_FMT, tab, line, params);
 	s->d = fabs(ft_atof(tab[3]));
 	s->h = fabs(ft_atof(tab[4]));
+	return (0);
 }
 
-void		check_shapes(t_shape *s, char **tab, char *line, t_params *params)
+int		check_shapes(t_shape *s, char **tab)
 {
 	if (!ft_strncmp(s->id, "sp", 3)
 		&& (ft_tabsize(tab) != 4 || !is_num(tab[2], 1, 0)))
-		error(SPHERE_FMT, tab, line, params);
+		return (SPHERE_FMT);
+	//	error(SPHERE_FMT, tab, line, params);
 	if (!ft_strncmp(s->id, "pl", 3) && ft_tabsize(tab) != 4)
-		error(PLANE_FMT, tab, line, params);
+		return (PLANE_FMT);
+	//	error(PLANE_FMT, tab, line, params);
 	if (!ft_strncmp(s->id, "sq", 3)
 		&& (ft_tabsize(tab) != 5 || !is_num(tab[3], 1, 0)))
-		error(SQUARE_FMT, tab, line, params);
+		return (SQUARE_FMT);
+	//	error(SQUARE_FMT, tab, line, params);
+	return (0);
 }
 
-void		init_sh(t_shape *s, char **tab, char *line, t_params *params)
+int		init_sh(t_shape *s, char **tab)
 {
+	int	err;
+
 	if (!s)
-		error(MEM_ERR, tab, line, params);
+		return (MEM_ERR);
+	//	error(MEM_ERR, tab);
 	ft_strlcpy(s->id, tab[0], 3);
-	check_shapes(s, tab, line, params);
-	init_rgb(tab, s, line, params);
-	split_and_init(tab[1], &s->p0, line, params);
+	err = check_shapes(s, tab);
+	if (err)
+		return (err);
+	if (init_rgb(tab, s))
+		return (COLOR_FMT);
+	if (split_and_init(tab[1], &s->p0))
+		return (COORD_FMT);
 	if (!ft_strncmp(s->id, "tr", 3))
-		init_tr(tab, s, line, params);
+		err = init_tr(tab, s);
 	if (!ft_strncmp(s->id, "sp", 3))
 		s->d = fabs(ft_atof(tab[2]));
 	if (!ft_strncmp(s->id, "cy", 3))
-		init_cy(tab, s, line, params);
+		err = init_cy(tab, s);
 	if (!ft_strncmp(s->id, "sq", 3))
 		s->h = fabs(ft_atof(tab[3]));
 	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3)
 		|| !ft_strncmp(s->id, "cy", 3))
 	{
-		split_and_init(tab[2], &s->direction, line, params);
-		if (v_limit(&s->direction, -1.0, 1.0))
-			error(COORD_FMT, tab, line, params);
+		if (split_and_init(tab[2], &s->direction)
+			|| v_limit(&s->direction, -1.0, 1.0))
+			return (COORD_FMT);
 	}
+	return (0);
 }

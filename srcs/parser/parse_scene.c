@@ -12,45 +12,54 @@
 
 #include "minirt.h"
 
-void	init_resol(t_params *params, char **tab, char *line)
+int	init_resol(t_params *params, char **tab)
+//int	init_resol(t_params *params, char **tab, char *line)
 {
 	if (ft_tabsize(tab) != 3 || !tab[1] || !tab[2] || !is_num(tab[1], 0, 0)
 		|| !is_num(tab[2], 0, 0) || ft_atoi(tab[1]) < 1 || ft_atoi(tab[2]) < 1)
-		error(RES_FMT, tab, line, params);
+		return (RES_FMT);
+	//	error(RES_FMT, tab, line, params);
 	params->r.x = ft_atoi(tab[1]);
 	params->r.y = ft_atoi(tab[2]);
 	params->r.count++;
+	return (0);
 }
 
-void	init_alight(t_params *params, char **tab, char *line)
+int	init_alight(t_params *params, char **tab)
 {
 	char	**rgb;
 
 	if (ft_tabsize(tab) != 3 || !tab[1] || !tab[2] || !is_num(tab[1], 1, 0))
-		error(AMB_FMT, tab, line, params);
+		return (AMB_FMT);
+	//	error(AMB_FMT, tab, line, params);
 	params->al.light = limit(ft_atof(tab[1]), 0.0, 1.0);
 	rgb = ft_split(tab[2], ',');
-	check_col(rgb, line, params);
+	if (!rgb)
+		return (MEM_ERR);
+	if (check_col(rgb))
+		return (ft_free(rgb) + COLOR_FMT);
 	init_colors(&params->al.colors,
 		limit(ft_atof(rgb[0]), 0, 255),
 		limit(ft_atof(rgb[1]), 0, 255),
 		limit(ft_atof(rgb[2]), 0, 255));
 	ft_free(rgb);
 	params->al.count++;
+	return (0);
 }
 
-void	init_cam(t_cam *c, char **tab, char *line, t_params *params)
+int	init_cam(t_cam *c, char **tab)
 {
 	char	**coord;
 	char	**vect;
 
 	if (ft_tabsize(tab) != 4 || !tab[1] || !tab[2] || !tab[3]
 		|| !is_num(tab[3], 1, 0) || ft_atof(tab[3]) > 180.0)
-		error(CAM_FMT, tab, line, params);
+		return (CAM_FMT);
+	//	error(CAM_FMT, tab, line, params);
 	coord = ft_split(tab[1], ',');
 	vect = ft_split(tab[2], ',');
-	check_coord(coord, line, params);
-	check_coord(vect, line, params);
+	if (check_coord(coord) || check_coord(vect))
+		return (ft_free(coord) + ft_free(vect) + COORD_FMT);
 	init_vect(&c->origin,
 		ft_atof(coord[0]),
 		ft_atof(coord[1]),
@@ -60,22 +69,24 @@ void	init_cam(t_cam *c, char **tab, char *line, t_params *params)
 		limit(ft_atof(vect[1]), -1.0, 1.0),
 		limit(ft_atof(vect[2]), -1.0, 1.0));
 	c->fov = limit(ft_atof(tab[3]), 0.0, 180.0);
-	ft_free(coord);
-	ft_free(vect);
+	return (ft_free(coord) + ft_free(vect));
 }
 
-void	init_light(t_light *l, char **tab, char *line, t_params *params)
+int	init_light(t_light *l, char **tab)
 {
 	char	**coord;
 	char	**rgb;
 
 	if (ft_tabsize(tab) != 4 || !tab[1] || !tab[2] || !tab[3]
 		|| !is_num(tab[2], 1, 0))
-		error(LIGHT_FMT, tab, line, params);
+		return (LIGHT_FMT);
+	//	error(LIGHT_FMT, tab, line, params);
 	coord = ft_split(tab[1], ',');
 	rgb = ft_split(tab[3], ',');
-	check_col(rgb, line, params);
-	check_coord(coord, line, params);
+	if (check_col(rgb))
+		return (ft_free(coord) + ft_free(rgb) + COLOR_FMT);
+	if (check_coord(coord))
+		return (ft_free(coord) + ft_free(rgb) + COORD_FMT);
 	init_vect(&l->origin,
 		ft_atof(coord[0]),
 		ft_atof(coord[1]),
@@ -85,6 +96,5 @@ void	init_light(t_light *l, char **tab, char *line, t_params *params)
 		limit(ft_atof(rgb[0]), 0, 255),
 		limit(ft_atof(rgb[1]), 0, 255),
 		limit(ft_atof(rgb[2]), 0, 255));
-	ft_free(coord);
-	ft_free(rgb);
+	return (ft_free(coord) + ft_free(rgb));
 }

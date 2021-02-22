@@ -19,53 +19,57 @@ int			is_shape(char *tab)
 		|| !ft_strncmp(tab, "tr", 3));
 }
 
-void		init_obj_lst(t_params *params, void *(*f)(void *, char **tab, char *line, t_params *params),
-							void *obj, char **tab, char *line)
+int		init_obj_lst(t_params *params, void *(*f)(void *, char **tab),
+							void *obj, char **tab)
 {
 	t_list	*elem;
 	t_list	**lst;
+	int		err;
 
 	if (!obj)
-		error(MEM_ERR, tab, line, params);
+		return (ft_free(tab) + MEM_ERR);
+	//	error(MEM_ERR, tab, line, params);
 	if (!ft_strncmp(tab[0], "c", 2))
 		lst = &params->cams;
 	if (!ft_strncmp(tab[0], "l", 2))
 		lst = &params->lights;
 	if (is_shape(tab[0]))
 		lst = &params->shapes;
-	f(obj, tab, line, params);
+	err = (int)f(obj, tab);
 	elem = ft_lstnew(obj);
 	ft_lstadd_back(lst, elem);
+	return (err);
 }
 
-static int	parse_lsts(t_params *params, char **tab, char *line)
+static int	parse_lsts(t_params *params, char **tab)
 {
 	void	*obj;
 
 	if (!ft_strncmp(tab[0], "c", 2))
 	{
 		obj = (t_cam *)malloc(sizeof(t_cam));
-		init_obj_lst(params, (void *)init_cam, obj, tab, line);
-		return (1);
+		return (init_obj_lst(params, (void *)init_cam, obj, tab));
+		//return (1);
 	}
 	else if (!ft_strncmp(tab[0], "l", 2))
 	{
 		obj = (t_light *)malloc(sizeof(t_light));
-		init_obj_lst(params, (void *)init_light, obj, tab, line);
-		return (1);
+		return (init_obj_lst(params, (void *)init_light, obj, tab));
+		//return (1);
 	}
 	else if (is_shape(tab[0]))
 	{
 		obj = (t_shape *)malloc(sizeof(t_shape));
-		init_obj_lst(params, (void *)init_sh, obj, tab, line);
-		return (1);
+		return (init_obj_lst(params, (void *)init_sh, obj, tab));
+		//return (1);
 	}
-	return (0);
+	return (-1);
 }
 
-void		parse(char *line, t_params *params)
+int		parse(char *line, t_params *params)
 {
 	char	**tab;
+	int		err;
 
 	tab = ft_split(line, ' ');
 	if (!tab || !tab[0])
@@ -73,18 +77,24 @@ void		parse(char *line, t_params *params)
 	else if (!ft_strncmp(tab[0], "R", 2))
 	{
 		if (params->r.count)
-			error(AR_DUP, tab, line, params);
-		init_resol(params, tab, line);
+			return (ft_free(tab) + AR_DUP);
+		//	error(AR_DUP, tab, line, params);
+		return (init_resol(params, tab));
+		//	return (ft_free(tab) + RES_FMT);
 	}
 	else if (!ft_strncmp(tab[0], "A", 2))
 	{
 		if (params->al.count)
-			error(AR_DUP, tab, line, params);
-		init_alight(params, tab, line);
+			return (ft_free(tab) + AR_DUP);
+		//	error(AR_DUP, tab, line, params);
+		return (init_alight(params, tab));
+		//	return (ft_free(tab) + AMB_FMT);
 	}
-	else if (!parse_lsts(params, tab, line) && *tab[0] != '#')
-		error(ID_ERR, tab, line, params);
-	ft_free(tab);
+	err = parse_lsts(params, tab);
+	if (err == -1 && *tab[0] != '#')
+		return (ft_free(tab) + ID_ERR);
+		//error(ID_ERR, tab, line, params);
+	return (ft_free(tab) + err);
 }
 
 int			gnl(int argc, char **argv, t_params *params)
@@ -92,8 +102,10 @@ int			gnl(int argc, char **argv, t_params *params)
 	int		fd;
 	char	*line;
 	int		i;
+	int		ret;
 
 	i = 0;
+	ret = 0;
 	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
 	else
@@ -103,7 +115,8 @@ int			gnl(int argc, char **argv, t_params *params)
 	i = get_next_line(fd, &line);
 	while (i != -1)
 	{
-		parse(line, params);
+		if (!ret)
+			ret = parse(line, params);
 		free(line);
 		if (i == 0)
 			break ;
@@ -111,5 +124,7 @@ int			gnl(int argc, char **argv, t_params *params)
 	}
 	if (argc == 2)
 		close(fd);
+	if (ret)
+		error(ret, NULL, NULL, NULL);
 	return (0);
 }
