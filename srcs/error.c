@@ -34,16 +34,10 @@ static t_error	g_errors[] =
 	{ CYL_FMT, "Invalid scene: Cylinder badly formatted." },
 	{ COLOR_FMT, "Invalid scene: Color badly formatted." },
 	{ COORD_FMT, "Invalid scene: Coordinates badly formatted." },
-	{ FLOAT_FMT, "Invalid scene: Floating-point number badly formatted." },
-	{ NUM_FMT, "Invalid scene: Number badly formatted." },
 	{ ID_ERR, "Invalid scene: Unknown identifier." },
-	{ NO_AMB, "No ambient light declared. Rendering stopped." },
-	{ NO_CAM, "No camera declared. Rendering stopped." },
-	{ NO_LIGHT, "No light declared. Rendering stopped." },
-	{ NO_OBJ, "No object declared. Rendering stopped." },
-	{ NO_RES, "No resolution declared. Rendering stopped." },
-	{ RES_LOW, "Resolution too low: minimum is 300x300. Rendering stopped." },
-	{ SCENE_FMT, "Invalid scene: Scene badly formatted." }
+	{ NO_AMB, "Invalid scene: No ambient light declared. Rendering stopped." },
+	{ NO_CAM, "Invalid scene: No camera declared. Rendering stopped." },
+	{ NO_RES, "Invalid scene: No resolution declared. Rendering stopped." }
 };
 
 static char	*get_error_msg(t_err raised)
@@ -53,10 +47,12 @@ static char	*get_error_msg(t_err raised)
 	return ((char *)strerror(errno));
 }
 
-void		error(t_err raised)
+void		error(t_err raised, char **to_free)
 {
 	char	*msg;
 
+	if (to_free)
+		ft_free(to_free);
 	msg = get_error_msg(raised);
 	printf("Error\n%s\n", msg);
 	exit(EXIT_FAILURE);

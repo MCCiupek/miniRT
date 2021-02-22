@@ -17,6 +17,8 @@ void		init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
 {
 	t_list	*elem;
 
+	if (!obj)
+		error(MEM_ERR, tab);
 	f(obj, tab);
 	elem = ft_lstnew(obj);
 	ft_lstadd_back(lst, elem);
@@ -64,17 +66,17 @@ void		parse(char *line, t_params *params)
 	else if (!ft_strncmp(tab[0], "R", 2))
 	{
 		if (params->r.count)
-			error(6);
+			error(AR_DUP, tab);
 		init_resol(&params->r, tab);
 	}
 	else if (!ft_strncmp(tab[0], "A", 2))
 	{
 		if (params->al.count)
-			error(6);
+			error(AR_DUP, tab);
 		init_alight(&params->al, tab);
 	}
 	else if (!parse_lsts(params, tab) && *tab[0] != '#')
-		error(ID_ERR);
+		error(ID_ERR, tab);
 	ft_free(tab);
 }
 
@@ -90,7 +92,7 @@ int			gnl(int argc, char **argv, t_params *params)
 	else
 		fd = open(argv[2], O_RDONLY);
 	if (fd < 1)
-		error(RD_ERR);
+		error(RD_ERR, NULL);
 	i = get_next_line(fd, &line);
 	while (i != -1)
 	{

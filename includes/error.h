@@ -36,16 +36,10 @@ typedef enum	e_err
 	CYL_FMT,
 	COLOR_FMT,
 	COORD_FMT,
-	FLOAT_FMT,
-	NUM_FMT,
 	ID_ERR,
 	NO_AMB,
 	NO_CAM,
-	NO_LIGHT,
-	NO_OBJ,
-	NO_RES,
-	RES_LOW,
-	SCENE_FMT
+	NO_RES
 }				t_err;
 
 typedef struct	s_error
@@ -54,6 +48,6 @@ typedef struct	s_error
 	char	*msg;
 }				t_error;
 
-void			error(t_err raised);
+void			error(t_err raised, char **to_free);
 
 #endif

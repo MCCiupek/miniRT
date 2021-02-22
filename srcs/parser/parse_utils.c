@@ -44,6 +44,7 @@ int		is_num(char *s, int is_float, int is_neg)
 					return (0);
 				break ;
 			}
+			return (0);
 		}
 	return (1);
 }
@@ -52,18 +53,12 @@ void	check_col(char **rgb)
 {
 	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_num(rgb[0], 1, 0)
 		|| !is_num(rgb[1], 1, 0) || !is_num(rgb[2], 1, 0))
-	{
-		ft_free(rgb);
-		error(COLOR_FMT);
-	}
+		error(COLOR_FMT, rgb);
 }
 
 void	check_coord(char **coord)
 {
 	if (!coord[0] || !coord[1] || !coord[2] || !is_num(coord[0], 1, 1)
 		|| !is_num(coord[1], 1, 1) || !is_num(coord[2], 1, 1))
-	{
-		ft_free(coord);
-		error(COORD_FMT);
-	}
+		error(COORD_FMT, coord);
 }

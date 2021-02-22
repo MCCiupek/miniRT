@@ -23,7 +23,7 @@ static void	split_and_init(char **dest, char *src, t_vect *vec)
 void		init_tr(char **coord, char **tab, t_shape *s)
 {
 	if (ft_tabsize(tab) != 5)
-		error(SQUARE_FMT);
+		error(TR_FMT, tab);
 	split_and_init(coord, tab[2], &s->p1);
 	split_and_init(coord, tab[3], &s->p2);
 }
@@ -31,7 +31,7 @@ void		init_tr(char **coord, char **tab, t_shape *s)
 void		init_cy(char **tab, t_shape *s)
 {
 	if (ft_tabsize(tab) != 6 || !is_num(tab[3], 1, 0) || !is_num(tab[4], 1, 0))
-		error(CYL_FMT);
+		error(CYL_FMT, tab);
 	s->d = fabs(ft_atof(tab[3]));
 	s->h = fabs(ft_atof(tab[4]));
 }
@@ -40,12 +40,12 @@ void		check_shapes(t_shape *s, char **tab)
 {
 	if (!ft_strncmp(s->id, "sp", 3)
 		&& (ft_tabsize(tab) != 4 || !is_num(tab[2], 1, 0)))
-		error(SPHERE_FMT);
+		error(SPHERE_FMT, tab);
 	if (!ft_strncmp(s->id, "pl", 3) && ft_tabsize(tab) != 4)
-		error(PLANE_FMT);
+		error(PLANE_FMT, tab);
 	if (!ft_strncmp(s->id, "sq", 3)
 		&& (ft_tabsize(tab) != 5 || !is_num(tab[3], 1, 0)))
-		error(SQUARE_FMT);
+		error(SQUARE_FMT, tab);
 }
 
 void		init_sh(t_shape *s, char **tab)
@@ -54,7 +54,7 @@ void		init_sh(t_shape *s, char **tab)
 	char	**rgb;
 
 	if (!s)
-		error(MEM_ERR);
+		error(MEM_ERR, tab);
 	ft_strlcpy(s->id, tab[0], 3);
 	coord = NULL;
 	rgb = NULL;

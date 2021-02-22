@@ -31,5 +31,5 @@ void	v_limit(t_vect *v, float min, float max)
 {
 	if (v->x != limit(v->x, min, max) || v->y != limit(v->y, min, max)
 		|| v->z != limit(v->z, min, max))
-		error(COORD_FMT);
+		error(COORD_FMT, NULL);
 }

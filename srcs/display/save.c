@@ -84,7 +84,7 @@ void		write_bmpdata(t_data *img, t_params *params, int fd)
 			pixel = (unsigned int *)(img->addr + (x + params->r.x * y)
 					* PIXEL_LEN);
 			if (write(fd, pixel, 3) < 0)
-				error(3);
+				error(3, NULL);
 			x++;
 		}
 		y--;
@@ -101,7 +101,7 @@ void		save_bmp(t_mlx *mlx, t_data *img, t_params *params,
 	if (fd < 1)
 	{
 		free_mlx(mlx);
-		error(3);
+		error(3, NULL);
 	}
 	write_bmpheaders(params, fd);
 	write_bmpdata(img, params, fd);
