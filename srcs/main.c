@@ -17,15 +17,15 @@ static void		check_params(int argc, char **argv)
 	char	**tab;
 
 	if (argc < 2 || argc > 3)
-		error(NB_ARG, NULL);
+		error(NB_ARG, NULL, NULL, NULL);
 	if (argc == 3 && ft_strncmp(argv[1], "-save", 6))
-		error(OPT_ERR, NULL);
+		error(OPT_ERR, NULL, NULL, NULL);
 	if (argc == 2)
 	{
 		tab = ft_split(argv[1], '.');
 		if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt",
 				ft_strlen(tab[ft_tabsize(tab) - 1])))
-			error(FILENAME_ERR, tab);
+			error(FILENAME_ERR, tab, NULL, NULL);
 		ft_free(tab);
 	}
 }
@@ -41,11 +41,11 @@ static void		init_params(int argc, char **argv, t_params *params, t_mlx *mlx)
 	mlx->imgs = NULL;
 	gnl(argc, argv, params);
 	if (!params->r.count)
-		error(NO_RES, NULL);
+		error(NO_RES, NULL, NULL, params);
 	if (!params->al.count)
-		error(NO_AMB, NULL);
+		error(NO_AMB, NULL, NULL, params);
 	if (!ft_lstsize(params->cams))
-		error(NO_CAM, NULL);
+		error(NO_CAM, NULL, NULL, params);
 	mlx->mlx = mlx_init();
 	get_screen_size(*mlx, params);
 }

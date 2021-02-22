@@ -71,16 +71,16 @@ typedef struct	s_params
 }				t_params;
 
 int				is_num(char *s, int is_float, int is_neg);
-void			check_col(char **rgb);
-void			check_coord(char **coord);
-void			init_rgb(char **rgb, char **tab, t_shape *s);
-void			init_resol(t_resol *r, char **tab);
-void			init_alight(t_alight *al, char **tab);
-void			init_light(t_light *l, char **tab);
-void			init_cam(t_cam	*c, char **tab);
-void			init_sh(t_shape	*s, char **tab);
-void			init_obj_lst(t_list **lst, void *(*f)(void *, char **tab),
-			void *obj, char **tab);
+void			check_col(char **rgb, char *line, t_params *params);
+void			check_coord(char **coord, char *line, t_params *params);
+void			init_rgb(char **tab, t_shape *s, char *line, t_params *params);
+void			init_resol(t_params *params, char **tab, char *line);
+void			init_alight(t_params *params, char **tab, char *line);
+void			init_light(t_light *l, char **tab, char *line, t_params *params);
+void			init_cam(t_cam	*c, char **tab, char *line, t_params *params);
+void			init_sh(t_shape	*s, char **tab, char *line, t_params *params);
+void			init_obj_lst(t_params *params, void *(*f)(void *, char **tab, char *line, t_params *params),
+							void *obj, char **tab, char *line);
 void			parse(char *line, t_params *params);
 int				gnl(int argc, char **argv, t_params *params);
 

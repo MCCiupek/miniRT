@@ -48,6 +48,6 @@ typedef struct	s_error
 	char	*msg;
 }				t_error;
 
-void			error(t_err raised, char **to_free);
+void		error(t_err raised, char **tab_to_free, char *line_to_free, t_params *params);
 
 #endif

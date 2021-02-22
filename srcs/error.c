@@ -47,12 +47,16 @@ static char	*get_error_msg(t_err raised)
 	return ((char *)strerror(errno));
 }
 
-void		error(t_err raised, char **to_free)
+void		error(t_err raised, char **tab_to_free, char *line_to_free, t_params *params)
 {
 	char	*msg;
 
-	if (to_free)
-		ft_free(to_free);
+	if (tab_to_free)
+		ft_free(tab_to_free);
+	if (line_to_free)
+		free(line_to_free);
+	if (params)
+		free_lsts(params, params->cams);
 	msg = get_error_msg(raised);
 	printf("Error\n%s\n", msg);
 	exit(EXIT_FAILURE);

@@ -14,9 +14,9 @@
 
 void	c_limit(t_color *c)
 {
-	if (c->r != limit(c->r, 0, 255) || c->g != limit(c->g, 0, 255)
-		|| c->b != limit(c->b, 0, 255))
-		error(COLOR_FMT, NULL);
+	c->r = limit(c->r, 0, 255);
+	c->g = limit(c->g, 0, 255);
+	c->b = limit(c->b, 0, 255);
 }
 
 void	init_colors(t_color *c, float r, float g, float b)
