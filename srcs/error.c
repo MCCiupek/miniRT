@@ -54,7 +54,7 @@ void		error(t_err raised, char **tab_to_free, char *line_to_free, t_params *para
 	if (tab_to_free)
 		ft_free(tab_to_free);
 	if (line_to_free)
-		free(line_to_free);
+		ft_free(&line_to_free);
 	if (params)
 		free_lsts(params, params->cams);
 	msg = get_error_msg(raised);
