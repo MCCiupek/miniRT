@@ -135,6 +135,11 @@ fclean:			clean
 				$(RM) $(LIBMLX)
 				$(RM) $(NAME)
 
+git:			fclean
+				git add .
+				git commit -m """$(shell date)"""
+				git push
+
 re:				fclean all
 
-.PHONY:			all, clean, fclean, re, norme
+.PHONY:			all, clean, fclean, re, norme, git
