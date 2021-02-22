@@ -27,8 +27,7 @@ int		init_obj_lst(t_params *params, void *(*f)(void *, char **tab),
 	int		err;
 
 	if (!obj)
-		return (ft_free(tab) + MEM_ERR);
-	//	error(MEM_ERR, tab, line, params);
+		return (MEM_ERR);
 	if (!ft_strncmp(tab[0], "c", 2))
 		lst = &params->cams;
 	if (!ft_strncmp(tab[0], "l", 2))
@@ -49,19 +48,16 @@ static int	parse_lsts(t_params *params, char **tab)
 	{
 		obj = (t_cam *)malloc(sizeof(t_cam));
 		return (init_obj_lst(params, (void *)init_cam, obj, tab));
-		//return (1);
 	}
 	else if (!ft_strncmp(tab[0], "l", 2))
 	{
 		obj = (t_light *)malloc(sizeof(t_light));
 		return (init_obj_lst(params, (void *)init_light, obj, tab));
-		//return (1);
 	}
 	else if (is_shape(tab[0]))
 	{
 		obj = (t_shape *)malloc(sizeof(t_shape));
 		return (init_obj_lst(params, (void *)init_sh, obj, tab));
-		//return (1);
 	}
 	return (-1);
 }
@@ -78,22 +74,17 @@ int		parse(char *line, t_params *params)
 	{
 		if (params->r.count)
 			return (ft_free(tab) + AR_DUP);
-		//	error(AR_DUP, tab, line, params);
-		return (ft_free(tab) + init_resol(params, tab));
-		//	return (ft_free(tab) + RES_FMT);
+		return (init_resol(params, tab) + ft_free(tab));
 	}
 	else if (!ft_strncmp(tab[0], "A", 2))
 	{
 		if (params->al.count)
 			return (ft_free(tab) + AR_DUP);
-		//	error(AR_DUP, tab, line, params);
-		return (ft_free(tab) + init_alight(params, tab));
-		//	return (ft_free(tab) + AMB_FMT);
+		return (init_alight(params, tab) + ft_free(tab));
 	}
 	err = parse_lsts(params, tab);
 	if (err == -1 && *tab[0] != '#')
 		return (ft_free(tab) + ID_ERR);
-		//error(ID_ERR, tab, line, params);
 	return (ft_free(tab) + err);
 }
 
@@ -125,6 +116,6 @@ int			gnl(int argc, char **argv, t_params *params)
 	if (argc == 2)
 		close(fd);
 	if (ret)
-		error(ret, NULL, NULL, NULL);
+		error(ret, NULL, NULL, params);
 	return (0);
 }

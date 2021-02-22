@@ -19,7 +19,7 @@ int	init_rgb(char **tab, t_shape *s)
 	rgb = NULL;
 	rgb = ft_split(tab[ft_tabsize(tab) - 1], ',');
 	if (check_col(rgb))
-		return (ft_free(rgb + COLOR_FMT));
+		return (ft_free(rgb) + COLOR_FMT);
 	init_colors(&s->colors, ft_atof(rgb[0]), ft_atof(rgb[1]), ft_atof(rgb[2]));
 	return (ft_free(rgb));
 }
@@ -58,11 +58,9 @@ int	check_col(char **rgb)
 	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_num(rgb[0], 1, 0)
 		|| !is_num(rgb[1], 1, 0) || !is_num(rgb[2], 1, 0))
 		return (COLOR_FMT);
-	//	error(COLOR_FMT, rgb, line, params);
 	if (ft_atof(rgb[0]) != limit(ft_atof(rgb[0]), 0, 255) || ft_atof(rgb[1]) != limit(ft_atof(rgb[1]), 0, 255)
 		|| ft_atof(rgb[2]) != limit(ft_atof(rgb[2]), 0, 255))
 		return (COLOR_FMT);
-	//	error(COLOR_FMT, rgb, line, params);
 	return (0);
 }
 
@@ -71,6 +69,5 @@ int	check_coord(char **coord)
 	if (!coord[0] || !coord[1] || !coord[2] || !is_num(coord[0], 1, 1)
 		|| !is_num(coord[1], 1, 1) || !is_num(coord[2], 1, 1))
 		return (COORD_FMT);
-	//	error(COORD_FMT, coord, line, params);
 	return (0);
 }

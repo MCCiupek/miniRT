@@ -13,12 +13,10 @@
 #include "minirt.h"
 
 int	init_resol(t_params *params, char **tab)
-//int	init_resol(t_params *params, char **tab, char *line)
 {
 	if (ft_tabsize(tab) != 3 || !tab[1] || !tab[2] || !is_num(tab[1], 0, 0)
 		|| !is_num(tab[2], 0, 0) || ft_atoi(tab[1]) < 1 || ft_atoi(tab[2]) < 1)
 		return (RES_FMT);
-	//	error(RES_FMT, tab, line, params);
 	params->r.x = ft_atoi(tab[1]);
 	params->r.y = ft_atoi(tab[2]);
 	params->r.count++;
@@ -31,7 +29,6 @@ int	init_alight(t_params *params, char **tab)
 
 	if (ft_tabsize(tab) != 3 || !tab[1] || !tab[2] || !is_num(tab[1], 1, 0))
 		return (AMB_FMT);
-	//	error(AMB_FMT, tab, line, params);
 	params->al.light = limit(ft_atof(tab[1]), 0.0, 1.0);
 	rgb = ft_split(tab[2], ',');
 	if (!rgb)
@@ -55,7 +52,6 @@ int	init_cam(t_cam *c, char **tab)
 	if (ft_tabsize(tab) != 4 || !tab[1] || !tab[2] || !tab[3]
 		|| !is_num(tab[3], 1, 0) || ft_atof(tab[3]) > 180.0)
 		return (CAM_FMT);
-	//	error(CAM_FMT, tab, line, params);
 	coord = ft_split(tab[1], ',');
 	vect = ft_split(tab[2], ',');
 	if (check_coord(coord) || check_coord(vect))
@@ -80,7 +76,6 @@ int	init_light(t_light *l, char **tab)
 	if (ft_tabsize(tab) != 4 || !tab[1] || !tab[2] || !tab[3]
 		|| !is_num(tab[2], 1, 0))
 		return (LIGHT_FMT);
-	//	error(LIGHT_FMT, tab, line, params);
 	coord = ft_split(tab[1], ',');
 	rgb = ft_split(tab[3], ',');
 	if (check_col(rgb))

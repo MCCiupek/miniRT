@@ -31,7 +31,6 @@ int		init_tr(char **tab, t_shape *s)
 	coord = NULL;
 	if (ft_tabsize(tab) != 5)
 		return (TR_FMT);
-	//	error(TR_FMT, tab, line, params);
 	if (split_and_init(tab[2], &s->p1)
 		|| split_and_init(tab[3], &s->p2))
 		return (COORD_FMT);
@@ -42,7 +41,6 @@ int		init_cy(char **tab, t_shape *s)
 {
 	if (ft_tabsize(tab) != 6 || !is_num(tab[3], 1, 0) || !is_num(tab[4], 1, 0))
 		return (CYL_FMT);
-	//	error(CYL_FMT, tab, line, params);
 	s->d = fabs(ft_atof(tab[3]));
 	s->h = fabs(ft_atof(tab[4]));
 	return (0);
@@ -53,14 +51,11 @@ int		check_shapes(t_shape *s, char **tab)
 	if (!ft_strncmp(s->id, "sp", 3)
 		&& (ft_tabsize(tab) != 4 || !is_num(tab[2], 1, 0)))
 		return (SPHERE_FMT);
-	//	error(SPHERE_FMT, tab, line, params);
 	if (!ft_strncmp(s->id, "pl", 3) && ft_tabsize(tab) != 4)
 		return (PLANE_FMT);
-	//	error(PLANE_FMT, tab, line, params);
 	if (!ft_strncmp(s->id, "sq", 3)
 		&& (ft_tabsize(tab) != 5 || !is_num(tab[3], 1, 0)))
 		return (SQUARE_FMT);
-	//	error(SQUARE_FMT, tab, line, params);
 	return (0);
 }
 
@@ -70,7 +65,6 @@ int		init_sh(t_shape *s, char **tab)
 
 	if (!s)
 		return (MEM_ERR);
-	//	error(MEM_ERR, tab);
 	ft_strlcpy(s->id, tab[0], 3);
 	err = check_shapes(s, tab);
 	if (err)
