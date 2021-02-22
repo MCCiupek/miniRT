@@ -79,7 +79,7 @@ int		parse(char *line, t_params *params)
 		if (params->r.count)
 			return (ft_free(tab) + AR_DUP);
 		//	error(AR_DUP, tab, line, params);
-		return (init_resol(params, tab));
+		return (ft_free(tab) + init_resol(params, tab));
 		//	return (ft_free(tab) + RES_FMT);
 	}
 	else if (!ft_strncmp(tab[0], "A", 2))
@@ -87,7 +87,7 @@ int		parse(char *line, t_params *params)
 		if (params->al.count)
 			return (ft_free(tab) + AR_DUP);
 		//	error(AR_DUP, tab, line, params);
-		return (init_alight(params, tab));
+		return (ft_free(tab) + init_alight(params, tab));
 		//	return (ft_free(tab) + AMB_FMT);
 	}
 	err = parse_lsts(params, tab);
