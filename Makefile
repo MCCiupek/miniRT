@@ -1,3 +1,5 @@
+SHELL :=		/bin/bash
+
 CC =			clang
 
 FLAGS =			-Wall -Wextra -Werror -g
