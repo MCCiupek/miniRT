@@ -59,6 +59,6 @@ void		error(t_err raised, char **tab_to_free,
 	if (params)
 		free_lsts(params, params->cams);
 	msg = get_error_msg(raised);
-	printf("Error\n%d : %s\n", raised, msg);
+	printf("Error\n%d: %s\n", raised, msg);
 	exit(EXIT_FAILURE);
 }

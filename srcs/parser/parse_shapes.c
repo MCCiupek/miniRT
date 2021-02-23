@@ -66,8 +66,7 @@ int			init_sh(t_shape *s, char **tab)
 	if (!s)
 		return (MEM_ERR);
 	ft_strlcpy(s->id, tab[0], 3);
-	err = check_shapes(s, tab);
-	if (err)
+	if ((err = check_shapes(s, tab)))
 		return (err);
 	if (init_rgb(tab, s))
 		return (COLOR_FMT);
@@ -83,7 +82,8 @@ int			init_sh(t_shape *s, char **tab)
 		s->h = fabs(ft_atof(tab[3]));
 	if (!ft_strncmp(s->id, "pl", 2) || !ft_strncmp(s->id, "sq", 3)
 		|| !ft_strncmp(s->id, "cy", 3))
-		if (split_and_init(tab[2], &s->direction) || v_limit(&s->direction, -1, 1))
+		if (split_and_init(tab[2], &s->direction)
+			|| v_limit(&s->direction, -1, 1))
 			return (COORD_FMT);
 	return (0 + err);
 }
