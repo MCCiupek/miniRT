@@ -55,7 +55,8 @@ int	is_num(char *s, int is_float, int is_neg)
 
 int	check_col(char **rgb)
 {
-	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_num(rgb[0], 1, 0)
+	if (!rgb[0] || !rgb[1] || !rgb[2]
+		|| ft_tabsize(rgb) != 3 || !is_num(rgb[0], 1, 0)
 		|| !is_num(rgb[1], 1, 0) || !is_num(rgb[2], 1, 0))
 		return (COLOR_FMT);
 	if (ft_atof(rgb[0]) != limit(ft_atof(rgb[0]), 0, 255) ||
@@ -67,8 +68,9 @@ int	check_col(char **rgb)
 
 int	check_coord(char **coord)
 {
-	if (!coord[0] || !coord[1] || !coord[2] || !is_num(coord[0], 1, 1)
-		|| !is_num(coord[1], 1, 1) || !is_num(coord[2], 1, 1))
+	if (ft_tabsize(coord) != 3 || !coord[0] || !coord[1] || !coord[2]
+		|| !is_num(coord[0], 1, 1) || !is_num(coord[1], 1, 1)
+		|| !is_num(coord[2], 1, 1))
 		return (COORD_FMT);
 	return (0);
 }

@@ -1,0 +1,34 @@
+# Resolution : 
+#   - Window width > 0
+#   - Window height > 0
+R   500 400
+
+# Ambiant light : 
+#   - Light Ratio in [0, 1]
+#   - Color RGB in [0, 255]
+A                                           0.2                 255,255,255
+#A                                           0.4                 255,255,255
+
+# Cameras :
+#   - Position (x, y, z)
+#   - Direction (x, y, z)
+#   - Field-of-view, FOV (angle in degres) in [0, 180]
+c   0.0,0.0,-10.0       0.0,0.0,1.0         70
+#c   0.0,0.0,-10.0       0.0,0.0,1.0         80
+#c   0.0,0.0,-10.0       0.0,0.0,1.0         90
+
+# Spot lights :
+#   - Position (x, y, z)
+#   - Light Ratio in [0, 1]
+#   - Color RGB in [0, 255]
+l   0.0,20.0,0.0                           0.6                 255,255,255
+
+# Shapes :
+#   - pl : Plane
+#   - sp : Sphere
+#   - tr : Triangle
+#   - cy : Cylinder
+#   - sq : Square
+pl  0.0,-20.0,0.0       0.0,1.0,0.0                             180,180,180
+sp  0,0,0                           6                 254,46,46
+

@@ -68,7 +68,7 @@ int			parse(char *line, t_params *params)
 	int		err;
 
 	tab = ft_split(line, ' ');
-	if (!tab || !tab[0])
+	if (!tab || !tab[0] || *tab[0] == '#')
 		return (ft_free(tab));
 	else if (!ft_strncmp(tab[0], "R", 2))
 	{
@@ -83,7 +83,7 @@ int			parse(char *line, t_params *params)
 		return (init_alight(params, tab) + ft_free(tab));
 	}
 	err = parse_lsts(params, tab);
-	if (err == -1 && *tab[0] != '#')
+	if (err == -1)
 		return (ft_free(tab) + ID_ERR);
 	return (ft_free(tab) + err);
 }
