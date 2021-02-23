@@ -85,5 +85,5 @@ int			init_sh(t_shape *s, char **tab)
 		|| !ft_strncmp(s->id, "cy", 3))
 		if (split_and_init(tab[2], &s->direction) || v_limit(&s->direction, -1, 1))
 			return (COORD_FMT);
-	return (0);
+	return (0 + err);
 }
