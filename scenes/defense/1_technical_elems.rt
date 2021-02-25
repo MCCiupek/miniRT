@@ -1,11 +1,11 @@
-R   500 400
+#R   500 400
 
 # Change Resolution :
 #R   500 500
 #R   600 500
 
 # Display > Screen Resolution :
-#R   2560 1600
+R   2560 800
 
 A                                           0.2                 255,255,255
 

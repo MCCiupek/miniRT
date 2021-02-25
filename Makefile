@@ -76,10 +76,8 @@ NAME =			miniRT
 UNAME := 		$(shell uname)
 
 Y_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$4}')
-#Y_MAX :=	$(shell xwininfo -root|sed '/Height/!d;s/.* //')
 
 X_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
-#X_MAX :=	$(shell xwininfo -root|sed '/Width/!d;s/.* //')
 
 CP_MLX_H =		@cp $(MLX_DIR)/*.h $(MLX_HEADER)
 CP_MLX_LIB =	@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
