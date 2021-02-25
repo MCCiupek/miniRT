@@ -1,6 +1,6 @@
-## MiniRT
+# MiniRT
 
-### Mandatory part
+## Mandatory part
 
 Check that the project compiles well (without relink) when you execute the main command and that the executable name is « miniRT »
 
@@ -103,6 +103,6 @@ In this section we’ll evaluate that it’s possible to have several spots in t
 (Y/N)
 
 
-Bonus
+## Bonus
 
 (…)
