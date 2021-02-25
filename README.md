@@ -1,4 +1,4 @@
-### MiniRT
+## MiniRT
 
 ### Mandatory part
 
