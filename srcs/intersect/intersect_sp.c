@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   intersect_sp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -23,6 +23,10 @@ float	resolve_eq(float a, float b, float c)
 		return (RAY_MAX);
 	x1 = (-b - sqrt(delta)) / (2 * a);
 	x2 = (-b + sqrt(delta)) / (2 * a);
+	if (x1 < 0)
+		x1 = RAY_MAX;
+	if (x2 < 0)
+		x2 = RAY_MAX;
 	if (x1 > x2)
 		return (x2);
 	return (x1);

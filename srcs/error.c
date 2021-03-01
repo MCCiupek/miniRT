@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <mciupek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,7 +16,7 @@ static t_error	g_errors[] =
 {
 	{ UKN_ERR, "Unknown error." },
 	{ NB_ARG, "Invalid call: Incorrect number of arguments.\n \
-	Use ./path/to/miniRT [-save] <filename>.rt" },
+	Use ./path/to/miniRT <filename>.rt [-save]" },
 	{ FILENAME_ERR, "Invalid file: Use the '.rt' extension." },
 	{ RD_ERR, "Invalid file: cannot read input file." },
 	{ OPT_ERR, "Invalid option: Try '-save'." },

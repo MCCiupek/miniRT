@@ -123,6 +123,7 @@ $(NAME) :		$(OBJS)
 norme:
 				norminette $(DIR_SRCS)
 				norminette $(DIR_HEADERS)
+				norminette ./libft/
 
 clean:
 				$(MAKE) -C ./libft clean

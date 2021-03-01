@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   intersect_sq.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,14 +15,27 @@
 static int	is_inside_square(t_shape *square, t_vect p)
 {
 	t_vect	dist;
+	t_vect	tmp;
+	t_vect	e[2];
+	float	d[2];
 	float	border;
 
+	init_vect(&tmp, 0, 1, 0);
 	dist = subs(p, square->p0);
 	border = square->h / 2;
+	if (fabs(square->n.y) == 1)
+		e[0] = (t_vect){square->n.y, 0, 0};
+	else
+		e[0] = crossprod(tmp, square->n);
+	e[1] = crossprod(square->n, e[0]);
+	d[0] = dotprod(dist, normalize_v(e[0]));
+	d[1] = dotprod(dist, normalize_v(e[1]));
+	return (fabs(d[0]) <= border && fabs(d[1]) <= border);
+/*
 	return (
 		(fabs(dist.x) <= border)
 		&& (fabs(dist.y) <= border)
-		&& (fabs(dist.z) <= border));
+		&& (fabs(dist.z) <= border));*/
 }
 
 int			intersect_sq(t_intersect *i, t_shape *sq)

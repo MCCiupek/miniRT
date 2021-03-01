@@ -15,7 +15,8 @@ static float	ft_spaces(const char *str)
 	int	i;
 
 	i = 0;
-	while ((str[i] < '0' || str[i] > '9') && str[i] != '-' && str[i] != '+' && str[i] != '.')
+	while ((str[i] < '0' || str[i] > '9')
+		&& str[i] != '-' && str[i] != '+' && str[i] != '.')
 	{
 		if (str[i] != '\t' && str[i] != '\n' && str[i] != '\v' &&
 			str[i] != '\f' && str[i] != '\r' && str[i] != ' ')
@@ -27,27 +28,20 @@ static float	ft_spaces(const char *str)
 
 float			ft_atof(const char *str)
 {
-	int	i;
+	int		i;
 	float	j;
-	int	signe;
+	int		signe;
 	float	nb;
 
-	i = ft_spaces(str);
-	if (i == -1)
+	if ((i = ft_spaces(str)) == -1)
 		return (0);
 	signe = 1;
 	nb = 0;
 	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
+		if (str[i++] == '-')
 			signe = signe * -1;
-		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = nb * 10 + (str[i] - '0');
-		i++;
-	}
+		nb = nb * 10 + (str[i++] - '0');
 	if (str[i++] == '.')
 	{
 		j = 10;
@@ -58,6 +52,5 @@ float			ft_atof(const char *str)
 			i++;
 		}
 	}
-	nb = signe * nb;
-	return (nb);
+	return (signe * nb);
 }

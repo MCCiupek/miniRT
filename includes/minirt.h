@@ -20,6 +20,7 @@
 # define FILENAME "render/miniRT.bmp"
 
 # define RAY_MIN 0.001
+# define CY_RAY_MIN 0.001
 # define RAY_MAX 1.0e30
 
 # define GAMMA 70

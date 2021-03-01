@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   intersect_cy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mciupek <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,7 +27,7 @@ float	inter_cy_base(t_intersect *i, t_shape *cy, int pl)
 	p = calculate(i->ray, t);
 	init_vect_p(&dist, &p, &cy->p0);
 	cy->p0 = tmp;
-	if (len3(dist) >= cy->d / 2 || t < RAY_MIN || t >= i->t)
+	if (len3(dist) >= cy->d / 2 || t < CY_RAY_MIN || t >= i->t)
 		return (RAY_MAX);
 	i->t = t;
 	i->shape = cy;
@@ -53,13 +53,13 @@ int		intersect_cy(t_intersect *i, t_shape *cy)
 			dotprod(v[1], v[1]) - pow(cy->d / 2, 2));
 	y[1] = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, y[0]),
 				subs(cy->p0, i->ray.origin)));
-	if (y[1] >= cy->h || y[1] <= RAY_MIN)
+	if (y[1] >= cy->h || y[1] <= CY_RAY_MIN)
 	{
 		inter_cy_base(i, cy, 0);
 		inter_cy_base(i, cy, 1);
 		y[0] = RAY_MAX;
 	}
-	if (y[0] >= RAY_MIN && y[0] < i->t)
+	if (y[0] >= CY_RAY_MIN && y[0] < i->t)
 	{
 		i->t = y[0];
 		i->shape = cy;

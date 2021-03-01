@@ -18,16 +18,13 @@ static void		check_params(int argc, char **argv)
 
 	if (argc < 2 || argc > 3)
 		error(NB_ARG, NULL, NULL, NULL);
-	if (argc == 3 && ft_strncmp(argv[1], "-save", 6))
+	if (argc == 3 && ft_strncmp(argv[2], "-save", 6))
 		error(OPT_ERR, NULL, NULL, NULL);
-	if (argc == 2)
-	{
-		tab = ft_split(argv[1], '.');
-		if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt",
-				ft_strlen(tab[ft_tabsize(tab) - 1])))
-			error(FILENAME_ERR, tab, NULL, NULL);
-		ft_free(tab);
-	}
+	tab = ft_split(argv[1], '.');
+	if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt",
+			ft_strlen(tab[ft_tabsize(tab) - 1])))
+		error(FILENAME_ERR, tab, NULL, NULL);
+	ft_free(tab);
 }
 
 static void		init_params(int argc, char **argv, t_params *params, t_mlx *mlx)

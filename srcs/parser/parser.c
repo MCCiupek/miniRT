@@ -97,7 +97,7 @@ int			gnl(int argc, char **argv, t_params *params)
 
 	i = 0;
 	ret = 0;
-	fd = open(argv[argc - 1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 1)
 		error(RD_ERR, NULL, NULL, NULL);
 	i = get_next_line(fd, &line);
