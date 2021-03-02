@@ -31,11 +31,6 @@ static int	is_inside_square(t_shape *square, t_vect p)
 	d[0] = dotprod(dist, normalize_v(e[0]));
 	d[1] = dotprod(dist, normalize_v(e[1]));
 	return (fabs(d[0]) <= border && fabs(d[1]) <= border);
-/*
-	return (
-		(fabs(dist.x) <= border)
-		&& (fabs(dist.y) <= border)
-		&& (fabs(dist.z) <= border));*/
 }
 
 int			intersect_sq(t_intersect *i, t_shape *sq)
