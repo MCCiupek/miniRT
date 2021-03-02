@@ -107,4 +107,4 @@ In this section we’ll evaluate that it’s possible to have several spots in t
 
 (…)
 
-render/room.bmp
+![room](https://github.com/MCCiupek/miniRT/blob/main/render/room.bmp)
