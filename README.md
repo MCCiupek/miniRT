@@ -106,3 +106,5 @@ In this section we’ll evaluate that it’s possible to have several spots in t
 ## Bonus
 
 (…)
+
+render/room.bmp
