@@ -39,14 +39,15 @@ void	mix_colors(t_color *c, float coef, t_color colors)
 	c->r += coef * colors.r / 255;
 	c->g += coef * colors.g / 255;
 	c->b += coef * colors.b / 255;
+	c_limit(c);
 }
 
 t_color	color_x_light(t_color color, t_color rgb)
 {
 	t_color	res;
 
-	res.r = fmin(color.r * rgb.r, 255);
-	res.g = fmin(color.g * rgb.g, 255);
-	res.b = fmin(color.b * rgb.b, 255);
+	res.r = fmax(0, fmin(color.r * rgb.r, 255));
+	res.g = fmax(0, fmin(color.g * rgb.g, 255));
+	res.b = fmax(0, fmin(color.b * rgb.b, 255));
 	return (res);
 }

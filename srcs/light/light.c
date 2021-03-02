@@ -24,7 +24,7 @@ void	set_norm(t_intersect *i)
 		get_norm_cy_base_up(i);
 	else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == -1)
 		get_norm_cy_base_down(i);
-	else if (!ft_strncmp(i->shape->id, "cy", 3))
+	else if (!ft_strncmp(i->shape->id, "cy", 3) && i->base == 0)
 		get_norm_cy(i);
 }
 
@@ -74,7 +74,7 @@ t_color	light_color(t_intersect *i, t_params *params)
 		light = *(t_light *)lights->content;
 		spot = subs(light.origin, calculate(i->ray, i->t));
 		set_norm(i);
-		if (dotprod(i->n, spot) > 0 && is_lit(i, params, light, spot))
+		if (dotprod(i->n, spot) > EPSILON && is_lit(i, params, light, spot))
 		{
 			l = light.light * dotprod(i->n, spot) / (len3(i->n) * len3(spot));
 			mix_colors(&l_col, l, light.colors);

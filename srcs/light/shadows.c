@@ -41,17 +41,12 @@ void	get_norm_cy_base_down(t_intersect *i)
 
 void	get_norm_cy(t_intersect *i)
 {
-	t_vect	base_tmp;
-	t_vect	intersection_tmp;
+	t_vect	p;
+	t_vect	pt;
+	float	t;
 
-	base_tmp = copy(i->shape->p0);
-	intersection_tmp = copy(i->ray.direction);
-	anti_rot(&intersection_tmp, &i->shape->direction);
-	base_tmp.y = intersection_tmp.y;
-	rotate(&intersection_tmp, &i->shape->direction);
-	rotate(&base_tmp, &i->shape->direction);
-	init_vect(&i->n, i->ray.direction.x - base_tmp.x,
-		i->ray.direction.y - base_tmp.y,
-		i->ray.direction.z - base_tmp.z);
-	normalize(&i->n);
+	p = calculate(i->ray, i->t);
+	t = dotprod(subs(p, i->shape->p0), i->shape->direction);
+	pt = add(i->shape->p0, scalprod_v(i->shape->direction, t));
+	i->n = normalize_v(subs(p, pt));
 }
