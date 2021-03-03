@@ -116,17 +116,14 @@ NAME =			miniRT
 
 UNAME := 		$(shell uname)
 
-Y_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$4}')
-
-X_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
-
 CP_MLX_H =		@cp $(MLX_DIR)/*.h $(MLX_HEADER)
 
 CP_MLX_LIB =	@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
 
-RES =			-D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
-
 ifeq ($(UNAME),Darwin)
+	Y_MAX := $(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$4}')
+	X_MAX := $(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
+	RES = -D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
 	CP_MLX_H = @echo "Using local mlx headers"
 	CP_MLX_LIB = @echo "Using local mlx library"
 	MLX_DIR = ./mlx
@@ -145,6 +142,7 @@ ifeq ($(UNAME),Linux)
 	OS = -D LINUX
 	X_MAX = 0
 	Y_MAX = 0
+	RES = -D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
 endif
 
 all:			$(NAME)
