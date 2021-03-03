@@ -12,42 +12,36 @@
 
 #include "minirt.h"
 
-static float	resolve_eq2(float a, float b, float c)
+static float	inter_cy_base(t_intersect *i, t_shape *cy, int pl)
 {
-	float	delta;
-	float	x1;
-	float	x2;
+	t_vect	tmp;
+	t_vect	dist;
+	t_vect	p;
+	float	t;
 
-	delta = pow(b, 2) - 4 * a * c;
-	if (delta < 0)
+	cy->n = copy(cy->direction);
+	tmp = cy->p0;
+	if (pl)
+		cy->p0 = add(cy->p0, scalprod_v(cy->direction, cy->h));
+	t = t_inter_plan(i, cy);
+	p = calculate(i->ray, t);
+	init_vect_p(&dist, &p, &cy->p0);
+	cy->p0 = tmp;
+	if (len3(dist) >= cy->d / 2 || t < RAY_MIN || t >= i->t)
 		return (RAY_MAX);
-	x1 = (-b - sqrt(delta)) / (2 * a);
-	x2 = (-b + sqrt(delta)) / (2 * a);
-	if (x1 < 0)
-		x1 = RAY_MAX;
-	if (x2 < 0)
-		x2 = RAY_MAX;
-	if (x1 < x2)
-		return (x2);
-	return (x1);
-}
-
-static void		fill_tab(t_vect v[], t_intersect *i, t_shape *cy, float y[])
-{
-	y[0] = resolve_eq(dotprod(v[0], v[0]), 2 * dotprod(v[0], v[1]),
-			dotprod(v[1], v[1]) - pow(cy->d / 2, 2));
-	y[1] = resolve_eq2(dotprod(v[0], v[0]), 2 * dotprod(v[0], v[1]),
-			dotprod(v[1], v[1]) - pow(cy->d / 2, 2));
-	y[2] = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, y[0]),
-				subs(cy->p0, i->ray.origin)));
-	y[3] = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, y[1]),
-				subs(cy->p0, i->ray.origin)));
+	i->t = t;
+	i->shape = cy;
+	if (pl)
+		i->base = 1;
+	if (!pl)
+		i->base = -1;
+	return (1);
 }
 
 int				intersect_cy(t_intersect *i, t_shape *cy)
 {
 	t_vect	v[2];
-	float	y[4];
+	float	y[2];
 
 	normalize(&cy->direction);
 	v[0] = scalprod_v(cy->direction, dotprod(i->ray.direction, cy->direction));
@@ -55,13 +49,17 @@ int				intersect_cy(t_intersect *i, t_shape *cy)
 	v[1] = scalprod_v(cy->direction, dotprod(subs(i->ray.origin, cy->p0),
 				cy->direction));
 	v[1] = subs(subs(i->ray.origin, cy->p0), v[1]);
-	fill_tab(v, i, cy, y);
-	if (y[3] < cy->h && y[3] > RAY_MIN && y[1] >= RAY_MIN && y[1] < i->t)
+	y[0] = resolve_eq(dotprod(v[0], v[0]), 2 * dotprod(v[0], v[1]),
+			dotprod(v[1], v[1]) - pow(cy->d / 2, 2));
+	y[1] = dotprod(cy->direction, subs(scalprod_v(i->ray.direction, y[0]),
+				subs(cy->p0, i->ray.origin)));
+	if (y[1] >= cy->h || y[1] <= RAY_MIN)
 	{
-		i->t = y[1];
-		i->shape = cy;
+		inter_cy_base(i, cy, 0);
+		inter_cy_base(i, cy, 1);
+		y[0] = RAY_MAX;
 	}
-	if (y[2] < cy->h && y[2] > RAY_MIN && y[0] >= RAY_MIN && y[0] < i->t)
+	if (y[0] >= RAY_MIN && y[0] < i->t)
 	{
 		i->t = y[0];
 		i->shape = cy;

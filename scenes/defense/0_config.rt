@@ -1,7 +1,8 @@
 # Resolution : 
 #   - Window width > 0
 #   - Window height > 0
-R   500 400
+#R   500 400
+R   3000 3000
 
 # Ambiant light : 
 #   - Light Ratio in [0, 1]

@@ -16,10 +16,10 @@ static t_error	g_errors[] =
 {
 	{ UKN_ERR, "Unknown error." },
 	{ NB_ARG, "Invalid call: Incorrect number of arguments.\n \
-	Use ./path/to/miniRT <filename>.rt [-save]" },
+	Use ./path/to/miniRT <filename>.rt [--save]" },
 	{ FILENAME_ERR, "Invalid file: Use the '.rt' extension." },
 	{ RD_ERR, "Invalid file: cannot read input file." },
-	{ OPT_ERR, "Invalid option: Try '-save'." },
+	{ OPT_ERR, "Invalid option: Try '--save'." },
 	{ MEM_ERR, "Memory allocation failed while parsing shapes." },
 	{ AR_DUP, "Invalid scene: Ambient light (A) and resolution (R) \
 	can only be declared once." },

@@ -65,11 +65,52 @@ SRC =			gnl/get_next_line_utils.c \
 				\
 				main.c
 
+SRC_BONUS =		gnl/get_next_line_utils.c \
+				gnl/get_next_line_utils2.c \
+				gnl/get_next_line.c \
+				\
+				parser/parse_scene.c \
+				parser/parse_shapes.c \
+				parser/parse_utils.c \
+				parser/parser.c \
+				\
+				vectors/init.c \
+				vectors/operations.c \
+				vectors/products.c \
+				vectors/rotation.c \
+				vectors/utils.c \
+				\
+				intersect/intersect.c \
+				intersect/intersect_cy_bonus.c \
+				intersect/intersect_pl.c \
+				intersect/intersect_sp.c \
+				intersect/intersect_sq.c \
+				intersect/intersect_tr.c \
+				intersect/ray.c \
+				\
+				light/light.c \
+				light/shadows.c \
+				light/colors.c \
+				\
+				display/display.c \
+				display/save.c \
+				display/mlx_utils.c \
+				\
+				error.c \
+				\
+				utils.c \
+				\
+				main.c
+
 SRCS =			$(addprefix $(DIR_SRCS), $(SRC))
+
+SRCS_BONUS =	$(addprefix $(DIR_SRCS), $(SRC_BONUS))
 
 COMPIL =		$(FLAGS)# $(FSAN)
 
 OBJS =			$(SRCS:.c=.o)
+
+OBJS_BONUS =	$(SRCS_BONUS:.c=.o)
 
 NAME =			miniRT
 
@@ -80,6 +121,7 @@ Y_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{p
 X_MAX :=		$(shell system_profiler SPDisplaysDataType | grep Resolution | awk '{print $$2}')
 
 CP_MLX_H =		@cp $(MLX_DIR)/*.h $(MLX_HEADER)
+
 CP_MLX_LIB =	@cp $(MLX_DIR)/$(LIBMLX) $(MLX_LIB)
 
 RES =			-D RES_X_MAX=$(X_MAX) -D RES_Y_MAX=$(Y_MAX)
@@ -119,7 +161,15 @@ $(NAME) :		$(OBJS)
 %.o: %.c
 				@$(CC) $(FLAGS) $(OS) $(RES) -c $< -o $@
 				@echo "Compiled "$<" successfully!"
-		
+
+bonus:			$(OBJS_BONUS)
+				@$(MAKE) -C ./libft bonus
+				@cp ./libft/$(LIBFT) $(LIBFT) && cp ./libft/libft.h $(DIR_HEADERS)/libft.h
+				$(CP_MLX_H)
+				@$(MAKE) CFLAGS="-w" -C $(MLX_DIR)
+				$(CP_MLX_LIB)
+				@$(CC) $(COMPIL) $(OS) $(RES) $(OBJS_BONUS) $(MLX_FLAGS) -L $(LIB)libft -lft -o $(NAME)
+
 norme:
 				norminette $(DIR_SRCS)
 				norminette $(DIR_HEADERS)
@@ -128,7 +178,7 @@ norme:
 clean:
 				$(MAKE) -C ./libft clean
 				$(MAKE) -C $(MLX_DIR) clean
-				$(RM) $(OBJS)
+				$(RM) $(OBJS) $(OBJS_BONUS)
 
 fclean:			clean
 				$(MAKE) -C ./libft fclean

@@ -18,7 +18,7 @@ static void		check_params(int argc, char **argv)
 
 	if (argc < 2 || argc > 3)
 		error(NB_ARG, NULL, NULL, NULL);
-	if (argc == 3 && ft_strncmp(argv[2], "-save", 6))
+	if (argc == 3 && ft_strncmp(argv[2], "--save", 7))
 		error(OPT_ERR, NULL, NULL, NULL);
 	tab = ft_split(argv[1], '.');
 	if (ft_strncmp(tab[ft_tabsize(tab) - 1], "rt",
