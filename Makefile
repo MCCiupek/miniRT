@@ -193,4 +193,4 @@ git:			fclean
 
 re:				fclean all
 
-.PHONY:			all, clean, fclean, re, norme, git
+.PHONY:			all, clean, fclean, re, norme, git, bonus
