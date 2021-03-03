@@ -62,7 +62,7 @@ int	init_cam(t_cam *c, char **tab)
 		ft_atof(coord[2]));
 	init_vect(&c->direction,
 		limit(-ft_atof(vect[0]), -1.0, 1.0),
-		limit(ft_atof(vect[1]), -1.0, 1.0),
+		limit(-ft_atof(vect[1]), -1.0, 1.0),
 		limit(ft_atof(vect[2]), -1.0, 1.0));
 	c->fov = limit(ft_atof(tab[3]), 0.0, 180.0);
 	return (ft_free(coord) + ft_free(vect));

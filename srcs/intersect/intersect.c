@@ -55,9 +55,9 @@ static t_vect	look_at(t_vect d, t_vect cam_dir)
 	z_axis = cam_dir;
 	normalize(&z_axis);
 	if (cam_dir.y == 1 && cam_dir.x == 0 && cam_dir.z == 0)
-		x_axis = (t_vect){-1, 0, 0};
+		x_axis = (t_vect){1, 0, 0};
 	else if (cam_dir.y == -1 && cam_dir.x == 0 && cam_dir.z == 0)
-		x_axis = (t_vect){-1, 0, 0};
+		x_axis = (t_vect){1, 0, 0};
 	else
 		x_axis = crossprod(tmp, z_axis);
 	y_axis = crossprod(z_axis, x_axis);
